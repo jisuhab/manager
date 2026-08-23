@@ -1,0 +1,1212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI-DLP용 제안-구축 사항 관리</title>
+  <style>
+    :root{
+      --navy:#0f2f4f; --blue:#1778d4; --cyan:#13a8e0; --bg:#f5f7fa;
+      --card:#fff; --text:#1c2733; --muted:#6b7785; --line:#dfe5eb;
+      --green:#2e9f54; --green-bg:#e9f7ee; --orange:#d88700; --orange-bg:#fff4dc;
+      --red:#d83b3b; --red-bg:#fde9e9; --gray-bg:#eef1f4;
+      --shadow:0 2px 10px rgba(22,45,70,.06);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,"Noto Sans KR","Malgun Gothic",sans-serif;background:var(--bg);color:var(--text)}
+    button,input,select,textarea{font:inherit}
+    .app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+    aside{background:linear-gradient(180deg,#123a61 0%,#0d2945 100%);color:white;padding:22px 16px;position:sticky;top:0;height:100vh}
+    .brand{display:flex;gap:12px;align-items:center;padding:4px 4px 22px}
+    .logo{width:54px;height:54px;border-radius:10px;background:white;display:grid;place-items:center;overflow:hidden;padding:4px}
+    .logo img{width:100%;height:100%;object-fit:contain;display:block}
+    .logo-fallback{display:none;color:#2c69a4;font-size:9px;font-weight:900;letter-spacing:-.3px;text-align:center}
+    .brand h1{font-size:20px;margin:0}.brand small{opacity:.75}
+    nav button{display:flex;width:100%;gap:10px;align-items:center;background:transparent;border:0;color:#eaf3fb;padding:12px 13px;border-radius:9px;text-align:left;cursor:pointer;margin:3px 0}
+    nav button.active, nav button:hover{background:#1f78d3}
+    .side-foot{position:absolute;bottom:22px;left:20px;font-size:12px;opacity:.7}
+    main{min-width:0}
+    header{height:68px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:5}
+    header h2{margin:0;font-size:20px}
+    .header-actions{display:flex;gap:10px;align-items:center}
+    .btn{border:1px solid var(--line);background:white;border-radius:8px;padding:9px 14px;cursor:pointer}
+    .btn.primary{background:var(--blue);color:white;border-color:var(--blue)}
+    .btn.danger{color:var(--red)}
+    .content{padding:26px;max-width:1600px;margin:auto}
+    .project-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:18px}
+    .project-title{font-size:26px;font-weight:800;margin-bottom:10px}
+    .meta{display:flex;flex-wrap:wrap;gap:20px;color:#4b5967;font-size:14px}
+    .badge{display:inline-block;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:700}
+    .ok{background:var(--green-bg);color:var(--green)} .warn{background:var(--orange-bg);color:var(--orange)}
+    .bad{background:var(--red-bg);color:var(--red)} .neutral{background:var(--gray-bg);color:#53606c}
+    .kpis{display:grid;grid-template-columns:repeat(6,minmax(150px,1fr));gap:12px;margin:18px 0}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+    .kpi{padding:18px}
+    .kpi-clickable{cursor:pointer;transition:.15s ease}
+    .kpi-clickable:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(22,45,70,.12)}
+    .kpi-same{background:linear-gradient(180deg,#f4fbf6 0%,#ffffff 100%);border-color:#bfe3ca}
+    .kpi-same .label,.kpi-same .value,.kpi-same .sub{color:#237a3c}
+    .kpi-changed{background:linear-gradient(180deg,#fffaf0 0%,#ffffff 100%);border-color:#f1d28a}
+    .kpi-changed .label,.kpi-changed .value,.kpi-changed .sub{color:#b46d00}
+    .kpi-over{background:linear-gradient(180deg,#fff5f5 0%,#ffffff 100%);border-color:#efb8b8}
+    .kpi-over .label,.kpi-over .value,.kpi-over .sub{color:#c83a3a}
+    .kpi .label{font-size:13px;color:var(--muted)}.kpi .value{font-size:28px;font-weight:800;margin-top:7px}.kpi .sub{font-size:12px;color:var(--muted);margin-top:5px}
+    .tabs{display:flex;gap:4px;overflow:auto;border-bottom:1px solid var(--line);margin:22px 0 16px}
+    .tabs button{border:0;background:transparent;padding:12px 14px;cursor:pointer;color:#4b5967;white-space:nowrap;border-bottom:3px solid transparent}
+    .tabs button.active{color:var(--blue);font-weight:700;border-color:var(--blue)}
+    .panel{display:none}.panel.active{display:block}
+    .grid2{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}
+    .section{padding:18px}.section h3{margin:0 0 14px;font-size:17px}
+    .summary-grid{display:grid;grid-template-columns:150px 1fr 150px 1fr;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+    .summary-grid div{padding:11px 12px;border-bottom:1px solid var(--line)}
+    .summary-grid .key{background:#f8fafc;font-weight:700;color:#465462}
+    .summary-grid input{width:100%;border:0;background:transparent;outline:none}
+    .donut-wrap{display:flex;gap:24px;align-items:center;justify-content:center;min-height:235px}
+    .donut{width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--green) 0 76%,#f5a400 76% 90%,#e54848 90% 100%);position:relative}
+    .donut:after{content:"";position:absolute;inset:28px;background:white;border-radius:50%}
+    .donut-center{position:absolute;inset:0;display:grid;place-items:center;z-index:2;text-align:center;font-weight:800;font-size:25px}
+    .donut-center small{display:block;font-size:12px;color:var(--muted);font-weight:600}
+    .legend div{margin:10px 0;font-size:14px}.dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th{background:#f3f6f9;color:#43515e;text-align:left;padding:10px;border-bottom:1px solid var(--line);position:sticky;top:68px}
+    td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+    td input,td select,td textarea{width:100%;border:1px solid transparent;background:transparent;padding:5px;border-radius:5px}
+    td input:focus,td select:focus,td textarea:focus{border-color:#8cc8f2;background:white;outline:none}
+    .toolbar{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+    .toolbar .left,.toolbar .right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .search{border:1px solid var(--line);border-radius:8px;padding:9px 11px;min-width:260px;background:white}
+
+    .table-scroll{
+      width:100%;
+      overflow-x:auto;
+      overflow-y:auto;
+      max-height:62vh;
+      border:1px solid var(--line);
+      border-radius:10px;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-gutter:stable both-edges;
+    }
+    .table-scroll table{min-width:1100px}
+    #panel-features .table-scroll table{min-width:820px}
+    #panel-infra .table-scroll table,
+    #panel-customer .table-scroll table,
+    #panel-acceptance .table-scroll table{min-width:820px}
+    #panel-integration .table-scroll table{min-width:1250px}
+    #panel-changes .table-scroll table{min-width:1200px}
+    #panel-scope .table-scroll table{min-width:1600px}
+    .table-scroll th{top:0;z-index:2}
+    .table-scroll::-webkit-scrollbar{height:12px;width:12px}
+    .table-scroll::-webkit-scrollbar-thumb{background:#aebbc7;border-radius:8px;border:3px solid #f5f7fa}
+    .table-scroll::-webkit-scrollbar-track{background:#f5f7fa}
+
+    .note{padding:12px 14px;background:#fff9df;border:1px solid #f2df8b;border-radius:8px;color:#6e5d19;font-size:13px;margin-bottom:12px}
+    .list{display:grid;gap:9px}.item{border:1px solid var(--line);border-radius:9px;padding:12px 14px;background:white;display:flex;justify-content:space-between;gap:15px;align-items:center}
+    .item .title{font-weight:700}.item .desc{font-size:12px;color:var(--muted);margin-top:3px}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(240px,1fr));gap:14px}
+    .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px;background:white}
+    .field textarea{min-height:86px}
+    .empty{padding:50px;text-align:center;color:var(--muted)}
+    .footer-note{text-align:center;color:#7c8994;padding:22px;font-size:12px}
+
+    .modal-backdrop{position:fixed;inset:0;background:rgba(13,31,49,.48);display:none;align-items:center;justify-content:center;z-index:100}
+    .modal-backdrop.show{display:flex}
+    .modal{width:min(760px,92vw);max-height:84vh;overflow:auto;background:white;border-radius:14px;box-shadow:0 18px 60px rgba(0,0,0,.25);padding:20px}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .modal-head h3{margin:0}.modal-close{border:0;background:transparent;font-size:22px;cursor:pointer}
+    .version-row{display:grid;grid-template-columns:100px 1fr 160px auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+    .version-tag{font-weight:800;color:var(--blue)}
+    .version-note,.version-date{font-size:12px;color:var(--muted)}
+
+    .proposal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .proposal-head h3{margin:0}
+    .proposal-grid{display:grid;grid-template-columns:150px 1fr 150px 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+    .proposal-grid .proposal-key,.proposal-grid .proposal-value{padding:11px 12px;border-bottom:1px solid var(--line)}
+    .proposal-grid .proposal-key{background:#f8fafc;font-weight:700;color:#465462}
+    .proposal-grid .proposal-value input{width:100%;border:0;background:transparent;outline:none}
+    .proposal-manage-row{display:grid;grid-template-columns:220px minmax(280px,1fr) auto auto auto;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+    .proposal-manage-row input{width:100%;border:1px solid var(--line);border-radius:7px;padding:9px}
+    .proposal-manage-row:last-child{border-bottom:0}
+
+    .feature-link{color:var(--blue);font-weight:700;cursor:pointer;text-decoration:none}
+    .feature-link:hover{text-decoration:underline}
+
+
+    .icon-btn{border:1px solid var(--line);background:white;border-radius:7px;padding:7px 9px;cursor:pointer}
+    .icon-btn:hover{background:#f5f8fb}
+    @media(max-width:760px){.proposal-grid{grid-template-columns:130px 1fr}.proposal-manage-row{grid-template-columns:1fr}.proposal-manage-row .row-actions{display:flex;gap:6px}}
+
+
+    @media(max-width:1200px){.kpis{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:1fr}.app{grid-template-columns:86px 1fr}.brand h1,.brand small,nav button span,.side-foot{display:none}nav button{justify-content:center}.logo{margin:auto}.summary-grid{grid-template-columns:130px 1fr}}
+    @media(max-width:760px){.app{display:block}aside{display:none}.content{padding:14px}.kpis{grid-template-columns:repeat(2,1fr)}.summary-grid,.form-grid{grid-template-columns:1fr}.summary-grid .key{border-top:1px solid var(--line)}.project-head{display:block}.header-actions .btn:not(.primary){display:none}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <div class="logo">
+        <img src="data:image/png;base64,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"
+             alt="SOMANSA"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback">SOMANSA</span>
+      </div>
+      <div><h1>AI-DLP</h1><small>제안-구축 사항 관리</small></div>
+    </div>
+    <nav id="sideNav">
+      <button class="active" data-tab="summary">▣ <span>대시보드</span></button>
+      <button data-tab="scope">⌘ <span>제안/구축 Scope</span></button>
+      <button data-tab="features">◇ <span>기능 범위</span></button>
+      <button data-tab="featureIssues">⚑ <span>기능 이슈 일감</span></button>
+      <button data-tab="infra">◉ <span>인프라/네트워크</span></button>
+      <button data-tab="integration">▤ <span>연동 범위</span></button>
+      <button data-tab="customer">☑ <span>고객 준비사항</span></button>
+      <button data-tab="changes">▣ <span>변경 이력</span></button>
+      <button data-tab="acceptance">✓ <span>구축 진행률</span></button>
+    </nav>
+    <div class="side-foot">Pilot Web UI · Local Storage</div>
+  </aside>
+
+  <main>
+    <header>
+      <h2>프로젝트 상세</h2>
+      <div class="header-actions">
+        <button class="btn" id="pdfBtn">PDF 저장</button>
+        <button class="btn" id="versionHistoryBtn">버전 이력</button>
+        <button class="btn primary" id="saveVersionBtn">새 버전 저장</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="project-head">
+        <div>
+          <div class="project-title"><span id="projectNameView">시범 고객사 AI-DLP 구축</span> <span class="badge ok" id="projectStatusBadge">진행중</span></div>
+          <div class="meta">
+            <span>프로젝트 코드 <b id="projectCodeView">PILOT-2026-001</b></span>
+            <span>고객사 <b id="customerView">시범 고객사</b></span>
+            <span>담당 SE <b id="seView">홍길동</b></span>
+            <span>제품 <b>WebKeeper AI DLP</b></span>
+          </div>
+        </div>
+        <button class="btn primary" onclick="switchTab('project')">프로젝트 정보 편집</button>
+      </div>
+
+      <div class="kpis">
+        <div class="card kpi kpi-clickable" onclick="goToScopeFilter('all')" title="클릭하여 전체 Scope 보기">
+  <div class="label">전체 Scope</div><div class="value" id="kpiTotal">0</div><div class="sub" id="kpiTotalPct">100%</div>
+</div>
+        <div class="card kpi kpi-clickable kpi-same" onclick="goToScopeFilter('same')" title="클릭하여 일치 항목만 보기">
+  <div class="label">일치 항목</div><div class="value" id="kpiSame">0</div><div class="sub" id="kpiSamePct">0%</div>
+</div>
+        <div class="card kpi kpi-clickable kpi-changed" onclick="goToScopeFilter('changed')" title="클릭하여 변경 항목만 보기">
+  <div class="label">변경 항목</div><div class="value" id="kpiChanged">0</div><div class="sub" id="kpiChangedPct">0%</div>
+</div>
+        <div class="card kpi kpi-clickable kpi-over" onclick="goToScopeFilter('over')" title="클릭하여 범위초과 항목만 보기">
+  <div class="label">범위초과</div><div class="value" id="kpiOver">0</div><div class="sub" id="kpiOverPct">0%</div>
+</div>
+        <div class="card kpi kpi-clickable" onclick="switchTab('customer')" title="클릭하여 고객 준비사항 보기">
+  <div class="label">고객 준비 완료율</div><div class="value" id="kpiCustomer">0%</div><div class="sub">고객 제공사항 기준</div>
+</div>
+        <div class="card kpi kpi-clickable" onclick="switchTab('acceptance')" title="클릭하여 구축 진행률 보기">
+  <div class="label">구축 진행률</div><div class="value" id="kpiAcceptance">0%</div><div class="sub" id="kpiAcceptanceSub">완료 Point / 100 Point</div>
+</div>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button class="active" data-tab="summary">요약 정보</button>
+        <button data-tab="scope">제안/구축 Scope 비교</button>
+        <button data-tab="features">기능 범위</button>
+        <button data-tab="featureIssues">기능 이슈 일감</button>
+        <button data-tab="infra">인프라/네트워크</button>
+        <button data-tab="integration">연동</button>
+        <button data-tab="customer">고객 준비사항</button>
+        <button data-tab="changes">변경 이력</button>
+        <button data-tab="acceptance">구축 진행률</button>
+        <button data-tab="project">프로젝트 정보</button>
+      </div>
+
+      <section class="panel active" id="panel-summary">
+        <div class="grid2">
+          <div class="card section">
+            <div class="proposal-head">
+              <h3>제안 개요</h3>
+              <button class="btn" onclick="openProposalManager()">항목 관리</button>
+            </div>
+            <div class="proposal-grid" id="proposalOverviewGrid"></div>
+          </div>
+          <div class="card section">
+            <h3>Scope 비교 요약</h3>
+            <div class="donut-wrap">
+              <div class="donut" id="donut"><div class="donut-center"><div><span id="donutTotal">0</span><small>전체 항목</small></div></div></div>
+              <div class="legend">
+                <div><span class="dot" style="background:#2e9f54"></span>일치 <b id="legendSame">0</b></div>
+                <div><span class="dot" style="background:#f5a400"></span>변경 <b id="legendChanged">0</b></div>
+                <div><span class="dot" style="background:#e54848"></span>범위초과 <b id="legendOver">0</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid2" style="margin-top:16px">
+          <div class="card section"><h3>최근 변경 내역</h3><div id="recentChanges" class="list"></div></div>
+          <div class="card section"><h3>고객 준비사항 진행 현황</h3><div id="recentCustomer" class="list"></div></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-scope">
+        <div class="note">최초 협의값과 구축/운영 값이 달라지면 <b>변경</b>, 제안 범위 밖의 추가 요구는 <b>범위초과</b>로 관리합니다.</div>
+        <div class="toolbar">
+  <div class="left">
+    <input class="search" id="scopeSearch" placeholder="Scope 검색">
+    <span id="scopeFilterBadge" class="badge neutral" style="display:none"></span>
+    <button class="btn" id="clearScopeFilterBtn" style="display:none" onclick="clearScopeFilter()">필터 해제</button>
+  </div>
+  <div class="right"><button class="btn primary" onclick="addScope()">+ 항목 추가</button></div>
+</div>
+        <div class="card section">
+          <div class="table-scroll"><table><thead><tr>
+            <th>대분류</th><th>중분류</th><th>관리 항목</th><th>제안서 기준</th><th>최초 협의</th><th>구축 확정</th><th>운영 현재</th><th>상태</th><th>범위판정</th><th>책임주체</th><th></th>
+          </tr></thead><tbody id="scopeBody"></tbody></table></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-features">
+        <div class="note">
+          <b>제안/구축 Scope 비교</b>에서 <b>범위판정 = 제안범위</b>인 항목이 자동으로 표시됩니다.
+          이 화면에서 수정한 내용은 제안/구축 Scope에도 동일하게 반영됩니다.
+        </div>
+        <div class="toolbar"><div></div><button class="btn primary" onclick="addFeature()">+ 기능 추가</button></div>
+        <div class="card section">
+          <h3>AI-DLP 기능 범위</h3>
+          <div class="table-scroll"><table>
+            <thead><tr><th>기능명</th><th>세부 설명</th><th>상태</th><th></th></tr></thead>
+            <tbody id="featureBody"></tbody>
+          </table></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-featureIssues">
+        <div class="note">
+          기능별 개발/개선 일감을 별도로 관리합니다. <b>기능 범위</b>의 기능명을 클릭하면 해당 기능과 연결된 일감만 바로 확인할 수 있습니다.
+        </div>
+        <div class="toolbar">
+          <div class="left">
+            <span id="featureIssueFilterBadge" class="badge neutral" style="display:none"></span>
+            <button class="btn" id="clearFeatureIssueFilterBtn" style="display:none" onclick="clearFeatureIssueFilter()">필터 해제</button>
+          </div>
+          <div class="right"><button class="btn primary" onclick="addFeatureIssue()">+ 일감 추가</button></div>
+        </div>
+        <div class="card section">
+          <div class="table-scroll">
+            <table style="min-width:1250px">
+              <thead><tr>
+                <th>기능 항목</th><th>일감 제목</th><th>일감 번호</th><th>상태</th><th>담당자</th><th>완료 기한</th><th></th>
+              </tr></thead>
+              <tbody id="featureIssueBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-infra">
+        <div class="toolbar"><div></div><button class="btn primary" onclick="addInfra()">+ 인프라/네트워크 항목 추가</button></div>
+        <div class="card section">
+          <h3>인프라 / 네트워크 구축 항목</h3>
+          <div class="table-scroll"><table>
+            <thead><tr><th>항목</th><th>상세 내용</th><th>상태</th><th></th></tr></thead>
+            <tbody id="infraBody"></tbody>
+          </table></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-integration">
+        <div class="toolbar"><div></div><button class="btn primary" onclick="addIntegration()">+ 연동 추가</button></div>
+        <div class="card section">
+          <div class="table-scroll"><table><thead><tr>
+            <th>연동ID</th><th>구분</th><th>대상 시스템</th><th>목적</th><th>방향</th><th>방식</th><th>최초 제안</th><th>운영 현재</th><th>범위판정</th><th></th>
+          </tr></thead><tbody id="integrationBody"></tbody></table></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-customer">
+        <div class="toolbar"><div></div><button class="btn primary" onclick="addCustomerItem()">+ 고객 준비사항 추가</button></div>
+        <div class="card section">
+          <h3>고객 제공 / 사전 준비사항</h3>
+          <div class="table-scroll"><table>
+            <thead><tr><th>준비사항</th><th>상세 내용</th><th>상태</th><th></th></tr></thead>
+            <tbody id="customerBody"></tbody>
+          </table></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-changes">
+        <div class="toolbar"><div></div><button class="btn primary" onclick="addChange()">+ 변경 요청 등록</button></div>
+        <div class="card section">
+          <div class="table-scroll"><table><thead><tr>
+            <th>요청일</th><th>구분</th><th>관련 관리 항목</th><th>최초 합의</th><th>변경 요청</th><th>영향도</th><th>상태</th><th>요청자</th><th></th>
+          </tr></thead><tbody id="changeBody"></tbody></table></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-acceptance">
+        <div class="note">
+          단계별 Point를 기준으로 구축 진행률을 계산합니다. <b>상태가 완료인 단계의 Point만 합산</b>되며, 전체 기준은 100 Point입니다.
+        </div>
+        <div class="card section">
+          <h3>구축 진행률</h3>
+          <div style="display:flex;align-items:center;gap:18px;margin-bottom:16px">
+            <div style="font-size:30px;font-weight:800;color:var(--blue)" id="buildProgressValue">0%</div>
+            <div style="flex:1;height:14px;background:#edf2f6;border-radius:999px;overflow:hidden">
+              <div id="buildProgressBar" style="height:100%;width:0%;background:linear-gradient(90deg,#1778d4,#13a8e0);transition:.2s ease"></div>
+            </div>
+            <div style="font-size:13px;color:var(--muted)" id="buildProgressPoint">0 / 100 Point</div>
+          </div>
+          <div class="table-scroll"><table style="min-width:900px">
+            <thead><tr><th style="width:70px">순서</th><th>구축 단계</th><th style="width:120px">Point</th><th style="width:150px">상태</th><th>비고</th></tr></thead>
+            <tbody id="acceptanceBody"></tbody>
+          </table></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-project">
+        <div class="card section">
+          <h3>프로젝트 기본 정보</h3>
+          <div class="form-grid">
+            <div class="field"><label>프로젝트명</label><input data-project="name"></div>
+            <div class="field"><label>프로젝트 코드</label><input data-project="code"></div>
+            <div class="field"><label>고객사명</label><input data-project="customer"></div>
+            <div class="field"><label>담당 SE</label><input data-project="se"></div>
+            <div class="field"><label>담당 영업</label><input data-project="sales"></div>
+            <div class="field"><label>제안서 버전</label><input data-project="proposalVersion"></div>
+            <div class="field"><label>최초 제안일</label><input type="date" data-project="proposalDate"></div>
+            <div class="field"><label>착수일</label><input type="date" data-project="startDate"></div>
+            <div class="field" style="grid-column:1/-1"><label>도입 목적</label><textarea data-project="purpose"></textarea></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer-note">※ 단일 프로젝트 실사용 Pilot입니다. 편집 내용은 브라우저에 자동 보관되며, 주요 변경 시 '새 버전 저장'을 눌러 v1.1, v1.2 형태의 스냅샷을 남길 수 있습니다.</div>
+    </div>
+  </main>
+</div>
+
+<script>
+const KEY='aidlp_scope_pilot_current_v1';
+const VERSION_KEY='aidlp_scope_pilot_versions_reset_20260824_v1';
+
+const sample = {
+  project:{
+    name:'시범 고객사 AI-DLP 구축', code:'PILOT-2026-001', customer:'시범 고객사',
+    se:'홍길동', sales:'김영업', proposalVersion:'v1.2', proposalDate:'2026-08-01', startDate:'2026-08-10',
+    purpose:'생성형 AI 서비스 사용에 따른 기밀·개인·민감정보 유출 차단',
+    users:'65,000명', sites:'4개', proxy:'Explicit Proxy', ap:'4대', log:'2대', gpu:'별도 협의', retention:'1년'
+  },
+  proposalOverview:[
+    {label:'도입 목적',key:'purpose',value:''},
+    {label:'제품 구성',key:null,value:'WebKeeper AI DLP'},
+    {label:'사용자 수',key:'users',value:''},
+    {label:'AP 서버',key:'ap',value:''},
+    {label:'대상 사이트',key:'sites',value:''},
+    {label:'Log 서버',key:'log',value:''},
+    {label:'도입 방식',key:'proxy',value:''},
+    {label:'GPU 서버',key:'gpu',value:''},
+    {label:'제안 버전',key:'proposalVersion',value:''},
+    {label:'로그 보관기간',key:'retention',value:''}
+  ],
+  scope:[
+    {id:'F-001',major:'기능',minor:'접속통제',item:'생성형 AI 서비스 접속 통제',standard:'부서/서비스/시간대별 통제',initial:'Web 서비스 대상',build:'Web 서비스 대상',operation:'Web 서비스 대상',status:'확정',range:'제안범위',owner:'공동'},
+    {id:'F-002',major:'기능',minor:'내용통제',item:'기밀·개인·민감정보 질의 차단',standard:'정규식/키워드/임베딩/LLM',initial:'적용',build:'적용',operation:'적용',status:'확정',range:'제안범위',owner:'소만사'},
+    {id:'A-001',major:'아키텍처',minor:'Proxy',item:'Proxy 구축 방식',standard:'Explicit / In-Line',initial:'Explicit',build:'Explicit + Chaining',operation:'Explicit + Chaining',status:'확정',range:'변경',owner:'공동'},
+    {id:'L-001',major:'연동',minor:'로그',item:'Syslog 연동',standard:'외부 시스템 로그 연계',initial:'1개 시스템',build:'1개 시스템',operation:'1개 시스템',status:'확정',range:'제안범위',owner:'공동'},
+    {id:'L-005',major:'연동',minor:'결재',item:'Knox Bot 결재 연동',standard:'별도 협의',initial:'미포함',build:'추가 요청',operation:'검토중',status:'범위초과',range:'범위초과',owner:'공동'}
+  ],
+  features:[
+    {title:'서비스 접속 통제',desc:'부서/서비스/시간대별 생성형 AI 접속 통제',status:'확정'},
+    {title:'Prompt 내용 기반 차단',desc:'기밀·개인·민감정보 및 인젝션 분석',status:'확정'},
+    {title:'문단/문서/이미지 유사도',desc:'학습 데이터 기반 유사도 정책 적용',status:'협의중'},
+    {title:'감사로그',desc:'Prompt/Response 및 전송파일 로그 저장·재현',status:'확정'}
+  ],
+  featureIssues:[
+    {
+      scopeId:'F-002',
+      title:'[삼성전자DX][AI-DLP] AI-DLP 알람 메시지 전송 연동 개발 요청의 건',
+      number:'209811',
+      status:'수정중',
+      assignee:'최은아',
+      due:'2026-08-28'
+    }
+  ],
+  infra:[
+    {title:'AVG / MAX 트래픽',desc:'고객 네트워크 트래픽 기준 수집',status:'수신'},
+    {title:'AP / DB / Log / GPU 구성',desc:'최종 Sizing 및 수량 확정',status:'협의중'},
+    {title:'Proxy 구성',desc:'Explicit + Chaining Proxy',status:'변경'},
+    {title:'SSL 인증서',desc:'고객 인증서 / Root CA 배포 확인',status:'요청'}
+  ],
+  integrations:[
+    {id:'L-001',type:'로그',system:'Syslog',purpose:'감사로그 연동',direction:'AI-DLP → SIEM',method:'Syslog',initial:'1개',current:'1개',range:'제안범위'},
+    {id:'L-003',type:'인사',system:'인사 DB',purpose:'사용자/부서/IP 연동',direction:'고객 → AI-DLP',method:'DB Select',initial:'1개 DB',current:'3개 DB',range:'변경'},
+    {id:'L-005',type:'알림/결재',system:'Knox Bot',purpose:'차단 알림 및 결재',direction:'양방향',method:'HTTP/JSON',initial:'미포함',current:'추가 요청',range:'범위초과'}
+  ],
+  customer:[
+    {title:'서버/VM 제공',desc:'AP 4대, Log 2대',status:'완료'},
+    {title:'네트워크/방화벽',desc:'필수 Port Open 및 Routing',status:'완료'},
+    {title:'Root CA 인증서 제공',desc:'인증서 배포 예정',status:'대기'},
+    {title:'Proxy 설정 정보',desc:'Chaining Proxy 설정값',status:'진행중'},
+    {title:'인사 DB 접근 권한',desc:'3개 DB Select 권한',status:'완료'},
+    {title:'테스트 계정 제공',desc:'정책 검수용 계정',status:'진행중'}
+  ],
+  changes:[
+    {date:'2026-08-18',type:'범위초과',scope:'L-005',initial:'Knox 연동 미포함',request:'Knox Bot 결재 연동 추가',impact:'높음',status:'검토중',requester:'고객 담당자'},
+    {date:'2026-08-15',type:'변경',scope:'A-001',initial:'Explicit Proxy',request:'Chaining Proxy 추가',impact:'중간',status:'승인',requester:'고객 담당자'},
+    {date:'2026-08-13',type:'변경',scope:'L-003',initial:'인사 DB 1개',request:'인사 DB 3개로 확대',impact:'중간',status:'승인',requester:'고객 담당자'}
+  ],
+  acceptance:[
+    {title:'MGMT 네트워크',desc:'IP/GW/Subnet 및 SSH 접근 확인',status:'PASS'},
+    {title:'Service Network',desc:'인터넷 중계 및 SSL 복호화 확인',status:'PASS'},
+    {title:'정책 검수',desc:'허용/차단 및 AI 분석 정책 검증',status:'미검수'},
+    {title:'인사 연동',desc:'사용자/부서/IP 정보 정상 반영',status:'조건부PASS'},
+    {title:'운영자 인수인계',desc:'교육/계정/문서 전달',status:'미검수'}
+  ],
+  buildProgress:[
+    {step:1,title:'미팅',point:0,status:'미착수',note:''},
+    {step:2,title:'Config 세팅',point:10,status:'미착수',note:''},
+    {step:3,title:'장비 입고',point:10,status:'미착수',note:''},
+    {step:4,title:'정책 셋업',point:10,status:'미착수',note:''},
+    {step:5,title:'단위/통합 테스트',point:20,status:'미착수',note:''},
+    {step:6,title:'파일럿 테스트',point:20,status:'미착수',note:''},
+    {step:7,title:'전사 전환',point:20,status:'미착수',note:''},
+    {step:8,title:'검수문서 작성',point:10,status:'미착수',note:''}
+  ]
+};
+
+let data = JSON.parse(localStorage.getItem(KEY) || 'null') || structuredClone(sample);
+let scopeQuickFilter='';
+let featureIssueFilterScopeId='';
+
+function esc(v=''){return String(v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function badge(v){
+  const bad=['범위초과','FAIL','지연'], warn=['변경','협의중','검토중','진행중','조건부PASS','대기','요청'], ok=['확정','완료','승인','PASS','수신','제안범위'];
+  const cls=bad.includes(v)?'bad':warn.includes(v)?'warn':ok.includes(v)?'ok':'neutral';
+  return `<span class="badge ${cls}">${esc(v)}</span>`;
+}
+function persistCurrent(){
+  localStorage.setItem(KEY, JSON.stringify(data));
+}
+function getVersions(){
+  return JSON.parse(localStorage.getItem(VERSION_KEY) || '[]');
+}
+function setVersions(vs){
+  localStorage.setItem(VERSION_KEY, JSON.stringify(vs));
+}
+function parseVersion(v){
+  const m=String(v||'v1.0').match(/^v?(\d+)\.(\d+)$/i);
+  return m ? [Number(m[1]),Number(m[2])] : [1,0];
+}
+function nextVersion(){
+  const vs=getVersions();
+  const base=vs.length ? vs[0].version : (data.project.proposalVersion || 'v1.0');
+  const [major,minor]=parseVersion(base);
+  return `v${major}.${minor+1}`;
+}
+function saveNewVersion(){
+  const version=prompt('저장할 버전을 입력하세요.', nextVersion());
+  if(!version) return;
+  const note=prompt('이번 버전의 변경 내용을 입력하세요.\\n예: Knox Bot 연동 범위 추가, Proxy 구성 변경', '');
+  if(note===null) return;
+  data.project.proposalVersion=version;
+  const snapshot={
+    version,
+    note:note||'',
+    savedAt:new Date().toISOString(),
+    projectName:data.project.name||'',
+    projectCode:data.project.code||'',
+    data:structuredClone(data)
+  };
+  const vs=getVersions();
+  vs.unshift(snapshot);
+  setVersions(vs);
+  persistCurrent();
+  renderAll();
+  alert(`${version} 버전으로 저장했습니다.`);
+}
+function openVersionModal(){
+  renderVersionList();
+  document.getElementById('versionModal').classList.add('show');
+}
+function closeVersionModal(){
+  document.getElementById('versionModal').classList.remove('show');
+}
+function renderVersionList(){
+  const vs=getVersions();
+  const el=document.getElementById('versionList');
+  el.innerHTML=vs.length ? vs.map((v,i)=>`
+    <div class="version-row">
+      <div class="version-tag">${esc(v.version)}</div>
+      <div><b>${esc(v.projectName||'')}</b><div class="version-note">${esc(v.note||'변경 내용 없음')}</div></div>
+      <div class="version-date">${new Date(v.savedAt).toLocaleString('ko-KR')}</div>
+      <button class="btn" onclick="loadVersion(${i})">불러오기</button>
+    </div>`).join('') : '<div class="empty">저장된 버전이 없습니다.</div>';
+}
+function loadVersion(i){
+  const vs=getVersions();
+  if(!vs[i]) return;
+  if(!confirm(`${vs[i].version} 버전을 불러올까요?`)) return;
+  data=structuredClone(vs[i].data);
+  persistCurrent();
+  renderAll();
+  closeVersionModal();
+}
+function goToScopeFilter(type){
+  scopeQuickFilter = (type==='all') ? '' : (type || '');
+  const search = document.getElementById('scopeSearch');
+  if(search) search.value = '';
+  switchTab('scope');
+  renderScope();
+}
+function updateScopeFilterBadge(){
+  const badgeEl=document.getElementById('scopeFilterBadge');
+  const clearBtn=document.getElementById('clearScopeFilterBtn');
+  if(!badgeEl || !clearBtn) return;
+  const map={same:'일치 항목',changed:'변경 항목',over:'범위초과'};
+  if(scopeQuickFilter){
+    badgeEl.textContent=map[scopeQuickFilter] || '';
+    badgeEl.className='badge ' + (scopeQuickFilter==='same'?'ok':scopeQuickFilter==='changed'?'warn':'bad');
+    badgeEl.style.display='inline-block';
+    clearBtn.style.display='inline-block';
+  }else{
+    badgeEl.style.display='none';
+    clearBtn.style.display='none';
+  }
+}
+function clearScopeFilter(){
+  scopeQuickFilter='';
+  const search=document.getElementById('scopeSearch');
+  if(search) search.value='';
+  renderScope();
+}
+function switchTab(tab){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  document.getElementById('panel-'+tab).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{
+  if(b.dataset.tab==='scope') scopeQuickFilter='';
+  switchTab(b.dataset.tab);
+}));
+
+function bindProject(){
+  document.querySelectorAll('[data-project]').forEach(el=>{
+    const k=el.dataset.project; el.value=data.project[k]||'';
+    el.oninput=()=>{data.project[k]=el.value; persistCurrent(); updateProjectView(); renderProposalOverview();}
+  });
+}
+function updateProjectView(){
+  projectNameView.textContent=data.project.name||'-'; projectCodeView.textContent=data.project.code||'-';
+  customerView.textContent=data.project.customer||'-'; seView.textContent=data.project.se||'-';
+}
+function updateProjectStatus(){
+  const el=document.getElementById('projectStatusBadge');
+  if(!el) return;
+  const point=getBuildProgressPoint();
+  if(point>=100){
+    el.textContent='완료';
+    el.className='badge ok';
+  }else{
+    el.textContent='진행중';
+    el.className='badge ok';
+  }
+}
+function calc(){
+  const total=data.scope.length;
+  const over=data.scope.filter(x=>x.range==='범위초과').length;
+  const changed=data.scope.filter(x=>x.range==='변경').length;
+  const same=total-over-changed;
+  kpiTotal.textContent=total; kpiSame.textContent=same; kpiChanged.textContent=changed; kpiOver.textContent=over;
+  const pct = n => total ? (n/total*100).toFixed(1).replace('.0','') + '%' : '0%';
+  kpiTotalPct.textContent = total ? '100%' : '0%';
+  kpiSamePct.textContent = pct(same);
+  kpiChangedPct.textContent = pct(changed);
+  kpiOverPct.textContent = pct(over);
+  donutTotal.textContent=total; legendSame.textContent=same; legendChanged.textContent=changed; legendOver.textContent=over;
+  const pSame=total?same/total*100:0,pChanged=total?changed/total*100:0;
+  donut.style.background=`conic-gradient(#2e9f54 0 ${pSame}%,#f5a400 ${pSame}% ${pSame+pChanged}%,#e54848 ${pSame+pChanged}% 100%)`;
+  const cDone=data.customer.filter(x=>x.status==='완료').length;
+  kpiCustomer.textContent=(data.customer.length?Math.round(cDone/data.customer.length*100):0)+'%';
+  ensureBuildProgress();
+  const progressPoint=getBuildProgressPoint();
+  kpiAcceptance.textContent=Math.min(100,progressPoint)+'%';
+  if(document.getElementById('kpiAcceptanceSub')) kpiAcceptanceSub.textContent=progressPoint+' / 100 Point';
+  updateProjectStatus();
+}
+
+function ensureProposalOverview(){
+  if(!Array.isArray(data.proposalOverview)){
+    data.proposalOverview=[
+      {label:'도입 목적',key:'purpose',value:''},
+      {label:'제품 구성',key:null,value:'WebKeeper AI DLP'},
+      {label:'사용자 수',key:'users',value:''},
+      {label:'AP 서버',key:'ap',value:''},
+      {label:'대상 사이트',key:'sites',value:''},
+      {label:'Log 서버',key:'log',value:''},
+      {label:'도입 방식',key:'proxy',value:''},
+      {label:'GPU 서버',key:'gpu',value:''},
+      {label:'제안 버전',key:'proposalVersion',value:''},
+      {label:'로그 보관기간',key:'retention',value:''}
+    ];
+    persistCurrent();
+  }
+}
+function proposalFieldValue(field){
+  if(field.key && Object.prototype.hasOwnProperty.call(data.project,field.key)) return data.project[field.key] ?? '';
+  return field.value ?? '';
+}
+function renderProposalOverview(){
+  ensureProposalOverview();
+  const grid=document.getElementById('proposalOverviewGrid');
+  if(!grid) return;
+  grid.innerHTML=data.proposalOverview.map((field,i)=>`
+    <div class="proposal-key">${esc(field.label)}</div>
+    <div class="proposal-value">
+      <input value="${esc(proposalFieldValue(field))}" onchange="updateProposalValue(${i},this.value)">
+    </div>`).join('');
+}
+function updateProposalValue(i,value){
+  const field=data.proposalOverview[i];
+  if(!field) return;
+  if(field.key && Object.prototype.hasOwnProperty.call(data.project,field.key)){
+    data.project[field.key]=value;
+  }else{
+    field.value=value;
+  }
+  persistCurrent();
+  updateProjectView();
+}
+function openProposalManager(){
+  renderProposalManager();
+  document.getElementById('proposalManagerModal').classList.add('show');
+}
+function closeProposalManager(){
+  document.getElementById('proposalManagerModal').classList.remove('show');
+  renderProposalOverview();
+}
+function renderProposalManager(){
+  ensureProposalOverview();
+  const list=document.getElementById('proposalManagerList');
+  list.innerHTML=data.proposalOverview.map((field,i)=>`
+    <div class="proposal-manage-row">
+      <input value="${esc(field.label)}" onchange="renameProposalField(${i},this.value)" placeholder="항목명">
+      <input value="${esc(proposalFieldValue(field))}" onchange="updateProposalManagerValue(${i},this.value)" placeholder="내용">
+      <button class="icon-btn" title="위로" onclick="moveProposalField(${i},-1)" ${i===0?'disabled':''}>▲</button>
+      <button class="icon-btn" title="아래로" onclick="moveProposalField(${i},1)" ${i===data.proposalOverview.length-1?'disabled':''}>▼</button>
+      <button class="btn danger" onclick="deleteProposalField(${i})">삭제</button>
+    </div>`).join('');
+}
+function addProposalField(){
+  data.proposalOverview.push({label:'신규 항목',key:null,value:''});
+  persistCurrent();
+  renderProposalManager();
+  renderProposalOverview();
+}
+function renameProposalField(i,label){
+  if(!data.proposalOverview[i]) return;
+  data.proposalOverview[i].label=label || '항목';
+  persistCurrent();
+  renderProposalOverview();
+}
+function updateProposalManagerValue(i,value){
+  const field=data.proposalOverview[i];
+  if(!field) return;
+  if(field.key && Object.prototype.hasOwnProperty.call(data.project,field.key)){
+    data.project[field.key]=value;
+  }else{
+    field.value=value;
+  }
+  persistCurrent();
+  updateProjectView();
+  renderProposalOverview();
+}
+function moveProposalField(i,dir){
+  const j=i+dir;
+  if(j<0 || j>=data.proposalOverview.length) return;
+  [data.proposalOverview[i],data.proposalOverview[j]]=[data.proposalOverview[j],data.proposalOverview[i]];
+  persistCurrent();
+  renderProposalManager();
+  renderProposalOverview();
+}
+function deleteProposalField(i){
+  const field=data.proposalOverview[i];
+  if(!field) return;
+  if(!confirm(`'${field.label}' 항목을 삭제할까요?`)) return;
+  data.proposalOverview.splice(i,1);
+  persistCurrent();
+  renderProposalManager();
+  renderProposalOverview();
+}
+
+function renderSummary(){
+  recentChanges.innerHTML=data.changes.slice(0,4).map(x=>`<div class="item"><div><div class="title">${esc(x.request)}</div><div class="desc">${esc(x.date)} · ${esc((data.scope.find(s=>s.id===x.scope)||{}).item || x.scope)} · ${esc(x.requester)}</div></div>${badge(x.type)}</div>`).join('')||'<div class="empty">변경 이력이 없습니다.</div>';
+  recentCustomer.innerHTML=data.customer.slice(0,6).map(x=>`<div class="item"><div><div class="title">${esc(x.title)}</div><div class="desc">${esc(x.desc)}</div></div>${badge(x.status)}</div>`).join('');
+}
+function tdInput(val, onchange, type='input'){
+  if(type==='select') return `<select onchange="${onchange}"><option>${esc(val)}</option></select>`;
+  return `<input value="${esc(val)}" onchange="${onchange}">`;
+}
+function renderScope(){
+  updateScopeFilterBadge();
+  const q=(scopeSearch?.value||'').toLowerCase();
+  scopeBody.innerHTML=data.scope.map((x,i)=>({x,i}))
+    .filter(({x})=>Object.values(x).join(' ').toLowerCase().includes(q))
+    .filter(({x})=>{
+      if(!scopeQuickFilter) return true;
+      if(scopeQuickFilter==='same') return x.range==='제안범위';
+      if(scopeQuickFilter==='changed') return x.range==='변경';
+      if(scopeQuickFilter==='over') return x.range==='범위초과';
+      return true;
+    })
+    .map(({x,i})=>`
+    <tr>
+    <td><input value="${esc(x.major)}" onchange="updScope(${i},'major',this.value)"></td>
+    <td><input value="${esc(x.minor)}" onchange="updScope(${i},'minor',this.value)"></td>
+    <td><input value="${esc(x.item)}" onchange="updScope(${i},'item',this.value)"></td>
+    <td><input value="${esc(x.standard)}" onchange="updScope(${i},'standard',this.value)"></td>
+    <td><input value="${esc(x.initial)}" onchange="updScope(${i},'initial',this.value)"></td>
+    <td><input value="${esc(x.build)}" onchange="updScope(${i},'build',this.value)"></td>
+    <td><input value="${esc(x.operation)}" onchange="updScope(${i},'operation',this.value)"></td>
+    <td><select onchange="updScope(${i},'status',this.value)">${['미확인','협의중','확정','범위초과','완료'].map(v=>`<option ${v===x.status?'selected':''}>${v}</option>`).join('')}</select></td>
+    <td><select onchange="updScope(${i},'range',this.value)">${['제안범위','변경','범위초과'].map(v=>`<option ${v===x.range?'selected':''}>${v}</option>`).join('')}</select></td>
+    <td><select onchange="updScope(${i},'owner',this.value)">${['소만사','고객','공동','제3자'].map(v=>`<option ${v===x.owner?'selected':''}>${v}</option>`).join('')}</select></td>
+    <td><button class="btn danger" onclick="delScope(${i})">삭제</button></td></tr>`).join('');
+}
+function updScope(i,k,v){data.scope[i][k]=v;persistCurrent();calc();renderFeatures();renderFeatureIssues()}
+function addScope(){data.scope.push({id:'NEW-'+String(data.scope.length+1).padStart(3,'0'),major:'기타',minor:'',item:'신규 항목',standard:'',initial:'',build:'',operation:'',status:'미확인',range:'제안범위',owner:'공동'});persistCurrent();renderScope();renderFeatures();renderFeatureIssues();calc()}
+function delScope(i){
+  if(!data.scope[i]) return;
+  if(confirm('삭제할까요?')){
+    const removedId=data.scope[i].id;
+    data.scope.splice(i,1);
+    ensureFeatureIssues();
+    data.featureIssues=data.featureIssues.filter(x=>x.scopeId!==removedId);
+    persistCurrent();renderScope();renderFeatures();renderFeatureIssues();calc();
+  }
+}
+scopeSearch?.addEventListener('input',()=>{scopeQuickFilter='';renderScope();});
+
+function getFeatureScopeRows(){
+  return data.scope
+    .map((x,i)=>({x,i}))
+    .filter(({x})=>x.range==='제안범위');
+}
+function renderFeatures(){
+  const rows=getFeatureScopeRows();
+  featureBody.innerHTML=rows.length ? rows.map(({x,i})=>`<tr>
+    <td><span class="feature-link" title="클릭하여 연결된 기능 이슈 일감 보기" onclick="goToFeatureIssues('${esc(x.id)}')">${esc(x.item)}</span></td>
+    <td><input value="${esc(x.standard)}" onchange="updFeature(${i},'standard',this.value)"></td>
+    <td><select onchange="updFeature(${i},'status',this.value)">
+      ${['미확인','협의중','확정','보류','완료'].map(v=>`<option ${v===x.status?'selected':''}>${v}</option>`).join('')}
+    </select></td>
+    <td><button class="btn danger" onclick="delFeature(${i})">삭제</button></td>
+  </tr>`).join('') : '<tr><td colspan="4"><div class="empty">제안범위에 포함된 기능 항목이 없습니다.</div></td></tr>';
+}
+function updFeature(scopeIndex,k,v){
+  if(!data.scope[scopeIndex]) return;
+  data.scope[scopeIndex][k]=v;
+  persistCurrent();
+  renderScope();
+  renderFeatures();
+  calc();
+}
+
+function addFeature(){
+  data.scope.push({
+    id:'NEW-'+String(data.scope.length+1).padStart(3,'0'),
+    major:'기타',
+    minor:'',
+    item:'신규 항목',
+    standard:'',
+    initial:'',
+    build:'',
+    operation:'',
+    status:'미확인',
+    range:'제안범위',
+    owner:'공동'
+  });
+  persistCurrent();
+  renderScope();
+  renderFeatures();
+  calc();
+}
+function delFeature(scopeIndex){
+  if(!data.scope[scopeIndex]) return;
+  if(confirm('기능 항목을 삭제하면 제안/구축 Scope와 연결된 기능 이슈 일감도 함께 삭제됩니다. 삭제할까요?')){
+    const removedId=data.scope[scopeIndex].id;
+    data.scope.splice(scopeIndex,1);
+    ensureFeatureIssues();
+    data.featureIssues=data.featureIssues.filter(x=>x.scopeId!==removedId);
+    persistCurrent();
+    renderScope();
+    renderFeatures();
+    renderFeatureIssues();
+    calc();
+  }
+}
+
+
+function getScopeName(scopeId){
+  const s=data.scope.find(x=>x.id===scopeId);
+  return s ? s.item : '';
+}
+function ensureFeatureIssues(){
+  if(!Array.isArray(data.featureIssues)) data.featureIssues=[];
+}
+function goToFeatureIssues(scopeId){
+  ensureFeatureIssues();
+  featureIssueFilterScopeId=scopeId||'';
+  switchTab('featureIssues');
+  renderFeatureIssues();
+}
+function clearFeatureIssueFilter(){
+  featureIssueFilterScopeId='';
+  renderFeatureIssues();
+}
+function renderFeatureIssueFilter(){
+  const badgeEl=document.getElementById('featureIssueFilterBadge');
+  const clearBtn=document.getElementById('clearFeatureIssueFilterBtn');
+  if(!badgeEl || !clearBtn) return;
+  if(featureIssueFilterScopeId){
+    badgeEl.textContent=getScopeName(featureIssueFilterScopeId)||'선택 기능';
+    badgeEl.className='badge neutral';
+    badgeEl.style.display='inline-block';
+    clearBtn.style.display='inline-block';
+  }else{
+    badgeEl.style.display='none';
+    clearBtn.style.display='none';
+  }
+}
+function renderFeatureIssues(){
+  ensureFeatureIssues();
+  renderFeatureIssueFilter();
+  const rows=data.featureIssues.map((x,i)=>({x,i}))
+    .filter(({x})=>!featureIssueFilterScopeId || x.scopeId===featureIssueFilterScopeId);
+
+  featureIssueBody.innerHTML=rows.length ? rows.map(({x,i})=>`<tr>
+    <td><select onchange="updFeatureIssue(${i},'scopeId',this.value)">
+      <option value="">기능 선택</option>
+      ${getFeatureScopeRows().map(({x:s})=>`<option value="${esc(s.id)}" ${s.id===x.scopeId?'selected':''}>${esc(s.item)}</option>`).join('')}
+    </select></td>
+    <td><input value="${esc(x.title)}" onchange="updFeatureIssue(${i},'title',this.value)"></td>
+    <td><input value="${esc(x.number)}" onchange="updFeatureIssue(${i},'number',this.value)"></td>
+    <td><input value="${esc(x.status)}" onchange="updFeatureIssue(${i},'status',this.value)"></td>
+    <td><input value="${esc(x.assignee)}" onchange="updFeatureIssue(${i},'assignee',this.value)"></td>
+    <td><input type="date" value="${esc(x.due)}" onchange="updFeatureIssue(${i},'due',this.value)"></td>
+    <td><button class="btn danger" onclick="delFeatureIssue(${i})">삭제</button></td>
+  </tr>`).join('') : `<tr><td colspan="7"><div class="empty">${
+    featureIssueFilterScopeId
+      ? '이 기능에 연결된 일감이 없습니다. 우측 상단의 + 일감 추가로 등록할 수 있습니다.'
+      : '등록된 기능 이슈 일감이 없습니다.'
+  }</div></td></tr>`;
+}
+function updFeatureIssue(i,k,v){
+  ensureFeatureIssues();
+  if(!data.featureIssues[i]) return;
+  data.featureIssues[i][k]=v;
+  persistCurrent();
+}
+function addFeatureIssue(){
+  ensureFeatureIssues();
+  data.featureIssues.unshift({
+    scopeId:featureIssueFilterScopeId||'',
+    title:'신규 기능 이슈 일감',
+    number:'',
+    status:'등록',
+    assignee:'',
+    due:''
+  });
+  persistCurrent();
+  renderFeatureIssues();
+}
+function delFeatureIssue(i){
+  ensureFeatureIssues();
+  if(!data.featureIssues[i]) return;
+  if(confirm('이 일감을 목록에서 삭제할까요?')){
+    data.featureIssues.splice(i,1);
+    persistCurrent();
+    renderFeatureIssues();
+  }
+}
+
+function renderInfra(){
+  infraBody.innerHTML=data.infra.map((x,i)=>`<tr>
+    <td><input value="${esc(x.title)}" onchange="updInfra(${i},'title',this.value)"></td>
+    <td><input value="${esc(x.desc)}" onchange="updInfra(${i},'desc',this.value)"></td>
+    <td><select onchange="updInfra(${i},'status',this.value)">
+      ${['미확인','요청','수신','협의중','변경','확정','완료','이슈'].map(v=>`<option ${v===x.status?'selected':''}>${v}</option>`).join('')}
+    </select></td>
+    <td><button class="btn danger" onclick="delInfra(${i})">삭제</button></td>
+  </tr>`).join('');
+}
+function updInfra(i,k,v){data.infra[i][k]=v;persistCurrent()}
+function addInfra(){data.infra.push({title:'신규 인프라/네트워크 항목',desc:'',status:'미확인'});persistCurrent();renderInfra()}
+function delInfra(i){if(confirm('인프라/네트워크 항목을 삭제할까요?')){data.infra.splice(i,1);persistCurrent();renderInfra()}}
+
+function renderCustomer(){
+  customerBody.innerHTML=data.customer.map((x,i)=>`<tr>
+    <td><input value="${esc(x.title)}" onchange="updCustomer(${i},'title',this.value)"></td>
+    <td><input value="${esc(x.desc)}" onchange="updCustomer(${i},'desc',this.value)"></td>
+    <td><select onchange="updCustomer(${i},'status',this.value)">
+      ${['미요청','요청','대기','진행중','수신','완료','지연','불필요'].map(v=>`<option ${v===x.status?'selected':''}>${v}</option>`).join('')}
+    </select></td>
+    <td><button class="btn danger" onclick="delCustomer(${i})">삭제</button></td>
+  </tr>`).join('');
+}
+function updCustomer(i,k,v){data.customer[i][k]=v;persistCurrent();calc();renderSummary()}
+function addCustomerItem(){data.customer.push({title:'신규 고객 준비사항',desc:'',status:'미요청'});persistCurrent();renderCustomer();calc();renderSummary()}
+function delCustomer(i){if(confirm('고객 준비사항을 삭제할까요?')){data.customer.splice(i,1);persistCurrent();renderCustomer();calc();renderSummary()}}
+
+function defaultBuildProgress(){
+  return [
+    {step:1,title:'미팅',point:0,status:'미착수',note:''},
+    {step:2,title:'Config 세팅',point:10,status:'미착수',note:''},
+    {step:3,title:'장비 입고',point:10,status:'미착수',note:''},
+    {step:4,title:'정책 셋업',point:10,status:'미착수',note:''},
+    {step:5,title:'단위/통합 테스트',point:20,status:'미착수',note:''},
+    {step:6,title:'파일럿 테스트',point:20,status:'미착수',note:''},
+    {step:7,title:'전사 전환',point:20,status:'미착수',note:''},
+    {step:8,title:'검수문서 작성',point:10,status:'미착수',note:''}
+  ];
+}
+function ensureBuildProgress(){
+  if(!Array.isArray(data.buildProgress) || !data.buildProgress.length){
+    data.buildProgress=defaultBuildProgress();
+    persistCurrent();
+  }
+}
+function getBuildProgressPoint(){
+  ensureBuildProgress();
+  return data.buildProgress
+    .filter(x=>x.status==='완료')
+    .reduce((sum,x)=>sum+(Number(x.point)||0),0);
+}
+function renderAcceptance(){
+  ensureBuildProgress();
+  const donePoint=getBuildProgressPoint();
+  const pct=Math.min(100,Math.max(0,donePoint));
+  buildProgressValue.textContent=pct+'%';
+  buildProgressBar.style.width=pct+'%';
+  buildProgressPoint.textContent=donePoint+' / 100 Point';
+  updateProjectStatus();
+
+  acceptanceBody.innerHTML=data.buildProgress.map((x,i)=>`<tr>
+    <td style="text-align:center;font-weight:700">${esc(x.step)}</td>
+    <td><input value="${esc(x.title)}" onchange="updBuildProgress(${i},'title',this.value)"></td>
+    <td><input type="number" min="0" max="100" value="${esc(x.point)}" onchange="updBuildProgress(${i},'point',this.value)"></td>
+    <td><select onchange="updBuildProgress(${i},'status',this.value)">
+      ${['미착수','진행중','완료','보류'].map(v=>`<option ${v===x.status?'selected':''}>${v}</option>`).join('')}
+    </select></td>
+    <td><input value="${esc(x.note||'')}" placeholder="진행 내용 또는 비고" onchange="updBuildProgress(${i},'note',this.value)"></td>
+  </tr>`).join('');
+}
+function updBuildProgress(i,k,v){
+  ensureBuildProgress();
+  if(!data.buildProgress[i]) return;
+  data.buildProgress[i][k]=(k==='point') ? Number(v)||0 : v;
+  persistCurrent();
+  calc();
+  renderAcceptance();
+}
+
+function renderIntegrations(){
+  integrationBody.innerHTML=data.integrations.map((x,i)=>`<tr>
+    <td>${esc(x.id)}</td><td><input value="${esc(x.type)}" onchange="updIntegration(${i},'type',this.value)"></td>
+    <td><input value="${esc(x.system)}" onchange="updIntegration(${i},'system',this.value)"></td>
+    <td><input value="${esc(x.purpose)}" onchange="updIntegration(${i},'purpose',this.value)"></td>
+    <td><input value="${esc(x.direction)}" onchange="updIntegration(${i},'direction',this.value)"></td>
+    <td><input value="${esc(x.method)}" onchange="updIntegration(${i},'method',this.value)"></td>
+    <td><input value="${esc(x.initial)}" onchange="updIntegration(${i},'initial',this.value)"></td>
+    <td><input value="${esc(x.current)}" onchange="updIntegration(${i},'current',this.value)"></td>
+    <td><select onchange="updIntegration(${i},'range',this.value)">${['제안범위','변경','범위초과','미확인'].map(v=>`<option ${v===x.range?'selected':''}>${v}</option>`).join('')}</select></td>
+    <td><button class="btn danger" onclick="data.integrations.splice(${i},1);persistCurrent();renderAll()">삭제</button></td></tr>`).join('');
+}
+function updIntegration(i,k,v){data.integrations[i][k]=v;persistCurrent();}
+function addIntegration(){data.integrations.push({id:'L-'+String(data.integrations.length+1).padStart(3,'0'),type:'기타',system:'신규 연동',purpose:'',direction:'협의',method:'API',initial:'미포함',current:'협의중',range:'미확인'});persistCurrent();renderIntegrations()}
+function renderChanges(){
+  changeBody.innerHTML=data.changes.map((x,i)=>`<tr>
+    <td><input type="date" value="${esc(x.date)}" onchange="updChange(${i},'date',this.value)"></td>
+    <td><select onchange="updChange(${i},'type',this.value)">${['변경','범위초과','추가요청'].map(v=>`<option ${v===x.type?'selected':''}>${v}</option>`).join('')}</select></td>
+    <td><select onchange="updChange(${i},'scope',this.value)">
+      <option value="">선택</option>
+      ${data.scope.map(s=>`<option value="${esc(s.id)}" ${s.id===x.scope?'selected':''}>${esc(s.item)}</option>`).join('')}
+    </select></td>
+    <td><input value="${esc(x.initial)}" onchange="updChange(${i},'initial',this.value)"></td>
+    <td><input value="${esc(x.request)}" onchange="updChange(${i},'request',this.value)"></td>
+    <td><select onchange="updChange(${i},'impact',this.value)">${['낮음','중간','높음','매우높음'].map(v=>`<option ${v===x.impact?'selected':''}>${v}</option>`).join('')}</select></td>
+    <td><select onchange="updChange(${i},'status',this.value)">${['요청','검토중','승인','반려','보류'].map(v=>`<option ${v===x.status?'selected':''}>${v}</option>`).join('')}</select></td>
+    <td><input value="${esc(x.requester)}" onchange="updChange(${i},'requester',this.value)"></td>
+    <td><button class="btn danger" onclick="data.changes.splice(${i},1);persistCurrent();renderAll()">삭제</button></td></tr>`).join('');
+}
+function updChange(i,k,v){data.changes[i][k]=v;persistCurrent();renderSummary()}
+function addChange(){data.changes.unshift({date:new Date().toISOString().slice(0,10),type:'변경',scope:'',initial:'',request:'신규 변경 요청',impact:'중간',status:'요청',requester:'고객 담당자'});persistCurrent();renderChanges();renderSummary()}
+
+
+
+function printPdfReport(){
+  persistCurrent();
+
+  const scopeName = id => {
+    const s=data.scope.find(x=>x.id===id);
+    return s ? s.item : (id||'');
+  };
+  const statusText = v => esc(v||'');
+
+  const scopeRows=data.scope.map(x=>`
+    <tr>
+      <td>${esc(x.major)}</td><td>${esc(x.minor)}</td><td>${esc(x.item)}</td>
+      <td>${esc(x.standard)}</td><td>${esc(x.initial)}</td><td>${esc(x.build)}</td>
+      <td>${esc(x.operation)}</td><td>${statusText(x.status)}</td><td>${statusText(x.range)}</td><td>${statusText(x.owner)}</td>
+    </tr>`).join('');
+
+  const featureRows=data.scope
+    .filter(x=>x.range==='제안범위')
+    .map(x=>`<tr><td>${esc(x.item)}</td><td>${esc(x.standard)}</td><td>${statusText(x.status)}</td></tr>`).join('');
+
+  ensureFeatureIssues();
+  const featureIssueRows=data.featureIssues.map(x=>`
+    <tr>
+      <td>${esc(getScopeName(x.scopeId)||'-')}</td><td>${esc(x.title)}</td><td>${esc(x.number)}</td>
+      <td>${esc(x.status)}</td><td>${esc(x.assignee)}</td><td>${esc(x.due)}</td>
+    </tr>`).join('');
+
+  const infraRows=data.infra.map(x=>`
+    <tr><td>${esc(x.title)}</td><td>${esc(x.desc)}</td><td>${statusText(x.status)}</td></tr>`).join('');
+
+  const integrationRows=data.integrations.map(x=>`
+    <tr><td>${esc(x.type)}</td><td>${esc(x.system)}</td><td>${esc(x.purpose)}</td><td>${esc(x.direction)}</td>
+    <td>${esc(x.method)}</td><td>${esc(x.initial)}</td><td>${esc(x.current)}</td><td>${statusText(x.range)}</td></tr>`).join('');
+
+  const customerRows=data.customer.map(x=>`
+    <tr><td>${esc(x.title)}</td><td>${esc(x.desc)}</td><td>${statusText(x.status)}</td></tr>`).join('');
+
+  const changeRows=data.changes.map(x=>`
+    <tr><td>${esc(x.date)}</td><td>${esc(x.type)}</td><td>${esc(scopeName(x.scope))}</td>
+    <td>${esc(x.initial)}</td><td>${esc(x.request)}</td><td>${esc(x.impact)}</td><td>${esc(x.status)}</td><td>${esc(x.requester)}</td></tr>`).join('');
+
+  ensureBuildProgress();
+  const acceptanceRows=data.buildProgress.map(x=>`
+    <tr><td>${esc(x.step)}</td><td>${esc(x.title)}</td><td>${esc(x.point)}</td><td>${statusText(x.status)}</td><td>${esc(x.note||'')}</td></tr>`).join('');
+
+  const total=data.scope.length;
+  const same=data.scope.filter(x=>x.range==='제안범위').length;
+  const changed=data.scope.filter(x=>x.range==='변경').length;
+  const over=data.scope.filter(x=>x.range==='범위초과').length;
+  const pct=n=>total?(n/total*100).toFixed(1).replace('.0','')+'%':'0%';
+  const cDone=data.customer.filter(x=>x.status==='완료').length;
+  const buildPoint=getBuildProgressPoint();
+
+  const report=`<!doctype html>
+  <html lang="ko"><head><meta charset="utf-8"><title>${esc(data.project.name)}_${esc(data.project.proposalVersion)}</title>
+  <style>
+    @page{size:A4 landscape;margin:10mm}
+    *{box-sizing:border-box} body{font-family:Arial,"Malgun Gothic",sans-serif;color:#18232e;margin:0;font-size:10px}
+    h1{font-size:22px;margin:0 0 4px} h2{font-size:14px;margin:20px 0 8px;padding-bottom:5px;border-bottom:2px solid #1778d4}
+    .meta{color:#596775;margin-bottom:14px}.meta span{margin-right:18px}
+    .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:12px 0 18px}
+    .kpi{border:1px solid #dfe5eb;border-radius:7px;padding:9px;background:#fff}
+    .kpi b{display:block;font-size:17px;margin-top:4px}.same{border-color:#bfe3ca;background:#f4fbf6}
+    .changed{border-color:#f1d28a;background:#fffaf0}.over{border-color:#efb8b8;background:#fff5f5}
+    table{width:100%;border-collapse:collapse;table-layout:fixed;margin-bottom:8px}
+    th{background:#eef4f9;font-weight:700} th,td{border:1px solid #d9e1e8;padding:5px;vertical-align:top;word-break:break-word}
+    .summary{display:grid;grid-template-columns:130px 1fr 130px 1fr;border:1px solid #d9e1e8}
+    .summary div{padding:6px;border-bottom:1px solid #e3e8ed}.key{font-weight:700;background:#f7f9fb}
+    .page-break{break-before:page}.avoid{break-inside:avoid} .small{color:#6b7785;font-size:9px}
+  </style></head><body>
+    <h1>AI-DLP용 제안-구축 사항 관리</h1>
+    <div class="meta">
+      <span><b>프로젝트:</b> ${esc(data.project.name)}</span>
+      <span><b>고객사:</b> ${esc(data.project.customer)}</span>
+      <span><b>버전:</b> ${esc(data.project.proposalVersion)}</span>
+      <span><b>출력일:</b> ${new Date().toLocaleString('ko-KR')}</span>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><span>전체 Scope</span><b>${total}</b><span>100%</span></div>
+      <div class="kpi same"><span>일치 항목</span><b>${same}</b><span>${pct(same)}</span></div>
+      <div class="kpi changed"><span>변경 항목</span><b>${changed}</b><span>${pct(changed)}</span></div>
+      <div class="kpi over"><span>범위초과</span><b>${over}</b><span>${pct(over)}</span></div>
+      <div class="kpi"><span>고객 준비 현황</span><b>${data.customer.length?Math.round(cDone/data.customer.length*100):0}%</b><span>${cDone}/${data.customer.length}</span></div>
+      <div class="kpi"><span>구축 진행률</span><b>${Math.min(100,buildPoint)}%</b><span>${buildPoint}/100 Point</span></div>
+    </div>
+
+    <h2>프로젝트 정보</h2>
+    <div class="summary">
+      <div class="key">프로젝트 코드</div><div>${esc(data.project.code)}</div>
+      <div class="key">고객사</div><div>${esc(data.project.customer)}</div>
+      <div class="key">담당 SE</div><div>${esc(data.project.se)}</div>
+      <div class="key">담당 영업</div><div>${esc(data.project.sales)}</div>
+    </div>
+    <h2>제안 개요</h2>
+    <table><thead><tr><th style="width:28%">항목</th><th>내용</th></tr></thead><tbody>
+      ${data.proposalOverview.map(field=>`<tr><td>${esc(field.label)}</td><td>${esc(proposalFieldValue(field))}</td></tr>`).join('')}
+    </tbody></table>
+
+    <h2>제안 / 구축 Scope 비교</h2>
+    <table><thead><tr><th>대분류</th><th>중분류</th><th>관리 항목</th><th>제안서 기준</th><th>최초 협의</th><th>구축 확정</th><th>운영 현재</th><th>상태</th><th>범위판정</th><th>책임주체</th></tr></thead><tbody>${scopeRows}</tbody></table>
+
+    <div class="page-break"></div>
+    <h2>기능 범위</h2><table><thead><tr><th>기능명</th><th>세부 설명</th><th>상태</th></tr></thead><tbody>${featureRows}</tbody></table>
+    <h2>기능 이슈 일감</h2><table><thead><tr><th>기능 항목</th><th>일감 제목</th><th>일감 번호</th><th>상태</th><th>담당자</th><th>완료 기한</th></tr></thead><tbody>${featureIssueRows}</tbody></table>
+    <h2>인프라 / 네트워크</h2><table><thead><tr><th>항목</th><th>상세 내용</th><th>상태</th></tr></thead><tbody>${infraRows}</tbody></table>
+    <h2>연동 범위</h2><table><thead><tr><th>구분</th><th>대상 시스템</th><th>목적</th><th>방향</th><th>방식</th><th>최초 제안</th><th>운영 현재</th><th>범위판정</th></tr></thead><tbody>${integrationRows}</tbody></table>
+
+    <div class="page-break"></div>
+    <h2>고객 준비사항</h2><table><thead><tr><th>준비사항</th><th>상세 내용</th><th>상태</th></tr></thead><tbody>${customerRows}</tbody></table>
+    <h2>변경 이력</h2><table><thead><tr><th>요청일</th><th>구분</th><th>관련 관리 항목</th><th>최초 합의</th><th>변경 요청</th><th>영향도</th><th>상태</th><th>요청자</th></tr></thead><tbody>${changeRows}</tbody></table>
+    <h2>구축 진행률</h2><table><thead><tr><th>순서</th><th>구축 단계</th><th>Point</th><th>상태</th><th>비고</th></tr></thead><tbody>${acceptanceRows}</tbody></table>
+    <p class="small">※ PDF 저장 창에서 대상 프린터를 “PDF로 저장”으로 선택하십시오.</p>
+  </body></html>`;
+
+  const w=window.open('','_blank');
+  if(!w){alert('팝업이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용해주세요.');return;}
+  w.document.open(); w.document.write(report); w.document.close();
+  w.focus();
+  setTimeout(()=>w.print(),300);
+}
+
+function renderAll(){
+  ensureProposalOverview();ensureBuildProgress();bindProject();updateProjectView();calc();renderSummary();renderScope();
+  renderProposalOverview();renderFeatures();renderFeatureIssues();renderInfra();renderIntegrations();renderCustomer();renderChanges();renderAcceptance();
+}
+saveVersionBtn.onclick=saveNewVersion;versionHistoryBtn.onclick=openVersionModal;pdfBtn.onclick=printPdfReport;
+renderAll();
+</script>
+
+
+<div class="modal-backdrop" id="proposalManagerModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>제안 개요 항목 관리</h3>
+      <button class="modal-close" onclick="closeProposalManager()">×</button>
+    </div>
+    <div class="note">
+      항목명과 내용을 모두 수정하거나 새 항목을 추가할 수 있습니다. ▲/▼ 버튼으로 표시 순서를 변경할 수 있습니다.
+      항목 삭제 시 해당 항목의 입력값도 함께 삭제됩니다.
+    </div>
+    <div id="proposalManagerList"></div>
+    <div style="display:flex;justify-content:space-between;gap:10px;margin-top:16px">
+      <button class="btn" onclick="addProposalField()">+ 항목 추가</button>
+      <button class="btn primary" onclick="closeProposalManager()">완료</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="versionModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>프로젝트 버전 이력</h3>
+      <button class="modal-close" onclick="closeVersionModal()">×</button>
+    </div>
+    <div class="note">현재 내용을 v1.1, v1.2 형식의 스냅샷으로 보관합니다. 이전 버전을 불러와도 기존 저장 버전은 삭제되지 않습니다.</div>
+    <div id="versionList"></div>
+  </div>
+</div>
+
+</body>
+</html>
+
