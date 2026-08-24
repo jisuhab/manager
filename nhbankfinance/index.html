@@ -376,7 +376,7 @@
 
   </style>
 </head>
-<body>
+<body style="">
 
 <div class="auth-overlay hidden" id="authOverlay">
   <div class="auth-card">
@@ -413,9 +413,9 @@
       <button class="" data-tab="summary">▣ <span>대시보드</span></button>
       <button data-tab="scope" class="">⌘ <span>제안/구축 Scope</span></button>
       <button data-tab="features" class="">◇ <span>기능 범위</span></button>
-      <button data-tab="featureIssues">⚑ <span>일감 관리</span></button>
+      <button data-tab="featureIssues" class="">⚑ <span>일감 관리</span></button>
       <button data-tab="inventory" class="">▦ <span>장비 인벤토리</span></button>
-      <button data-tab="networkDiagram">▧ <span>네트워크 구성도</span></button>
+      <button data-tab="networkDiagram" class="active">▧ <span>네트워크 구성도</span></button>
       <button data-tab="customer">☑ <span>고객 준비사항</span></button>
       <button data-tab="changes">▣ <span>변경 이력</span></button>
       <button data-tab="acceptance">✓ <span>구축 진행률</span></button>
@@ -438,11 +438,11 @@
     <div class="content">
       <div class="project-head">
         <div>
-          <div class="project-title"><span id="projectNameView">삼성SDS AI-DLP 구축</span> <span class="badge ok" id="projectStatusBadge">진행중</span></div>
+          <div class="project-title"><span id="projectNameView">[예시] 고객사 AI-DLP 구축 프로젝트</span> <span class="badge ok" id="projectStatusBadge">진행중</span></div>
           <div class="meta">
-            <span>사이트 <b id="siteNameView">samsungsds</b></span>
+            <span>사이트 <b id="siteNameView">example-site</b></span>
             <span>프로젝트 코드 <b id="projectCodeView">2026-00000</b></span>
-            <span>고객사 <b id="customerView">삼성SDS</b></span>
+            <span>고객사 <b id="customerView">예시 고객사</b></span>
             <span>담당 SE <b id="seView">홍길동</b></span>
             <span>제품 <b id="productView">WebKeeper AI DLP</b></span>
           </div>
@@ -452,10 +452,10 @@
 
       <div class="kpis">
         <div class="card kpi kpi-clickable" onclick="goToScopeFilter('all')" title="클릭하여 전체 Scope 보기">
-  <div class="label">전체 Scope</div><div class="value" id="kpiTotal">14</div><div class="sub" id="kpiTotalPct">100%</div>
+  <div class="label">전체 Scope</div><div class="value" id="kpiTotal">8</div><div class="sub" id="kpiTotalPct">100%</div>
 </div>
         <div class="card kpi kpi-clickable kpi-same" onclick="goToScopeFilter('same')" title="클릭하여 일치 항목만 보기">
-  <div class="label">일치 항목</div><div class="value" id="kpiSame">14</div><div class="sub" id="kpiSamePct">100%</div>
+  <div class="label">일치 항목</div><div class="value" id="kpiSame">8</div><div class="sub" id="kpiSamePct">100%</div>
 </div>
         <div class="card kpi kpi-clickable kpi-changed" onclick="goToScopeFilter('changed')" title="클릭하여 변경 항목만 보기">
   <div class="label">변경 항목</div><div class="value" id="kpiChanged">0</div><div class="sub" id="kpiChangedPct">0%</div>
@@ -467,7 +467,7 @@
   <div class="label">고객 준비 완료율</div><div class="value" id="kpiCustomer">0%</div><div class="sub">고객 제공사항 기준</div>
 </div>
         <div class="card kpi kpi-clickable" onclick="switchTab('acceptance')" title="클릭하여 구축 진행률 보기">
-  <div class="label">구축 진행률</div><div class="value" id="kpiAcceptance">10%</div><div class="sub" id="kpiAcceptanceSub">10 / 100 Point</div>
+  <div class="label">구축 진행률</div><div class="value" id="kpiAcceptance">0%</div><div class="sub" id="kpiAcceptanceSub">0 / 100 Point</div>
 </div>
       </div>
 
@@ -475,13 +475,13 @@
         <button class="" data-tab="summary">요약 정보</button>
         <button data-tab="scope" class="">제안/구축 Scope 비교</button>
         <button data-tab="features" class="">기능 범위</button>
-        <button data-tab="featureIssues">일감 관리</button>
+        <button data-tab="featureIssues" class="">일감 관리</button>
         <button data-tab="inventory" class="">장비 인벤토리</button>
-        <button data-tab="networkDiagram">네트워크 구성도</button>
+        <button data-tab="networkDiagram" class="active">네트워크 구성도</button>
         <button data-tab="customer">고객 준비사항</button>
         <button data-tab="changes">변경 이력</button>
         <button data-tab="acceptance">구축 진행률</button>
-        <button data-tab="project" class="active">프로젝트 정보</button>
+        <button data-tab="project" class="">프로젝트 정보</button>
       </div>
 
       <section class="panel" id="panel-summary">
@@ -532,9 +532,9 @@
           <div class="card section">
             <h3>Scope 비교 요약</h3>
             <div class="donut-wrap">
-              <div class="donut" id="donut" style="background: conic-gradient(rgb(46, 159, 84) 0deg, rgb(46, 159, 84) 100%, rgb(245, 164, 0) 100%, rgb(245, 164, 0) 100%, rgb(229, 72, 72) 100%, rgb(229, 72, 72) 100%);"><div class="donut-center"><div><span id="donutTotal">14</span><small>전체 항목</small></div></div></div>
+              <div class="donut" id="donut" style="background: conic-gradient(rgb(46, 159, 84) 0deg, rgb(46, 159, 84) 100%, rgb(245, 164, 0) 100%, rgb(245, 164, 0) 100%, rgb(229, 72, 72) 100%, rgb(229, 72, 72) 100%);"><div class="donut-center"><div><span id="donutTotal">8</span><small>전체 항목</small></div></div></div>
               <div class="legend">
-                <div><span class="dot" style="background:#2e9f54"></span>일치 <b id="legendSame">14</b></div>
+                <div><span class="dot" style="background:#2e9f54"></span>일치 <b id="legendSame">8</b></div>
                 <div><span class="dot" style="background:#f5a400"></span>변경 <b id="legendChanged">0</b></div>
                 <div><span class="dot" style="background:#e54848"></span>범위초과 <b id="legendOver">0</b></div>
               </div>
@@ -567,159 +567,105 @@
             <th>대분류</th><th>중분류</th><th>관리 항목</th><th>제안서 기준</th><th>운영 현재</th><th>최초 협의</th><th>범위판정</th><th>상태</th><th>요청주체</th><th></th>
           </tr></thead><tbody id="scopeBody">
     <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'minor',this.value)">AI 분석</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'item',this.value)">하이브리드 탐지 로직</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'standard',this.value)">유사도가 높은 데이터 탐지 시, LLM 질의 없이 벡터 유사도 기반으로 즉시 허용/차단 처리할 수 있어야 함</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'major',this.value)">구축/운영</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'minor',this.value)">백업 체계</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'item',this.value)">녹취 백업 스토리지 환경 구성</textarea></td>
+    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'standard',this.value)">녹취 백업 스토리지 환경 구성 확인하여 안정적인 백업 체계를 마련하여야 한다.</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'initial',this.value)">-</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'initial',this.value)">백업 전용 스토리지(NAS/SAN 등) 인프라 연결
+주기적(일/월 단위) 백업 스케줄러 등록 및 백업 용량 자동 감시/알림 기능 구현
+스토리지 내 이중화 백업 디렉터리 및 보존 정책 수립</textarea></td>
     <td><select onchange="updScope(0,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(0,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(0,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
+    <td><select onchange="updScope(0,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
+    <td><select onchange="updScope(0,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(0)">삭제</button></td></tr>
     <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'minor',this.value)">AI 분석</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'item',this.value)">로직 선택 적용 옵션</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'standard',this.value)">정책에 따라 유사도 검색, LLM 분석 또는 Hybrid(혼합) 방식을 선택적으로 적용할 수 있는 기능을 제공해야 함</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'major',this.value)">구축/운영</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'minor',this.value)">백업 대상</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'item',this.value)">IPT/메신저 녹취 데이터 백업</textarea></td>
+    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'standard',this.value)">IPT 내선 및 메신저 녹취 데이터를 대상으로 백업을 수행하여야 한다.</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'initial',this.value)">-</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'initial',this.value)">IPT 내선 음성 파일(WAV/MP3 등) 및 메신저 녹취/대화록 데이터 자동 백업
+DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적용
+서비스 영향도를 최소화하기 위해 야간 및 업무 외 시간을 활용한 증분/풀 백업 수행</textarea></td>
     <td><select onchange="updScope(1,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(1,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(1,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
+    <td><select onchange="updScope(1,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
+    <td><select onchange="updScope(1,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(1)">삭제</button></td></tr>
     <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'minor',this.value)">라벨 관리</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'item',this.value)">다중 라벨 관리</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'standard',this.value)">기밀/비기밀, 민감정보, 프롬프트 인젝션, 폭력/혐오 등 다양한 라벨을 통합 관리할 수 있어야 함</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'major',this.value)">구축/운영</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'minor',this.value)">무결성 검증</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'item',this.value)">백업 데이터 생성·저장 무결성 검증</textarea></td>
+    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'standard',this.value)">백업 데이터의 생성, 저장 및 무결성을 검증하여야 한다.</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'initial',this.value)">-</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'initial',this.value)">백업 생성/저장 시 백업 전/후 비교 자동화 프로세스 구현
+백업 파일 정상 생성 여부 및 훼손 여부를 확인하는 무결성 검증 로그 기록
+무결성 검증 실패 시 관리자 즉시 알림 기능 및 백업 재시도(Retry) 적용</textarea></td>
     <td><select onchange="updScope(2,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(2,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(2,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
+    <td><select onchange="updScope(2,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
+    <td><select onchange="updScope(2,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(2)">삭제</button></td></tr>
     <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'minor',this.value)">유사도 관리</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'item',this.value)">유사도 관리</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'standard',this.value)">이미지, 도면, 설계도 등 카테고리별 유사도 유형을 Positive(차단) / Negative(허용) 정책으로 구분하여 등록·관리할 수 있어야 함</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'major',this.value)">보안</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'minor',this.value)">데이터 암호화</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'item',this.value)">IPT 녹취 및 DB 파일 암호화</textarea></td>
+    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'standard',this.value)">암호화 대상 시스템인 IPT 내선 녹취시스템의 녹취 및 DB파일을 암호화 하여야 한다.</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'initial',this.value)">-</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'initial',this.value)">IPT 녹취서버에 CipherTrust Encrypt 설치하여 실시간 저장되는 녹취 및 DB데이터를 Kernel Level에서 암호화 저장
+암호화 키(Key)의 안전한 생성, 저장 및 접근 권한 분리를 통한 보안성 강화</textarea></td>
     <td><select onchange="updScope(3,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(3,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(3,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
+    <td><select onchange="updScope(3,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
+    <td><select onchange="updScope(3,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(3)">삭제</button></td></tr>
     <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'minor',this.value)">데이터 관리</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'item',this.value)">데이터 관리</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'standard',this.value)">원본 데이터 저장 없이 참조 ID, 해시값, 임베딩 벡터만 저장하여 보안 리스크를 최소화하며, 필요 시 원본 저장 여부를 옵션으로 설정할 수 있어야 함</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'major',this.value)">보안</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'minor',this.value)">암호화 적용</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'item',this.value)">운영환경 기반 암호화 적용 방안 수립</textarea></td>
+    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'standard',this.value)">IPT 내선 녹취시스템의 운영 환경, 인터페이스 및 솔루션 청취 프로세스를 분석하여 암호화 적용 방안을 수립하여야 한다.</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'initial',this.value)">-</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'initial',this.value)">키관리 서버에서 녹취데이터 저장 경로 및 접근 프로세스 접근제어 정책을 수립하여 실시간 파일 암호화를 수행합니다.</textarea></td>
     <td><select onchange="updScope(4,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(4,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(4,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
+    <td><select onchange="updScope(4,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
+    <td><select onchange="updScope(4,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(4)">삭제</button></td></tr>
     <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'minor',this.value)">유사도 관리</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'item',this.value)">유사도 임계치 설정</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'standard',this.value)">Threshold(임계치)를 설정 및 운영할 수 있어야 함</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'major',this.value)">데이터 이관</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'minor',this.value)">이관 계획</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'item',this.value)">메신저/IPT 데이터 현황 분석 및 이관 계획 수립</textarea></td>
+    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'standard',this.value)">메신저 및 IPT 내선 DB/녹취 데이터의 현황을 분석하고 이관 대상 데이터의 범위, 용량 및 특성을 식별하여 이관 계획을 수립하여야 한다.</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'initial',this.value)">-</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'initial',this.value)">기존 운영 중인 IPT 및 메신저 DB, 음성 파일 저장 경로 및 총 용량 사전 전수 조사
+이관 대상 데이터 범위 확정 및 이관 일정/단계별 상세 계획 수립
+데이터 이관 시 발생 가능한 위험 요소 분석 및 롤백(Rollback) 시나리오 마련</textarea></td>
     <td><select onchange="updScope(5,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(5,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(5,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
+    <td><select onchange="updScope(5,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
+    <td><select onchange="updScope(5,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(5)">삭제</button></td></tr>
     <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'minor',this.value)">정책 관리</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'item',this.value)">카테고리별 위험도 조정</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'standard',this.value)">문서 카테고리별로 위험도 적용할 수 있는 정책 설정 기능을 제공해야 함</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'major',this.value)">데이터 이관</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'minor',this.value)">복호화/재암호화</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'item',this.value)">기존 녹취 데이터 복호화 및 신규 환경 재암호화</textarea></td>
+    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'standard',this.value)">기존 녹취 데이터를 대상으로 복호화를 수행하고 신규 운영환경으로 안전하게 이관하며 데이터의 연속성을 확보하여야 한다.</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'initial',this.value)">-</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'initial',this.value)">기존 동방 아날로그 녹취시스템의 암호화된 파일 및 DB 데이터를 보안 외장하드로 안전하게 1차 반출/이전 수행 및 암호화 파일을 신규 녹취서버에 마이그레이션 진행
+신규 녹취서버 내 복호화 모듈을 통해 기존 암호화 데이터의 복호화, 재생, 조회 기능 정상 작동 여부 및 청취 가능 상태 최종 검증</textarea></td>
     <td><select onchange="updScope(6,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(6,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(6,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
+    <td><select onchange="updScope(6,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
+    <td><select onchange="updScope(6,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(6)">삭제</button></td></tr>
     <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'minor',this.value)">사용자 안내</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'item',this.value)">브라우저 내 차단 안내 문구</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'standard',this.value)">웹 브라우저 환경에서 사용자에게 직접적인 차단 안내 메시지를 제공할 수 있어야 함</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'major',this.value)">데이터 이관</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'minor',this.value)">이관 검증</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'item',this.value)">원본/이관 데이터 정합성 검증</textarea></td>
+    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'standard',this.value)">이관 완료 후 원본 데이터와 이관 데이터의 건수, 파일 크기 및 메타데이터를 비교하여 데이터 정합성을 검증하여야 한다.</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'initial',this.value)">-</textarea></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'initial',this.value)">이관 완료 직후 원본 DB/파일 대 이관 DB/파일 간 건수 및 총 용량 일치 체크
+주요 메타데이터(통화 시간, 내선 번호, 녹취 일시 등) 추출 및 비교 검증 쿼리 수행
+최종 이관 검증 결과 보고서(Check-Sum 결과 포함) 생성</textarea></td>
     <td><select onchange="updScope(7,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(7,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(7,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
-    <td><button class="btn danger" onclick="delScope(7)">삭제</button></td></tr>
-    <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(8,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(8,'minor',this.value)">오탐 관리</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(8,'item',this.value)">오탐 재검토 및 결재 프로세스</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(8,'standard',this.value)">오탐 발생 시 재검토 및 결재 프로세스를 통해 파일 반입 또는 예외 허용 권한을 부여할 수 있어야 함</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(8,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(8,'initial',this.value)">-</textarea></td>
-    <td><select onchange="updScope(8,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(8,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(8,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
-    <td><button class="btn danger" onclick="delScope(8)">삭제</button></td></tr>
-    <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(9,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(9,'minor',this.value)">유사도 관리</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(9,'item',this.value)">유사도 데이터 유효기간 관리</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(9,'standard',this.value)">유사도 등록 시 만료 일자를 함께 입력받아 배치로 라벨 업데이트 기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(9,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(9,'initial',this.value)">-</textarea></td>
-    <td><select onchange="updScope(9,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(9,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(9,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
-    <td><button class="btn danger" onclick="delScope(9)">삭제</button></td></tr>
-    <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(10,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(10,'minor',this.value)">로그 관리</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(10,'item',this.value)">로그 기반 사후 보정</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(10,'standard',this.value)">오탐 및 미탐 발생 시 관리자 로그 화면에서 데이터를 재등록하고 라벨을 수정하여 정책에 즉시 반영할 수 있어야 함</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(10,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(10,'initial',this.value)">-</textarea></td>
-    <td><select onchange="updScope(10,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(10,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(10,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
-    <td><button class="btn danger" onclick="delScope(10)">삭제</button></td></tr>
-    <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(11,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(11,'minor',this.value)">첨부파일 검사</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(11,'item',this.value)">첨부파일 사후 검사</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(11,'standard',this.value)">대용량 파일 및 압축파일 등에 대한 사후 정밀 검사 기능을 제공해야 함</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(11,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(11,'initial',this.value)">-</textarea></td>
-    <td><select onchange="updScope(11,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(11,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(11,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
-    <td><button class="btn danger" onclick="delScope(11)">삭제</button></td></tr>
-    <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(12,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(12,'minor',this.value)">마스킹</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(12,'item',this.value)">Input 데이터 마스킹</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(12,'standard',this.value)">Input(Request) 데이터에 포함된 민감정보를 정책에 따라 마스킹 처리할 수 있어야 함</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(12,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(12,'initial',this.value)">-</textarea></td>
-    <td><select onchange="updScope(12,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(12,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(12,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
-    <td><button class="btn danger" onclick="delScope(12)">삭제</button></td></tr>
-    <tr>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(13,'major',this.value)">기능</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(13,'minor',this.value)">마스킹</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(13,'item',this.value)">Output 데이터 마스킹</textarea></td>
-    <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(13,'standard',this.value)">Output(Response) 데이터에 포함된 민감정보를 정책에 따라 마스킹 처리할 수 있어야 함</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(13,'operation',this.value)">-</textarea></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(13,'initial',this.value)">-</textarea></td>
-    <td><select onchange="updScope(13,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
-    <td><select onchange="updScope(13,'status',this.value)"><option selected="">미확인</option><option>협의중</option><option>확정</option><option>범위초과</option><option>완료</option></select></td>
-    <td><select onchange="updScope(13,'owner',this.value)"><option>소만사</option><option>고객</option><option selected="">공동</option><option>제3자</option></select></td>
-    <td><button class="btn danger" onclick="delScope(13)">삭제</button></td></tr></tbody></table></div>
+    <td><select onchange="updScope(7,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
+    <td><select onchange="updScope(7,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
+    <td><button class="btn danger" onclick="delScope(7)">삭제</button></td></tr></tbody></table></div>
         </div>
       </section>
 
@@ -734,103 +680,61 @@
           <div class="table-scroll"><table>
             <thead><tr><th>기능명</th><th>세부 설명</th><th>상태</th><th></th></tr></thead>
             <tbody id="featureBody"><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-001')">하이브리드 탐지 로직</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(0,'standard',this.value)">유사도가 높은 데이터 탐지 시, LLM 질의 없이 벡터 유사도 기반으로 즉시 허용/차단 처리할 수 있어야 함</textarea></td>
+    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787591407807-001')">녹취 백업 스토리지 환경 구성</span></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(0,'standard',this.value)">녹취 백업 스토리지 환경 구성 확인하여 안정적인 백업 체계를 마련하여야 한다.</textarea></td>
     <td><select onchange="updFeature(0,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
+      <option>미확인</option><option>협의중</option><option selected="">확정</option><option>보류</option><option>완료</option>
     </select></td>
     <td><button class="btn danger" onclick="delFeature(0)">삭제</button></td>
   </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-002')">로직 선택 적용 옵션</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(1,'standard',this.value)">정책에 따라 유사도 검색, LLM 분석 또는 Hybrid(혼합) 방식을 선택적으로 적용할 수 있는 기능을 제공해야 함</textarea></td>
+    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787591407807-002')">IPT/메신저 녹취 데이터 백업</span></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(1,'standard',this.value)">IPT 내선 및 메신저 녹취 데이터를 대상으로 백업을 수행하여야 한다.</textarea></td>
     <td><select onchange="updFeature(1,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
+      <option>미확인</option><option>협의중</option><option selected="">확정</option><option>보류</option><option>완료</option>
     </select></td>
     <td><button class="btn danger" onclick="delFeature(1)">삭제</button></td>
   </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-003')">다중 라벨 관리</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(2,'standard',this.value)">기밀/비기밀, 민감정보, 프롬프트 인젝션, 폭력/혐오 등 다양한 라벨을 통합 관리할 수 있어야 함</textarea></td>
+    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787591407807-003')">백업 데이터 생성·저장 무결성 검증</span></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(2,'standard',this.value)">백업 데이터의 생성, 저장 및 무결성을 검증하여야 한다.</textarea></td>
     <td><select onchange="updFeature(2,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
+      <option>미확인</option><option>협의중</option><option selected="">확정</option><option>보류</option><option>완료</option>
     </select></td>
     <td><button class="btn danger" onclick="delFeature(2)">삭제</button></td>
   </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-004')">유사도 관리</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(3,'standard',this.value)">이미지, 도면, 설계도 등 카테고리별 유사도 유형을 Positive(차단) / Negative(허용) 정책으로 구분하여 등록·관리할 수 있어야 함</textarea></td>
+    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787591407807-004')">IPT 녹취 및 DB 파일 암호화</span></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(3,'standard',this.value)">암호화 대상 시스템인 IPT 내선 녹취시스템의 녹취 및 DB파일을 암호화 하여야 한다.</textarea></td>
     <td><select onchange="updFeature(3,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
+      <option>미확인</option><option>협의중</option><option selected="">확정</option><option>보류</option><option>완료</option>
     </select></td>
     <td><button class="btn danger" onclick="delFeature(3)">삭제</button></td>
   </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-005')">데이터 관리</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(4,'standard',this.value)">원본 데이터 저장 없이 참조 ID, 해시값, 임베딩 벡터만 저장하여 보안 리스크를 최소화하며, 필요 시 원본 저장 여부를 옵션으로 설정할 수 있어야 함</textarea></td>
+    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787591407807-005')">운영환경 기반 암호화 적용 방안 수립</span></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(4,'standard',this.value)">IPT 내선 녹취시스템의 운영 환경, 인터페이스 및 솔루션 청취 프로세스를 분석하여 암호화 적용 방안을 수립하여야 한다.</textarea></td>
     <td><select onchange="updFeature(4,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
+      <option>미확인</option><option>협의중</option><option selected="">확정</option><option>보류</option><option>완료</option>
     </select></td>
     <td><button class="btn danger" onclick="delFeature(4)">삭제</button></td>
   </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-006')">유사도 임계치 설정</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(5,'standard',this.value)">Threshold(임계치)를 설정 및 운영할 수 있어야 함</textarea></td>
+    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787591407807-006')">메신저/IPT 데이터 현황 분석 및 이관 계획 수립</span></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(5,'standard',this.value)">메신저 및 IPT 내선 DB/녹취 데이터의 현황을 분석하고 이관 대상 데이터의 범위, 용량 및 특성을 식별하여 이관 계획을 수립하여야 한다.</textarea></td>
     <td><select onchange="updFeature(5,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
+      <option>미확인</option><option>협의중</option><option selected="">확정</option><option>보류</option><option>완료</option>
     </select></td>
     <td><button class="btn danger" onclick="delFeature(5)">삭제</button></td>
   </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-007')">카테고리별 위험도 조정</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(6,'standard',this.value)">문서 카테고리별로 위험도 적용할 수 있는 정책 설정 기능을 제공해야 함</textarea></td>
+    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787591407807-007')">기존 녹취 데이터 복호화 및 신규 환경 재암호화</span></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(6,'standard',this.value)">기존 녹취 데이터를 대상으로 복호화를 수행하고 신규 운영환경으로 안전하게 이관하며 데이터의 연속성을 확보하여야 한다.</textarea></td>
     <td><select onchange="updFeature(6,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
+      <option>미확인</option><option>협의중</option><option selected="">확정</option><option>보류</option><option>완료</option>
     </select></td>
     <td><button class="btn danger" onclick="delFeature(6)">삭제</button></td>
   </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-008')">브라우저 내 차단 안내 문구</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(7,'standard',this.value)">웹 브라우저 환경에서 사용자에게 직접적인 차단 안내 메시지를 제공할 수 있어야 함</textarea></td>
+    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787591407807-008')">원본/이관 데이터 정합성 검증</span></td>
+    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(7,'standard',this.value)">이관 완료 후 원본 데이터와 이관 데이터의 건수, 파일 크기 및 메타데이터를 비교하여 데이터 정합성을 검증하여야 한다.</textarea></td>
     <td><select onchange="updFeature(7,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
+      <option>미확인</option><option>협의중</option><option selected="">확정</option><option>보류</option><option>완료</option>
     </select></td>
     <td><button class="btn danger" onclick="delFeature(7)">삭제</button></td>
-  </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-009')">오탐 재검토 및 결재 프로세스</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(8,'standard',this.value)">오탐 발생 시 재검토 및 결재 프로세스를 통해 파일 반입 또는 예외 허용 권한을 부여할 수 있어야 함</textarea></td>
-    <td><select onchange="updFeature(8,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
-    </select></td>
-    <td><button class="btn danger" onclick="delFeature(8)">삭제</button></td>
-  </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-010')">유사도 데이터 유효기간 관리</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(9,'standard',this.value)">유사도 등록 시 만료 일자를 함께 입력받아 배치로 라벨 업데이트 기능</textarea></td>
-    <td><select onchange="updFeature(9,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
-    </select></td>
-    <td><button class="btn danger" onclick="delFeature(9)">삭제</button></td>
-  </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-011')">로그 기반 사후 보정</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(10,'standard',this.value)">오탐 및 미탐 발생 시 관리자 로그 화면에서 데이터를 재등록하고 라벨을 수정하여 정책에 즉시 반영할 수 있어야 함</textarea></td>
-    <td><select onchange="updFeature(10,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
-    </select></td>
-    <td><button class="btn danger" onclick="delFeature(10)">삭제</button></td>
-  </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-012')">첨부파일 사후 검사</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(11,'standard',this.value)">대용량 파일 및 압축파일 등에 대한 사후 정밀 검사 기능을 제공해야 함</textarea></td>
-    <td><select onchange="updFeature(11,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
-    </select></td>
-    <td><button class="btn danger" onclick="delFeature(11)">삭제</button></td>
-  </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-013')">Input 데이터 마스킹</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(12,'standard',this.value)">Input(Request) 데이터에 포함된 민감정보를 정책에 따라 마스킹 처리할 수 있어야 함</textarea></td>
-    <td><select onchange="updFeature(12,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
-    </select></td>
-    <td><button class="btn danger" onclick="delFeature(12)">삭제</button></td>
-  </tr><tr>
-    <td><span class="feature-link" title="클릭하여 연결된 일감 관리 보기" onclick="goToFeatureIssues('CSV-1787553324070-014')">Output 데이터 마스킹</span></td>
-    <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updFeature(13,'standard',this.value)">Output(Response) 데이터에 포함된 민감정보를 정책에 따라 마스킹 처리할 수 있어야 함</textarea></td>
-    <td><select onchange="updFeature(13,'status',this.value)">
-      <option selected="">미확인</option><option>협의중</option><option>확정</option><option>보류</option><option>완료</option>
-    </select></td>
-    <td><button class="btn danger" onclick="delFeature(13)">삭제</button></td>
   </tr></tbody>
           </table></div>
         </div>
@@ -900,7 +804,7 @@
 </section>
 
 
-<section class="panel" id="panel-networkDiagram">
+<section class="panel active" id="panel-networkDiagram">
   <div class="note">
     프로젝트 네트워크 구성도를 관리합니다. 첨부한 구성도를 기본 이미지로 반영했으며, 필요 시 다른 이미지로 교체할 수 있습니다.
   </div>
@@ -953,7 +857,7 @@
       <td><select onchange="updChange(0,'type',this.value)"><option>변경</option><option>범위초과</option><option selected="">추가요청</option></select></td>
       <td><select onchange="updChange(0,'scope',this.value)">
         <option value="">선택</option>
-        <option value="CSV-1787553324070-001">하이브리드 탐지 로직</option><option value="CSV-1787553324070-002">로직 선택 적용 옵션</option><option value="CSV-1787553324070-003">다중 라벨 관리</option><option value="CSV-1787553324070-004">유사도 관리</option><option value="CSV-1787553324070-005">데이터 관리</option><option value="CSV-1787553324070-006">유사도 임계치 설정</option><option value="CSV-1787553324070-007">카테고리별 위험도 조정</option><option value="CSV-1787553324070-008">브라우저 내 차단 안내 문구</option><option value="CSV-1787553324070-009">오탐 재검토 및 결재 프로세스</option><option value="CSV-1787553324070-010">유사도 데이터 유효기간 관리</option><option value="CSV-1787553324070-011">로그 기반 사후 보정</option><option value="CSV-1787553324070-012">첨부파일 사후 검사</option><option value="CSV-1787553324070-013">Input 데이터 마스킹</option><option value="CSV-1787553324070-014">Output 데이터 마스킹</option>
+        <option value="CSV-1787591407807-001">녹취 백업 스토리지 환경 구성</option><option value="CSV-1787591407807-002">IPT/메신저 녹취 데이터 백업</option><option value="CSV-1787591407807-003">백업 데이터 생성·저장 무결성 검증</option><option value="CSV-1787591407807-004">IPT 녹취 및 DB 파일 암호화</option><option value="CSV-1787591407807-005">운영환경 기반 암호화 적용 방안 수립</option><option value="CSV-1787591407807-006">메신저/IPT 데이터 현황 분석 및 이관 계획 수립</option><option value="CSV-1787591407807-007">기존 녹취 데이터 복호화 및 신규 환경 재암호화</option><option value="CSV-1787591407807-008">원본/이관 데이터 정합성 검증</option>
       </select></td>
       <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updChange(0,'asis',this.value)">[예시] 최초 협의 범위</textarea></td>
       <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updChange(0,'tobe',this.value)">[예시] 고객 추가 요청 내용</textarea></td>
@@ -972,11 +876,11 @@
         <div class="card section">
           <h3>구축 진행률</h3>
           <div style="display:flex;align-items:center;gap:18px;margin-bottom:16px">
-            <div style="font-size:30px;font-weight:800;color:var(--blue)" id="buildProgressValue">10%</div>
+            <div style="font-size:30px;font-weight:800;color:var(--blue)" id="buildProgressValue">0%</div>
             <div style="flex:1;height:14px;background:#edf2f6;border-radius:999px;overflow:hidden">
-              <div id="buildProgressBar" style="height: 100%; width: 10%; background: linear-gradient(90deg, rgb(23, 120, 212), rgb(19, 168, 224)); transition: 0.2s;"></div>
+              <div id="buildProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, rgb(23, 120, 212), rgb(19, 168, 224)); transition: 0.2s;"></div>
             </div>
-            <div style="font-size:13px;color:var(--muted)" id="buildProgressPoint">10 / 100 Point</div>
+            <div style="font-size:13px;color:var(--muted)" id="buildProgressPoint">0 / 100 Point</div>
           </div>
           <div class="table-scroll"><table style="min-width:900px">
             <thead><tr><th style="width:70px">순서</th><th>구축 단계</th><th style="width:120px">Point</th><th style="width:150px">상태</th><th>비고</th></tr></thead>
@@ -985,7 +889,7 @@
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updBuildProgress(0,'title',this.value)">미팅</textarea></td>
     <td><input type="number" min="0" max="100" value="0" onchange="updBuildProgress(0,'point',this.value)"></td>
     <td><select onchange="updBuildProgress(0,'status',this.value)">
-      <option>미착수</option><option>진행중</option><option selected="">완료</option><option>보류</option>
+      <option>미착수</option><option selected="">진행중</option><option>완료</option><option>보류</option>
     </select></td>
     <td><textarea class="cell-wrap" rows="2" placeholder="진행 내용 또는 비고" oninput="autoGrow(this)" onchange="updBuildProgress(0,'note',this.value)">[예시] 킥오프/요구사항 미팅 진행</textarea></td>
   </tr><tr>
@@ -993,7 +897,7 @@
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updBuildProgress(1,'title',this.value)">Config 세팅</textarea></td>
     <td><input type="number" min="0" max="100" value="10" onchange="updBuildProgress(1,'point',this.value)"></td>
     <td><select onchange="updBuildProgress(1,'status',this.value)">
-      <option>미착수</option><option>진행중</option><option selected="">완료</option><option>보류</option>
+      <option selected="">미착수</option><option>진행중</option><option>완료</option><option>보류</option>
     </select></td>
     <td><textarea class="cell-wrap" rows="2" placeholder="진행 내용 또는 비고" oninput="autoGrow(this)" onchange="updBuildProgress(1,'note',this.value)"></textarea></td>
   </tr><tr>
@@ -1001,7 +905,7 @@
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updBuildProgress(2,'title',this.value)">장비 입고</textarea></td>
     <td><input type="number" min="0" max="100" value="10" onchange="updBuildProgress(2,'point',this.value)"></td>
     <td><select onchange="updBuildProgress(2,'status',this.value)">
-      <option>미착수</option><option selected="">진행중</option><option>완료</option><option>보류</option>
+      <option selected="">미착수</option><option>진행중</option><option>완료</option><option>보류</option>
     </select></td>
     <td><textarea class="cell-wrap" rows="2" placeholder="진행 내용 또는 비고" oninput="autoGrow(this)" onchange="updBuildProgress(2,'note',this.value)"></textarea></td>
   </tr><tr>
@@ -1049,7 +953,7 @@
         </div>
       </section>
 
-      <section class="panel active" id="panel-project">
+      <section class="panel" id="panel-project">
         <div class="toolbar">
           <div class="left"><span class="badge neutral">프로젝트 포팅</span><span style="font-size:12px;color:var(--muted)">신규 고객 프로젝트 생성 및 포팅 CSV 관리</span></div>
           <div class="right"><button class="btn primary" onclick="openPortingModal()">프로젝트 포팅 열기</button></div>
@@ -1229,9 +1133,9 @@ const LEGACY_VERSION_KEY='aidlp_scope_pilot_versions_reset_20260824_v1';
 const LEGACY_NETWORK_DIAGRAM_KEY='aidlp_network_diagram_v1';
 
 const NETWORK_DIAGRAM_KEY=`aidlp_project_${STORAGE_SITE}_network_diagram_v1`;
-const EMBEDDED_STATE={"project":{"name":"삼성SDS AI-DLP 구축","siteName":"samsungsds","code":"2026-00000","customer":"삼성SDS","se":"홍길동","product":"WebKeeper AI DLP","sales":"김영업","proposalVersion":"v1.2","proposalDate":"","startDate":"","purpose":"[예시] 생성형AI 사용 시 중요정보 유출 통제 및 구축 범위 관리","proposalProduct":"WSG-Suite","users":"[예시] 10,000명","configuration":"[예시] Active-Standby 인라인 구성","traffic":"[예시] AVG 2Gbps / MAX 4Gbps","retention":"[예시] 1년","ap":"[예시] 2대","log":"[예시] 2대","gpuOcr":"[예시] 1대","revenueProfit":"[예시] 000 / 000"},"proposalOverview":[{"label":"제품 구성","key":"proposalProduct","value":""},{"label":"고객사 사용자 수","key":"users","value":""},{"label":"구성","key":"configuration","value":""},{"label":"AVG/MAX 트래픽","key":"traffic","value":""},{"label":"로그 보관주기","key":"retention","value":""},{"label":"AP 서버","key":"ap","value":""},{"label":"Log 서버","key":"log","value":""},{"label":"GPU 서버(OCR)","key":"gpuOcr","value":""},{"label":"매출/이익","key":"revenueProfit","value":""}],"scope":[{"id":"CSV-1787553324070-001","major":"기능","minor":"AI 분석","item":"하이브리드 탐지 로직","standard":"유사도가 높은 데이터 탐지 시, LLM 질의 없이 벡터 유사도 기반으로 즉시 허용/차단 처리할 수 있어야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-002","major":"기능","minor":"AI 분석","item":"로직 선택 적용 옵션","standard":"정책에 따라 유사도 검색, LLM 분석 또는 Hybrid(혼합) 방식을 선택적으로 적용할 수 있는 기능을 제공해야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-003","major":"기능","minor":"라벨 관리","item":"다중 라벨 관리","standard":"기밀/비기밀, 민감정보, 프롬프트 인젝션, 폭력/혐오 등 다양한 라벨을 통합 관리할 수 있어야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-004","major":"기능","minor":"유사도 관리","item":"유사도 관리","standard":"이미지, 도면, 설계도 등 카테고리별 유사도 유형을 Positive(차단) / Negative(허용) 정책으로 구분하여 등록·관리할 수 있어야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-005","major":"기능","minor":"데이터 관리","item":"데이터 관리","standard":"원본 데이터 저장 없이 참조 ID, 해시값, 임베딩 벡터만 저장하여 보안 리스크를 최소화하며, 필요 시 원본 저장 여부를 옵션으로 설정할 수 있어야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-006","major":"기능","minor":"유사도 관리","item":"유사도 임계치 설정","standard":"Threshold(임계치)를 설정 및 운영할 수 있어야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-007","major":"기능","minor":"정책 관리","item":"카테고리별 위험도 조정","standard":"문서 카테고리별로 위험도 적용할 수 있는 정책 설정 기능을 제공해야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-008","major":"기능","minor":"사용자 안내","item":"브라우저 내 차단 안내 문구","standard":"웹 브라우저 환경에서 사용자에게 직접적인 차단 안내 메시지를 제공할 수 있어야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-009","major":"기능","minor":"오탐 관리","item":"오탐 재검토 및 결재 프로세스","standard":"오탐 발생 시 재검토 및 결재 프로세스를 통해 파일 반입 또는 예외 허용 권한을 부여할 수 있어야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-010","major":"기능","minor":"유사도 관리","item":"유사도 데이터 유효기간 관리","standard":"유사도 등록 시 만료 일자를 함께 입력받아 배치로 라벨 업데이트 기능","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-011","major":"기능","minor":"로그 관리","item":"로그 기반 사후 보정","standard":"오탐 및 미탐 발생 시 관리자 로그 화면에서 데이터를 재등록하고 라벨을 수정하여 정책에 즉시 반영할 수 있어야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-012","major":"기능","minor":"첨부파일 검사","item":"첨부파일 사후 검사","standard":"대용량 파일 및 압축파일 등에 대한 사후 정밀 검사 기능을 제공해야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-013","major":"기능","minor":"마스킹","item":"Input 데이터 마스킹","standard":"Input(Request) 데이터에 포함된 민감정보를 정책에 따라 마스킹 처리할 수 있어야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"},{"id":"CSV-1787553324070-014","major":"기능","minor":"마스킹","item":"Output 데이터 마스킹","standard":"Output(Response) 데이터에 포함된 민감정보를 정책에 따라 마스킹 처리할 수 있어야 함","operation":"-","initial":"-","build":"-","range":"제안범위","status":"미확인","owner":"공동"}],"features":[],"featureIssues":[],"infra":[],"integrations":[],"inventory":[{"hostname":"[예시] AIDLP-AP1","os":"[예시] SomansaOS 9.x","kernel":"-","account":"sysadmin","product":"WebKeeper AI DLP","model":"[예시] Server Model","unit":"2U","sn":"[예시] SN-000001","cpu":"[예시] 32 Core","memory":"[예시] 128 GiB","hdd":"[예시] 2TB × 2EA / RAID1","nic":"[예시] 1G UTP 2Port","bypass":"-","nicInfo":"[예시] MGMT port : eth0","note":"예시 데이터 - 실제 장비 정보로 교체"}],"customer":[{"title":"[예시] 네트워크/방화벽","desc":"[예시] IP 할당, Port Open 및 Routing 설정","status":"미요청"}],"changes":[{"date":"","type":"추가요청","scope":"EXAMPLE-SCOPE-001","asis":"[예시] 최초 협의 범위","tobe":"[예시] 고객 추가 요청 내용","impact":"중간","status":"검토중","requester":"고객","autoSync":false}],"acceptance":[],"buildProgress":[{"step":1,"title":"미팅","point":0,"status":"완료","note":"[예시] 킥오프/요구사항 미팅 진행"},{"step":2,"title":"Config 세팅","point":10,"status":"완료","note":""},{"step":3,"title":"장비 입고","point":10,"status":"진행중","note":""},{"step":4,"title":"정책 셋업","point":10,"status":"미착수","note":""},{"step":5,"title":"단위/통합 테스트","point":20,"status":"미착수","note":""},{"step":6,"title":"파일럿 테스트","point":20,"status":"미착수","note":""},{"step":7,"title":"전사 전환","point":20,"status":"미착수","note":""},{"step":8,"title":"검수문서 작성","point":10,"status":"미착수","note":""}],"networkDiagramBlank":true,"_portingTemplate":true,"_pocEvalScopeVersion":"scope-csv-final-20260824-v1","_finalBaselineVersion":"shinhan-final-baseline-20260824-v1","_inventorySeedVersion":"inventory-seed-20260824-v1","_embeddedStateVersion":"embedded-20260824061103"};
-const EMBEDDED_VERSIONS=[];
-const EMBEDDED_STATE_VERSION='embedded-clean-sample-20260825-0104';
+const EMBEDDED_STATE={"project":{"name":"[예시] 고객사 AI-DLP 구축 프로젝트","siteName":"example-site","code":"2026-00000","customer":"예시 고객사","se":"홍길동","product":"WebKeeper AI DLP","sales":"김영업","proposalVersion":"v1.1","proposalDate":"","startDate":"","purpose":"[예시] 생성형AI 사용 시 중요정보 유출 통제 및 구축 범위 관리","proposalProduct":"WSG-Suite","users":"[예시] 10,000명","configuration":"[예시] Active-Standby 인라인 구성","traffic":"[예시] AVG 2Gbps / MAX 4Gbps","retention":"[예시] 1년","ap":"[예시] 2대","log":"[예시] 2대","gpuOcr":"[예시] 1대","revenueProfit":"[예시] 000 / 000"},"proposalOverview":[{"label":"제품 구성","key":"proposalProduct","value":""},{"label":"고객사 사용자 수","key":"users","value":""},{"label":"구성","key":"configuration","value":""},{"label":"AVG/MAX 트래픽","key":"traffic","value":""},{"label":"로그 보관주기","key":"retention","value":""},{"label":"AP 서버","key":"ap","value":""},{"label":"Log 서버","key":"log","value":""},{"label":"GPU 서버(OCR)","key":"gpuOcr","value":""},{"label":"매출/이익","key":"revenueProfit","value":""}],"scope":[{"id":"CSV-1787591407807-001","major":"구축/운영","minor":"백업 체계","item":"녹취 백업 스토리지 환경 구성","standard":"녹취 백업 스토리지 환경 구성 확인하여 안정적인 백업 체계를 마련하여야 한다.","operation":"","initial":"백업 전용 스토리지(NAS/SAN 등) 인프라 연결\n주기적(일/월 단위) 백업 스케줄러 등록 및 백업 용량 자동 감시/알림 기능 구현\n스토리지 내 이중화 백업 디렉터리 및 보존 정책 수립","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-002","major":"구축/운영","minor":"백업 대상","item":"IPT/메신저 녹취 데이터 백업","standard":"IPT 내선 및 메신저 녹취 데이터를 대상으로 백업을 수행하여야 한다.","operation":"","initial":"IPT 내선 음성 파일(WAV/MP3 등) 및 메신저 녹취/대화록 데이터 자동 백업\nDB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적용\n서비스 영향도를 최소화하기 위해 야간 및 업무 외 시간을 활용한 증분/풀 백업 수행","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-003","major":"구축/운영","minor":"무결성 검증","item":"백업 데이터 생성·저장 무결성 검증","standard":"백업 데이터의 생성, 저장 및 무결성을 검증하여야 한다.","operation":"","initial":"백업 생성/저장 시 백업 전/후 비교 자동화 프로세스 구현\n백업 파일 정상 생성 여부 및 훼손 여부를 확인하는 무결성 검증 로그 기록\n무결성 검증 실패 시 관리자 즉시 알림 기능 및 백업 재시도(Retry) 적용","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-004","major":"보안","minor":"데이터 암호화","item":"IPT 녹취 및 DB 파일 암호화","standard":"암호화 대상 시스템인 IPT 내선 녹취시스템의 녹취 및 DB파일을 암호화 하여야 한다.","operation":"","initial":"IPT 녹취서버에 CipherTrust Encrypt 설치하여 실시간 저장되는 녹취 및 DB데이터를 Kernel Level에서 암호화 저장\n암호화 키(Key)의 안전한 생성, 저장 및 접근 권한 분리를 통한 보안성 강화","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-005","major":"보안","minor":"암호화 적용","item":"운영환경 기반 암호화 적용 방안 수립","standard":"IPT 내선 녹취시스템의 운영 환경, 인터페이스 및 솔루션 청취 프로세스를 분석하여 암호화 적용 방안을 수립하여야 한다.","operation":"","initial":"키관리 서버에서 녹취데이터 저장 경로 및 접근 프로세스 접근제어 정책을 수립하여 실시간 파일 암호화를 수행합니다.","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-006","major":"데이터 이관","minor":"이관 계획","item":"메신저/IPT 데이터 현황 분석 및 이관 계획 수립","standard":"메신저 및 IPT 내선 DB/녹취 데이터의 현황을 분석하고 이관 대상 데이터의 범위, 용량 및 특성을 식별하여 이관 계획을 수립하여야 한다.","operation":"","initial":"기존 운영 중인 IPT 및 메신저 DB, 음성 파일 저장 경로 및 총 용량 사전 전수 조사\n이관 대상 데이터 범위 확정 및 이관 일정/단계별 상세 계획 수립\n데이터 이관 시 발생 가능한 위험 요소 분석 및 롤백(Rollback) 시나리오 마련","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-007","major":"데이터 이관","minor":"복호화/재암호화","item":"기존 녹취 데이터 복호화 및 신규 환경 재암호화","standard":"기존 녹취 데이터를 대상으로 복호화를 수행하고 신규 운영환경으로 안전하게 이관하며 데이터의 연속성을 확보하여야 한다.","operation":"","initial":"기존 동방 아날로그 녹취시스템의 암호화된 파일 및 DB 데이터를 보안 외장하드로 안전하게 1차 반출/이전 수행 및 암호화 파일을 신규 녹취서버에 마이그레이션 진행\n신규 녹취서버 내 복호화 모듈을 통해 기존 암호화 데이터의 복호화, 재생, 조회 기능 정상 작동 여부 및 청취 가능 상태 최종 검증","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-008","major":"데이터 이관","minor":"이관 검증","item":"원본/이관 데이터 정합성 검증","standard":"이관 완료 후 원본 데이터와 이관 데이터의 건수, 파일 크기 및 메타데이터를 비교하여 데이터 정합성을 검증하여야 한다.","operation":"","initial":"이관 완료 직후 원본 DB/파일 대 이관 DB/파일 간 건수 및 총 용량 일치 체크\n주요 메타데이터(통화 시간, 내선 번호, 녹취 일시 등) 추출 및 비교 검증 쿼리 수행\n최종 이관 검증 결과 보고서(Check-Sum 결과 포함) 생성","build":"-","range":"제안범위","status":"확정","owner":"고객"}],"features":[],"featureIssues":[],"infra":[],"integrations":[],"inventory":[{"hostname":"[예시] AIDLP-AP1","os":"[예시] SomansaOS 9.x","kernel":"-","account":"sysadmin","product":"WebKeeper AI DLP","model":"[예시] Server Model","unit":"2U","sn":"[예시] SN-000001","cpu":"[예시] 32 Core","memory":"[예시] 128 GiB","hdd":"[예시] 2TB × 2EA / RAID1","nic":"[예시] 1G UTP 2Port","bypass":"-","nicInfo":"[예시] MGMT port : eth0","note":"예시 데이터 - 실제 장비 정보로 교체"}],"customer":[{"title":"[예시] 네트워크/방화벽","desc":"[예시] IP 할당, Port Open 및 Routing 설정","status":"미요청"}],"changes":[{"date":"","type":"추가요청","scope":"EXAMPLE-SCOPE-001","asis":"[예시] 최초 협의 범위","tobe":"[예시] 고객 추가 요청 내용","impact":"중간","status":"검토중","requester":"고객","autoSync":false}],"acceptance":[],"buildProgress":[{"step":1,"title":"미팅","point":0,"status":"진행중","note":"[예시] 킥오프/요구사항 미팅 진행"},{"step":2,"title":"Config 세팅","point":10,"status":"미착수","note":""},{"step":3,"title":"장비 입고","point":10,"status":"미착수","note":""},{"step":4,"title":"정책 셋업","point":10,"status":"미착수","note":""},{"step":5,"title":"단위/통합 테스트","point":20,"status":"미착수","note":""},{"step":6,"title":"파일럿 테스트","point":20,"status":"미착수","note":""},{"step":7,"title":"전사 전환","point":20,"status":"미착수","note":""},{"step":8,"title":"검수문서 작성","point":10,"status":"미착수","note":""}],"networkDiagramBlank":true,"_portingTemplate":true,"_pocEvalScopeVersion":"scope-csv-final-20260824-v1","_finalBaselineVersion":"shinhan-final-baseline-20260824-v1","_inventorySeedVersion":"inventory-seed-20260824-v1"};
+const EMBEDDED_VERSIONS=[{"version":"v1.1","note":"최초 작성","savedAt":"2026-08-24T17:10:57.441Z","projectName":"[예시] 고객사 AI-DLP 구축 프로젝트","projectCode":"2026-00000","data":{"project":{"name":"[예시] 고객사 AI-DLP 구축 프로젝트","siteName":"example-site","code":"2026-00000","customer":"예시 고객사","se":"홍길동","product":"WebKeeper AI DLP","sales":"김영업","proposalVersion":"v1.1","proposalDate":"","startDate":"","purpose":"[예시] 생성형AI 사용 시 중요정보 유출 통제 및 구축 범위 관리","proposalProduct":"WSG-Suite","users":"[예시] 10,000명","configuration":"[예시] Active-Standby 인라인 구성","traffic":"[예시] AVG 2Gbps / MAX 4Gbps","retention":"[예시] 1년","ap":"[예시] 2대","log":"[예시] 2대","gpuOcr":"[예시] 1대","revenueProfit":"[예시] 000 / 000"},"proposalOverview":[{"label":"제품 구성","key":"proposalProduct","value":""},{"label":"고객사 사용자 수","key":"users","value":""},{"label":"구성","key":"configuration","value":""},{"label":"AVG/MAX 트래픽","key":"traffic","value":""},{"label":"로그 보관주기","key":"retention","value":""},{"label":"AP 서버","key":"ap","value":""},{"label":"Log 서버","key":"log","value":""},{"label":"GPU 서버(OCR)","key":"gpuOcr","value":""},{"label":"매출/이익","key":"revenueProfit","value":""}],"scope":[{"id":"CSV-1787591407807-001","major":"구축/운영","minor":"백업 체계","item":"녹취 백업 스토리지 환경 구성","standard":"녹취 백업 스토리지 환경 구성 확인하여 안정적인 백업 체계를 마련하여야 한다.","operation":"","initial":"백업 전용 스토리지(NAS/SAN 등) 인프라 연결\n주기적(일/월 단위) 백업 스케줄러 등록 및 백업 용량 자동 감시/알림 기능 구현\n스토리지 내 이중화 백업 디렉터리 및 보존 정책 수립","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-002","major":"구축/운영","minor":"백업 대상","item":"IPT/메신저 녹취 데이터 백업","standard":"IPT 내선 및 메신저 녹취 데이터를 대상으로 백업을 수행하여야 한다.","operation":"","initial":"IPT 내선 음성 파일(WAV/MP3 등) 및 메신저 녹취/대화록 데이터 자동 백업\nDB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적용\n서비스 영향도를 최소화하기 위해 야간 및 업무 외 시간을 활용한 증분/풀 백업 수행","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-003","major":"구축/운영","minor":"무결성 검증","item":"백업 데이터 생성·저장 무결성 검증","standard":"백업 데이터의 생성, 저장 및 무결성을 검증하여야 한다.","operation":"","initial":"백업 생성/저장 시 백업 전/후 비교 자동화 프로세스 구현\n백업 파일 정상 생성 여부 및 훼손 여부를 확인하는 무결성 검증 로그 기록\n무결성 검증 실패 시 관리자 즉시 알림 기능 및 백업 재시도(Retry) 적용","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-004","major":"보안","minor":"데이터 암호화","item":"IPT 녹취 및 DB 파일 암호화","standard":"암호화 대상 시스템인 IPT 내선 녹취시스템의 녹취 및 DB파일을 암호화 하여야 한다.","operation":"","initial":"IPT 녹취서버에 CipherTrust Encrypt 설치하여 실시간 저장되는 녹취 및 DB데이터를 Kernel Level에서 암호화 저장\n암호화 키(Key)의 안전한 생성, 저장 및 접근 권한 분리를 통한 보안성 강화","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-005","major":"보안","minor":"암호화 적용","item":"운영환경 기반 암호화 적용 방안 수립","standard":"IPT 내선 녹취시스템의 운영 환경, 인터페이스 및 솔루션 청취 프로세스를 분석하여 암호화 적용 방안을 수립하여야 한다.","operation":"","initial":"키관리 서버에서 녹취데이터 저장 경로 및 접근 프로세스 접근제어 정책을 수립하여 실시간 파일 암호화를 수행합니다.","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-006","major":"데이터 이관","minor":"이관 계획","item":"메신저/IPT 데이터 현황 분석 및 이관 계획 수립","standard":"메신저 및 IPT 내선 DB/녹취 데이터의 현황을 분석하고 이관 대상 데이터의 범위, 용량 및 특성을 식별하여 이관 계획을 수립하여야 한다.","operation":"","initial":"기존 운영 중인 IPT 및 메신저 DB, 음성 파일 저장 경로 및 총 용량 사전 전수 조사\n이관 대상 데이터 범위 확정 및 이관 일정/단계별 상세 계획 수립\n데이터 이관 시 발생 가능한 위험 요소 분석 및 롤백(Rollback) 시나리오 마련","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-007","major":"데이터 이관","minor":"복호화/재암호화","item":"기존 녹취 데이터 복호화 및 신규 환경 재암호화","standard":"기존 녹취 데이터를 대상으로 복호화를 수행하고 신규 운영환경으로 안전하게 이관하며 데이터의 연속성을 확보하여야 한다.","operation":"","initial":"기존 동방 아날로그 녹취시스템의 암호화된 파일 및 DB 데이터를 보안 외장하드로 안전하게 1차 반출/이전 수행 및 암호화 파일을 신규 녹취서버에 마이그레이션 진행\n신규 녹취서버 내 복호화 모듈을 통해 기존 암호화 데이터의 복호화, 재생, 조회 기능 정상 작동 여부 및 청취 가능 상태 최종 검증","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-008","major":"데이터 이관","minor":"이관 검증","item":"원본/이관 데이터 정합성 검증","standard":"이관 완료 후 원본 데이터와 이관 데이터의 건수, 파일 크기 및 메타데이터를 비교하여 데이터 정합성을 검증하여야 한다.","operation":"","initial":"이관 완료 직후 원본 DB/파일 대 이관 DB/파일 간 건수 및 총 용량 일치 체크\n주요 메타데이터(통화 시간, 내선 번호, 녹취 일시 등) 추출 및 비교 검증 쿼리 수행\n최종 이관 검증 결과 보고서(Check-Sum 결과 포함) 생성","build":"-","range":"제안범위","status":"확정","owner":"고객"}],"features":[],"featureIssues":[],"infra":[],"integrations":[],"inventory":[{"hostname":"[예시] AIDLP-AP1","os":"[예시] SomansaOS 9.x","kernel":"-","account":"sysadmin","product":"WebKeeper AI DLP","model":"[예시] Server Model","unit":"2U","sn":"[예시] SN-000001","cpu":"[예시] 32 Core","memory":"[예시] 128 GiB","hdd":"[예시] 2TB × 2EA / RAID1","nic":"[예시] 1G UTP 2Port","bypass":"-","nicInfo":"[예시] MGMT port : eth0","note":"예시 데이터 - 실제 장비 정보로 교체"}],"customer":[{"title":"[예시] 네트워크/방화벽","desc":"[예시] IP 할당, Port Open 및 Routing 설정","status":"미요청"}],"changes":[{"date":"","type":"추가요청","scope":"EXAMPLE-SCOPE-001","asis":"[예시] 최초 협의 범위","tobe":"[예시] 고객 추가 요청 내용","impact":"중간","status":"검토중","requester":"고객","autoSync":false}],"acceptance":[],"buildProgress":[{"step":1,"title":"미팅","point":0,"status":"진행중","note":"[예시] 킥오프/요구사항 미팅 진행"},{"step":2,"title":"Config 세팅","point":10,"status":"미착수","note":""},{"step":3,"title":"장비 입고","point":10,"status":"미착수","note":""},{"step":4,"title":"정책 셋업","point":10,"status":"미착수","note":""},{"step":5,"title":"단위/통합 테스트","point":20,"status":"미착수","note":""},{"step":6,"title":"파일럿 테스트","point":20,"status":"미착수","note":""},{"step":7,"title":"전사 전환","point":20,"status":"미착수","note":""},{"step":8,"title":"검수문서 작성","point":10,"status":"미착수","note":""}],"networkDiagramBlank":true,"_portingTemplate":true}}];
+const EMBEDDED_STATE_VERSION='embedded-20260824171057';
 const KEY=`aidlp_project_${STORAGE_SITE}_current_v1`;
 const VERSION_KEY=`aidlp_project_${STORAGE_SITE}_versions_v1`;
 
@@ -1714,11 +1618,11 @@ document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()
 
 
 const FINAL_BASELINE_VERSION='shinhan-final-baseline-20260824-v1';
-const FINAL_PROJECT_BASELINE={"name":"신한은행 WSG-Suite 고도화 프로젝트","siteName":"shinhan","code":"2026-10296","customer":"신한은행","se":"한지수,신민석","product":"WebKeeper AI DLP","sales":"","proposalVersion":"","proposalDate":"","startDate":"","purpose":"","proposalProduct":"WSG-Suite","users":"20,000명","configuration":"Active-Standby 인라인 구성","traffic":"AVG 4Gbps / MAX 6Gbps","retention":"3년","ap":"4대","log":"4대","gpuOcr":"1대","revenueProfit":"417 / 176"};
-const FINAL_PROPOSAL_OVERVIEW=[{"label":"제품 구성","key":"proposalProduct","value":""},{"label":"고객사 사용자 수","key":"users","value":""},{"label":"구성","key":"configuration","value":""},{"label":"AVG/MAX 트래픽","key":"traffic","value":""},{"label":"로그 보관주기","key":"retention","value":""},{"label":"AP 서버","key":"ap","value":""},{"label":"Log 서버","key":"log","value":""},{"label":"GPU 서버(OCR)","key":"gpuOcr","value":""},{"label":"매출/이익","key":"revenueProfit","value":""}];
-const FINAL_CHANGE_BASELINE=[{"date":"2026-08-24","type":"범위초과","scope":"SC-020","asis":"미지원","tobe":"협의 없이 SmartTAP 연동하여 사용 중","impact":"중간","status":"승인","requester":"고객","autoSync":false},{"date":"2026-08-24","type":"변경","scope":"SC-021","asis":"Logdownloader 지원","tobe":"-","impact":"중간","status":"검토중","requester":"공동","autoSync":true}];
-const FINAL_CUSTOMER_BASELINE=[{"title":"렉 상면 제공","desc":"AP,LOG,GPU 렉 상면 공간 확보","status":"완료"},{"title":"네트워크/방화벽","desc":"IP할당 및 Port Open 및 Routing 설정","status":"완료"}];
-const FINAL_BUILD_PROGRESS_BASELINE=[{"step":1,"title":"미팅","point":0,"status":"완료","note":""},{"step":2,"title":"Config 세팅","point":10,"status":"완료","note":""},{"step":3,"title":"장비 입고","point":10,"status":"완료","note":""},{"step":4,"title":"정책 셋업","point":10,"status":"미착수","note":""},{"step":5,"title":"단위/통합 테스트","point":20,"status":"미착수","note":""},{"step":6,"title":"파일럿 테스트","point":20,"status":"미착수","note":""},{"step":7,"title":"전사 전환","point":20,"status":"미착수","note":""},{"step":8,"title":"검수문서 작성","point":10,"status":"미착수","note":""}];
+const FINAL_PROJECT_BASELINE={};
+const FINAL_PROPOSAL_OVERVIEW=[];
+const FINAL_CHANGE_BASELINE=[];
+const FINAL_CUSTOMER_BASELINE=[];
+const FINAL_BUILD_PROGRESS_BASELINE=[];
 
 function applyFinalBaselineMigration(){
   // 포팅된 신규 사이트는 EMBEDDED_STATE/현재 데이터가 기준이므로
