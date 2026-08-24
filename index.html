@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>제안-구축 사항 관리</title>
+  <title>제안-구축 사항 관리 · Scope CSV Final</title>
   <style>
     :root{
       --navy:#0f2f4f; --blue:#1778d4; --cyan:#13a8e0; --bg:#f5f7fa;
@@ -928,13 +928,16 @@ const sample = {
 
 let data = JSON.parse(localStorage.getItem(KEY) || 'null') || structuredClone(sample);
 
-const POC_EVAL_SCOPE_ROWS=[{"id":"PF-001","major":"기능","minor":"Proxy","item":"HTTP 2.0 지원","standard":"지원\\n비고: HTTP 2.0 사용하는 주요 웹사이트에 대한 통제","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-002","major":"기능","minor":"Proxy","item":"인증서 자동 바이패스","standard":"지원\\n비고: 애플리케이션 중계 실패 시 자동 바이패스","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-003","major":"기능","minor":"이미지 검출","item":"OCR (Optical Character Recognition)","standard":"지원\\n비고: 별도 장비 필요","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-004","major":"기능","minor":"AntiVirus","item":"AntiVirus 탐지 및 차단","standard":"지원\\n비고: 업로드/다운로드/웹 Contents","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-005","major":"기능","minor":"AI","item":"AI 로그 분석 및 요약 기능","standard":"지원\\n비고: 별도 장비 필요 · 별첨","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-006","major":"기능","minor":"AI","item":"AI 기반 자연어 로그 검색","standard":"지원\\n비고: 별도 장비 필요 · 별첨","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-007","major":"기능","minor":"AI","item":"AI 위협현황 탐지 분석","standard":"지원\\n비고: 별도 장비 필요 · 별첨","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-008","major":"기능","minor":"프로토콜","item":"생성형AI 접속 통제 및 로깅","standard":"지원\\n비고: ChatGPT/Gemini/Claude 등 생성형AI 50종 이상 지원","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-009","major":"커스텀","minor":"정책 및 개인정보","item":"개인정보 검출 패턴 세분화 설정","standard":"지원\\n비고: 개인정보 검출 시 정규식 세분화","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-010","major":"커스텀","minor":"정책 및 개인정보","item":"정규표현식 기반 통제 기능","standard":"지원","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-011","major":"커스텀","minor":"정책 및 개인정보","item":"개인정보 검출 패턴 개선","standard":"지원\\n비고: 개인정보 검출 패턴의 구분자 문자에 대해 정책적으로 설정 가능 / 패턴 앞에 특정 키워드+자리수 조건으로 정책적으로 설정 가능","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-012","major":"커스텀","minor":"정책 및 개인정보","item":"커스텀 카테고리 갯수","standard":"개수 증가\\n비고: 27년 2Q까지 개발 예정","operation":"255개","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-013","major":"커스텀","minor":"DLPCenter 및 UI","item":"로그 첨부파일 내용 조회","standard":"지원","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-014","major":"커스텀","minor":"DLPCenter 및 UI","item":"시스템 대시보드","standard":"지원\\n비고: 시스템 대시보드 제공","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-015","major":"커스텀","minor":"DLPCenter 및 UI","item":"사용자정의 리포트 발송","standard":"지원\\n비고: 리포트 주기를 설정하여 정기적으로 관리자에게 이메일로 발송","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-016","major":"커스텀","minor":"DLPCenter 및 UI","item":"WSG VA DLPCenter 세션로그 통합 관리","standard":"지원\\n비고: Handshake 로그에 대해 ES적재 및 조회/검색 기능 제공","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-017","major":"커스텀","minor":"DLPCenter 및 UI","item":"바이패스 인증서 관리 UI","standard":"지원","operation":"미지원","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-018","major":"구성","minor":"NetApps-Control","item":"화상회의","standard":"3종\\n비고: Dooray 화상회의","operation":"2종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-019","major":"구성","minor":"NetApps-Control","item":"생성형AI","standard":"50종\\n비고: ChatGPT/Gemini/Claude 등 생성형AI 50종 이상 지원","operation":"0종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-020","major":"구성","minor":"NetApps-Control","item":"업무용 파일공유","standard":"23종\\n비고: Zoho Workdrive, britydrive, Dooray Drive, GITHUB","operation":"19종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-021","major":"구성","minor":"NetApps-Control","item":"소셜미디어","standard":"17종\\n비고: Microsoft Yammer, CONFLUENCE, JIRA, NOTION, KAKAO STORY, GOOGLE BLOG, clovanote","operation":"11종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-022","major":"구성","minor":"NetApps-Prevent","item":"메신저","standard":"18종\\n비고: Slack, 구글 채팅, Dooray Messenger, Teams Messenger, Jandi Messenger, Mattermost","operation":"12종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-023","major":"구성","minor":"NetApps-Prevent","item":"소셜미디어","standard":"17종\\n비고: Microsoft Yammer, CONFLUENCE, JIRA, NOTION, KAKAO STORY, GOOGLE BLOG, clovanote","operation":"10종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-024","major":"구성","minor":"NetApps-Prevent","item":"업무용 파일공유","standard":"22종\\n비고: Zoho Workdrive, britydrive, Dooray Drive, GITHUB","operation":"18종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-025","major":"구성","minor":"NetApps-Prevent","item":"화상회의","standard":"2종\\n비고: Dooray 화상회의","operation":"1종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-026","major":"구성","minor":"NetApps-Prevent","item":"생성형AI","standard":"50종\\n비고: ChatGPT/Gemini/Claude 등 생성형AI 50종 이상 지원","operation":"0종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-027","major":"구성","minor":"확장자-내용 검출","item":"텍스트","standard":"8종\\n비고: 유니코드 텍스트(2b)","operation":"7종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-028","major":"구성","minor":"확장자-내용 검출","item":"데이터베이스","standard":"3종\\n비고: Xbase Data file(dbf)","operation":"2종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-029","major":"구성","minor":"확장자-포맷 탐지","item":"이미지","standard":"1종\\n비고: High Dynamic Range(hdr)","operation":"0종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"},{"id":"PF-030","major":"구성","minor":"확장자-포맷 탐지","item":"기타","standard":"1종\\n비고: Virtual Contact File(vcf)","operation":"0종","initial":"-","build":"-","status":"미확인","range":"제안범위","owner":"공동"}];
-const POC_EVAL_SCOPE_VERSION='proposal-feature-scope-20260824-v2-fixed';
+const POC_EVAL_SCOPE_ROWS=[{"id":"SC-001","major":"기능","minor":"Proxy","item":"HTTP 2.0 지원","standard":"HTTP 2.0 사용하는 주요 웹사이트에 대한 통제","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-002","major":"기능","minor":"Proxy","item":"인증서 자동 바이패스","standard":"애플리케이션 중계 실패 시 자동 바이패스","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-003","major":"기능","minor":"이미지 검출","item":"OCR (Optical Character Recognition)","standard":"별도 장비 필요","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-004","major":"기능","minor":"AntiVirus","item":"AntiVirus 탐지 및 차단","standard":"업로드/다운로드/웹 Contents","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-005","major":"기능","minor":"AI 분석 기능","item":"AI 로그 분석 및 요약 기능","standard":"별도 장비 필요","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-006","major":"기능","minor":"AI 분석 기능","item":"AI 기반 자연어 로그 검색","standard":"별도 장비 필요","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-007","major":"기능","minor":"AI 분석 기능","item":"AI 위협현황 탐지 분석","standard":"별도 장비 필요","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-008","major":"기능","minor":"프로토콜","item":"생성형AI 접속 통제 및 로깅","standard":"ChatGPT/Gemini/Claude 등 생성형AI 50종 이상 지원","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-009","major":"커스텀","minor":"정책 및 개인정보","item":"개인정보 검출 패턴 세분화 설정","standard":"개인정보 검출 시 정규식 세분화","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-010","major":"커스텀","minor":"정책 및 개인정보","item":"정규표현식 기반 통제 기능","standard":"지원","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-011","major":"커스텀","minor":"정책 및 개인정보","item":"개인정보 검출 패턴 개선","standard":"개인정보 검출 패턴의 구분자 문자에 대해 정책적으로 설정 가능 / 패턴 앞에 특정 키워드+자리수 조건으로 정책적으로 설정 가능","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-012","major":"커스텀","minor":"정책 및 개인정보","item":"커스텀 카테고리 갯수","standard":"27년 2Q까지 개수 증가 되도록 개발 예정","operation":"255개","initial":"개수 증가","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-013","major":"커스텀","minor":"DLPCenter 및 UI","item":"로그 첨부파일 내용 조회","standard":"지원","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-014","major":"커스텀","minor":"DLPCenter 및 UI","item":"시스템 대시보드","standard":"시스템 대시보드 제공","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-015","major":"커스텀","minor":"DLPCenter 및 UI","item":"사용자정의 리포트 발송","standard":"리포트 주기를 설정하여 정기적으로 관리자에게 이메일로 발송","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-016","major":"커스텀","minor":"DLPCenter 및 UI","item":"WSG VA DLPCenter 세션로그 통합 관리","standard":"Handshake 로그에 대해 ES적재 및 조회/검색 기능 제공","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-017","major":"커스텀","minor":"DLPCenter 및 UI","item":"바이패스 인증서 관리 UI","standard":"지원","operation":"미지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-018","major":"구성","minor":"확장자-포맷 탐지","item":"이미지","standard":"High Dynamic Range(hdr)","operation":"0종","initial":"1종","build":"-","range":"제안범위","status":"확정","owner":"공동"},{"id":"SC-019","major":"연동","minor":"네트워크","item":"IPS,APT 복호화 트래픽 연동","standard":"IPS 및 APT 와 같은 보안 장비와 연동이 가능해야 함","operation":"지원","initial":"지원","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"SC-020","major":"연동","minor":"네트워크","item":"수산(eWalKer) 트래픽 연동","standard":"수산(eWalKer) 트래픽 연동이 가능한 구성을해야 함","operation":"협의 없이 SmartTAP 연동하여 사용 중","initial":"미지원","build":"-","range":"범위초과","status":"확정","owner":"고객"},{"id":"SC-021","major":"연동","minor":"로그 연동","item":"Logdownloader 연동","standard":"Logdownloader 연동 가능해야 함","operation":"Logdownloader 사용","initial":"Logdownloader 지원","build":"-","range":"변경","status":"확정","owner":"공동"}];
+const POC_EVAL_SCOPE_VERSION='scope-csv-final-20260824-v1';
 
 function applyPocEvalScopeMigration(){
   if(data._pocEvalScopeVersion===POC_EVAL_SCOPE_VERSION) return;
 
-  // 첨부 이미지의 신규 기능/관리자 기능/NetApps/확장자 비교표를 제안 Scope 기준 데이터로 재구성합니다.
+  const oldScope=Array.isArray(data.scope) ? data.scope.map(row=>structuredClone(row)) : [];
+  const oldScopeById=Object.fromEntries(oldScope.map(row=>[row.id,row]));
+
+  // 최종 CSV Export 데이터를 기준으로 Scope 전체를 마이그레이션합니다.
   data.scope=POC_EVAL_SCOPE_ROWS.map(row=>structuredClone(row));
   data.scope.forEach(row=>{
     ['major','minor','item','standard','initial','build','operation','status','range','owner'].forEach(k=>{
@@ -942,8 +945,38 @@ function applyPocEvalScopeMigration(){
     });
   });
 
-  // 기존 Scope ID와 연결된 일감 관리은 새 평가 항목과 연결되지 않으므로 초기화합니다.
-  data.featureIssues=[];
+  const newIdByItem=new Map(data.scope.map(row=>[String(row.item||'').trim(),row.id]));
+
+  // 기존 기능 일감은 동일한 관리 항목명이 최종 Scope에 존재할 경우 새 Scope ID로 연결을 유지합니다.
+  if(Array.isArray(data.featureIssues)){
+    data.featureIssues=data.featureIssues
+      .map(issue=>{
+        const oldRow=oldScopeById[issue.scopeId];
+        const item=oldRow ? String(oldRow.item||'').trim() : '';
+        const newId=item ? newIdByItem.get(item) : null;
+        return newId ? {...issue,scopeId:newId} : null;
+      })
+      .filter(Boolean);
+  }else{
+    data.featureIssues=[];
+  }
+
+  // 변경 이력 역시 동일한 관리 항목이 존재하면 연결을 유지합니다.
+  // 삭제된 Scope에 연결된 자동 연동 이력은 제거하고, 수동 이력은 Scope 연결만 해제합니다.
+  if(Array.isArray(data.changes)){
+    data.changes=data.changes
+      .map(change=>{
+        if(!change.scope) return change;
+        const oldRow=oldScopeById[change.scope];
+        const item=oldRow ? String(oldRow.item||'').trim() : '';
+        const newId=item ? newIdByItem.get(item) : null;
+
+        if(newId) return {...change,scope:newId};
+        if(change.autoSync===true) return null;
+        return {...change,scope:''};
+      })
+      .filter(Boolean);
+  }
 
   data._pocEvalScopeVersion=POC_EVAL_SCOPE_VERSION;
   persistCurrent();
