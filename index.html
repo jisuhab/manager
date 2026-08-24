@@ -71,6 +71,14 @@
     th{background:#f3f6f9;color:#43515e;text-align:left;padding:10px;border-bottom:1px solid var(--line);position:sticky;top:68px}
     td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
     td input,td select,td textarea{width:100%;border:1px solid transparent;background:transparent;padding:5px;border-radius:5px}
+    #panel-scope td textarea.scope-standard{
+      min-height:56px;
+      line-height:1.45;
+      resize:vertical;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+      word-break:keep-all;
+    }
     td input:focus,td select:focus,td textarea:focus{border-color:#8cc8f2;background:white;outline:none}
     .toolbar{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap}
     .toolbar .left,.toolbar .right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -93,7 +101,11 @@
     #panel-acceptance .table-scroll table{min-width:820px}
     #panel-integration .table-scroll table{min-width:1250px}
     #panel-changes .table-scroll table{min-width:1200px}
-    #panel-scope .table-scroll table{min-width:1600px}
+    #panel-scope .table-scroll table{min-width:1720px}
+    #panel-scope th:nth-child(4),#panel-scope td:nth-child(4){min-width:330px}
+    #panel-scope th:nth-child(5),#panel-scope td:nth-child(5),
+    #panel-scope th:nth-child(6),#panel-scope td:nth-child(6),
+    #panel-scope th:nth-child(7),#panel-scope td:nth-child(7){min-width:170px}
     .table-scroll th{top:0;z-index:2}
     .table-scroll::-webkit-scrollbar{height:12px;width:12px}
     .table-scroll::-webkit-scrollbar-thumb{background:#aebbc7;border-radius:8px;border:3px solid #f5f7fa}
@@ -138,6 +150,188 @@
 
     @media(max-width:1200px){.kpis{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:1fr}.app{grid-template-columns:86px 1fr}.brand h1,.brand small,nav button span,.side-foot{display:none}nav button{justify-content:center}.logo{margin:auto}.summary-grid{grid-template-columns:130px 1fr}}
     @media(max-width:760px){.app{display:block}aside{display:none}.content{padding:14px}.kpis{grid-template-columns:repeat(2,1fr)}.summary-grid,.form-grid{grid-template-columns:1fr}.summary-grid .key{border-top:1px solid var(--line)}.project-head{display:block}.header-actions .btn:not(.primary){display:none}}
+  
+    /* Mobile optimization */
+    @media(max-width:760px){
+      body{font-size:14px}
+      .app{display:block;min-height:100vh}
+      aside{display:none}
+      main{width:100%;min-width:0}
+      header{
+        height:auto;
+        min-height:58px;
+        padding:10px 12px;
+        position:sticky;
+        top:0;
+        gap:8px;
+        flex-wrap:wrap;
+      }
+      header h2{font-size:17px}
+      .header-actions{
+        width:100%;
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:6px;
+      }
+      .header-actions .btn,
+      .header-actions .btn:not(.primary){
+        display:block;
+        padding:9px 6px;
+        font-size:12px;
+      }
+
+      .content{padding:12px;max-width:none}
+      .project-head{
+        display:block;
+        margin-bottom:12px;
+      }
+      .project-title{
+        font-size:22px;
+        line-height:1.3;
+        margin-bottom:8px;
+      }
+      .project-head > button{
+        width:100%;
+        margin-top:12px;
+      }
+      .meta{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:6px;
+        font-size:12px;
+      }
+
+      .kpis{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:8px;
+        margin:12px 0 14px;
+      }
+      .kpi{padding:12px;min-width:0}
+      .kpi .label{font-size:11px}
+      .kpi .value{font-size:24px;margin-top:5px}
+      .kpi .sub{font-size:10px;line-height:1.3}
+
+      .tabs{
+        margin:12px -12px 12px;
+        padding:0 12px 5px;
+        gap:2px;
+        overflow-x:auto;
+        scroll-snap-type:x proximity;
+        -webkit-overflow-scrolling:touch;
+      }
+      .tabs button{
+        padding:10px 11px;
+        font-size:12px;
+        scroll-snap-align:start;
+      }
+
+      .grid2{grid-template-columns:1fr;gap:12px}
+      .section{padding:14px}
+      .section h3{font-size:15px}
+      .proposal-grid{
+        grid-template-columns:120px 1fr;
+      }
+      .proposal-grid .proposal-key,
+      .proposal-grid .proposal-value{
+        padding:9px 10px;
+        font-size:12px;
+      }
+      .proposal-head{
+        align-items:flex-start;
+      }
+      .proposal-head .btn{
+        white-space:nowrap;
+        padding:8px 10px;
+        font-size:12px;
+      }
+
+      .donut-wrap{
+        min-height:190px;
+        gap:14px;
+        flex-direction:column;
+      }
+      .donut{width:130px;height:130px}
+      .legend{width:100%}
+
+      .toolbar{
+        align-items:stretch;
+      }
+      .toolbar .left,
+      .toolbar .right{
+        width:100%;
+      }
+      .toolbar .right .btn,
+      .toolbar .left .btn{
+        width:100%;
+      }
+      .search{min-width:0;width:100%}
+
+      .table-scroll{
+        max-height:none;
+        overflow-x:auto;
+        overflow-y:visible;
+        border-radius:8px;
+      }
+      .table-scroll table{
+        min-width:760px;
+      }
+      #panel-scope .table-scroll table{min-width:1500px}
+      #panel-featureIssues .table-scroll table{min-width:1180px}
+      #panel-integration .table-scroll table{min-width:1180px}
+      #panel-changes .table-scroll table{min-width:1150px}
+      #panel-acceptance .table-scroll table{min-width:820px}
+      th{top:0}
+      th,td{font-size:11px;padding:8px 7px}
+      td input,td select,td textarea{
+        font-size:11px;
+        padding:6px;
+      }
+
+      #panel-acceptance .card.section > div:first-of-type{
+        flex-wrap:wrap;
+        gap:8px !important;
+      }
+      #buildProgressValue{font-size:25px !important}
+      #buildProgressPoint{width:100%;text-align:right}
+
+      .form-grid{grid-template-columns:1fr;gap:10px}
+      .field{grid-column:1/-1 !important}
+      .field input,.field select,.field textarea{font-size:14px}
+
+      .modal{
+        width:94vw;
+        max-height:88vh;
+        padding:14px;
+      }
+      .version-row{
+        grid-template-columns:1fr;
+        gap:6px;
+      }
+      .proposal-manage-row{
+        grid-template-columns:1fr;
+        gap:6px;
+      }
+      .proposal-manage-row .btn,
+      .proposal-manage-row .icon-btn{
+        width:100%;
+      }
+
+      .footer-note{
+        padding:16px 8px;
+        font-size:10px;
+        line-height:1.5;
+      }
+    }
+
+    @media(max-width:430px){
+      .kpis{grid-template-columns:1fr 1fr}
+      .project-title{font-size:20px}
+      .header-actions{grid-template-columns:1fr 1fr 1fr}
+      .header-actions .btn{font-size:11px}
+      .proposal-grid{grid-template-columns:105px 1fr}
+    }
+
   </style>
 </head>
 <body>
@@ -478,6 +672,23 @@ const sample = {
 };
 
 let data = JSON.parse(localStorage.getItem(KEY) || 'null') || structuredClone(sample);
+
+const POC_EVAL_SCOPE_ROWS=[{"id":"EV-001","major":"기능","minor":"탐지 로직","item":"하이브리드 탐지 로직","standard":"유사도가 높은 데이터 탐지 시, LLM 질의 없이 벡터 유사도 기반으로 즉시 허용/차단 처리할 수 있어야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-002","major":"기능","minor":"정책","item":"로직 선택 적용 옵션","standard":"정책에 따라 유사도 검색, LLM 분석 또는 Hybrid(혼합) 방식을 선택적으로 적용할 수 있는 기능을 제공해야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-003","major":"기능","minor":"라벨 관리","item":"다중 라벨 관리","standard":"기밀/비기밀, 민감정보, 프롬프트 인젝션, 폭력/혐오 등 다양한 라벨을 통합 관리할 수 있어야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-004","major":"기능","minor":"유사도","item":"유사도 관리","standard":"이미지, 도면, 설계도 등 카테고리별 유사도 유형을 Positive(차단) / Negative(허용) 정책으로 구분하여 등록·관리할 수 있어야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-005","major":"구성","minor":"데이터 관리","item":"데이터 관리","standard":"원본 데이터 저장 없이 참조 ID, 해시값, 임베딩 벡터만 저장하여 보안 리스크를 최소화하며, 필요 시 원본 저장 여부를 옵션으로 설정할 수 있어야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-006","major":"기능","minor":"유사도","item":"유사도 임계치 설정","standard":"Threshold(임계치)를 설정 및 운영할 수 있어야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-007","major":"기능","minor":"정책","item":"카테고리별 위험도 조정","standard":"문서 카테고리별로 위험도 적용할 수 있는 정책 설정 기능을 제공해야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-008","major":"커스텀","minor":"차단 안내","item":"브라우저 내 차단 안내 문구","standard":"웹 브라우저 환경에서 사용자에게 직접적인 차단 안내 메시지를 제공할 수 있어야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-009","major":"커스텀","minor":"결재","item":"오탐 재검토 및 결재 프로세스","standard":"오탐 발생 시 재검토 및 결재 프로세스를 통해 파일 반입 또는 예외 허용 권한을 부여할 수 있어야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-010","major":"기능","minor":"데이터 관리","item":"유사도 데이터 유효기간 관리","standard":"유사도 등록 시 만료 일자를 함께 입력받아 배치로 라벨 업데이트 기능","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-011","major":"기능","minor":"로그","item":"로그 기반 사후 보정","standard":"오탐 및 미탐 발생 시 관리자 로그 화면에서 데이터를 재등록하고 라벨을 수정하여 정책에 즉시 반영할 수 있어야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-012","major":"기능","minor":"파일 검사","item":"첨부파일 사후 검사","standard":"대용량 파일 및 압축파일 등에 대한 사후 정밀 검사 기능을 제공해야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-013","major":"기능","minor":"마스킹","item":"Input 데이터 마스킹","standard":"Input(Request) 데이터에 포함된 민감정보를 정책에 따라 마스킹 처리할 수 있어야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"},{"id":"EV-014","major":"기능","minor":"마스킹","item":"Output 데이터 마스킹","standard":"Output(Response) 데이터에 포함된 민감정보를 정책에 따라 마스킹 처리할 수 있어야 함","initial":"","build":"","operation":"","status":"미확인","range":"제안범위","owner":"공동"}];
+const POC_EVAL_SCOPE_VERSION='poc-eval-scope-20260824-v3-classified';
+
+function applyPocEvalScopeMigration(){
+  if(data._pocEvalScopeVersion===POC_EVAL_SCOPE_VERSION) return;
+
+  // 첨부 이미지의 POC 평가 항목/평가 기준을 제안 Scope의 기준 데이터로 재구성합니다.
+  data.scope=POC_EVAL_SCOPE_ROWS.map(row=>structuredClone(row));
+
+  // 기존 Scope ID와 연결된 기능 이슈 일감은 새 평가 항목과 연결되지 않으므로 초기화합니다.
+  data.featureIssues=[];
+
+  data._pocEvalScopeVersion=POC_EVAL_SCOPE_VERSION;
+  persistCurrent();
+}
+
 let scopeQuickFilter='';
 let featureIssueFilterScopeId='';
 
@@ -767,7 +978,7 @@ function renderScope(){
     <td><input value="${esc(x.major)}" onchange="updScope(${i},'major',this.value)"></td>
     <td><input value="${esc(x.minor)}" onchange="updScope(${i},'minor',this.value)"></td>
     <td><input value="${esc(x.item)}" onchange="updScope(${i},'item',this.value)"></td>
-    <td><input value="${esc(x.standard)}" onchange="updScope(${i},'standard',this.value)"></td>
+    <td><textarea class="scope-standard" rows="2" onchange="updScope(${i},'standard',this.value)">${esc(x.standard)}</textarea></td>
     <td><input value="${esc(x.initial)}" onchange="updScope(${i},'initial',this.value)"></td>
     <td><input value="${esc(x.build)}" onchange="updScope(${i},'build',this.value)"></td>
     <td><input value="${esc(x.operation)}" onchange="updScope(${i},'operation',this.value)"></td>
@@ -1174,6 +1385,7 @@ function renderAll(){
   renderProposalOverview();renderFeatures();renderFeatureIssues();renderInfra();renderIntegrations();renderCustomer();renderChanges();renderAcceptance();
 }
 saveVersionBtn.onclick=saveNewVersion;versionHistoryBtn.onclick=openVersionModal;pdfBtn.onclick=printPdfReport;
+applyPocEvalScopeMigration();
 renderAll();
 </script>
 
@@ -1209,4 +1421,3 @@ renderAll();
 
 </body>
 </html>
-
