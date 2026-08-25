@@ -374,7 +374,26 @@
     .diagram-empty{padding:70px 20px;text-align:center;color:var(--muted)}
     #panel-networkDiagram .toolbar .left{font-size:12px;color:var(--muted)}
 
-  </style>
+  
+    .network-diagram-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .network-diagram-card{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+    .network-diagram-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);background:#f8fafc}
+    .network-diagram-head h4{margin:0;font-size:15px}
+    .network-diagram-actions{display:flex;gap:6px;flex-wrap:wrap}
+    .network-diagram-card .diagram-wrap{border:0;border-radius:0;min-height:300px}
+    @media(max-width:900px){.network-diagram-grid{grid-template-columns:1fr}.network-diagram-card .diagram-wrap{min-height:220px}}
+
+
+    #panel-changes .toolbar .left{gap:8px}
+    #panel-changes .toolbar .left .search{width:auto}
+    #panel-changes .change-date-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+    @media(max-width:760px){
+      #panel-changes .toolbar .left{display:grid;grid-template-columns:1fr}
+      #panel-changes .toolbar .left .search,
+      #panel-changes .toolbar .left .btn{width:100%;min-width:0 !important}
+    }
+
+</style>
 </head>
 <body style="">
 
@@ -410,7 +429,7 @@
       <div><h1>SOMANSA</h1><small>제안-구축 사항 관리</small></div>
     </div>
     <nav id="sideNav">
-      <button class="" data-tab="summary">▣ <span>대시보드</span></button>
+      <button class="active" data-tab="summary">▣ <span>대시보드</span></button>
       <button data-tab="scope" class="">⌘ <span>제안/구축 Scope</span></button>
       <button data-tab="features" class="">◇ <span>기능 범위</span></button>
       <button data-tab="featureIssues" class="">⚑ <span>일감 관리</span></button>
@@ -418,7 +437,7 @@
       <button data-tab="networkDiagram" class="">▧ <span>네트워크 구성도</span></button>
       <button data-tab="customer" class="">☑ <span>고객 준비사항</span></button>
       <button data-tab="changes" class="">▣ <span>변경 이력</span></button>
-      <button data-tab="acceptance" class="active">✓ <span>구축 진행률</span></button>
+      <button data-tab="acceptance" class="">✓ <span>구축 진행률</span></button>
     </nav>
     <div class="side-foot">Pilot Web UI · Local Storage</div>
   </aside>
@@ -472,7 +491,7 @@
       </div>
 
       <div class="tabs" id="tabs">
-        <button class="" data-tab="summary">요약 정보</button>
+        <button class="active" data-tab="summary">요약 정보</button>
         <button data-tab="scope" class="">제안/구축 Scope 비교</button>
         <button data-tab="features" class="">기능 범위</button>
         <button data-tab="featureIssues" class="">일감 관리</button>
@@ -480,11 +499,11 @@
         <button data-tab="networkDiagram" class="">네트워크 구성도</button>
         <button data-tab="customer" class="">고객 준비사항</button>
         <button data-tab="changes" class="">변경 이력</button>
-        <button data-tab="acceptance" class="active">구축 진행률</button>
+        <button data-tab="acceptance" class="">구축 진행률</button>
         <button data-tab="project" class="">프로젝트 정보</button>
       </div>
 
-      <section class="panel" id="panel-summary">
+      <section class="panel active" id="panel-summary">
         <div class="grid2">
           <div class="card section">
             <div class="proposal-head">
@@ -571,7 +590,7 @@
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(0,'initial',this.value)">백업 전용 스토리지(NAS/SAN 등) 인프라 연결
 주기적(일/월 단위) 백업 스케줄러 등록 및 백업 용량 자동 감시/알림 기능 구현
 스토리지 내 이중화 백업 디렉터리 및 보존 정책 수립</textarea></td>
-    <td><select onchange="updScope(0,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
+    <td><select onchange="updScope(0,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option><option>불가</option></select></td>
     <td><select onchange="updScope(0,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
     <td><select onchange="updScope(0,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(0)">삭제</button></td></tr>
@@ -584,7 +603,7 @@
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(1,'initial',this.value)">IPT 내선 음성 파일(WAV/MP3 등) 및 메신저 녹취/대화록 데이터 자동 백업
 DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적용
 서비스 영향도를 최소화하기 위해 야간 및 업무 외 시간을 활용한 증분/풀 백업 수행</textarea></td>
-    <td><select onchange="updScope(1,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
+    <td><select onchange="updScope(1,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option><option>불가</option></select></td>
     <td><select onchange="updScope(1,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
     <td><select onchange="updScope(1,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(1)">삭제</button></td></tr>
@@ -597,7 +616,7 @@ DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(2,'initial',this.value)">백업 생성/저장 시 백업 전/후 비교 자동화 프로세스 구현
 백업 파일 정상 생성 여부 및 훼손 여부를 확인하는 무결성 검증 로그 기록
 무결성 검증 실패 시 관리자 즉시 알림 기능 및 백업 재시도(Retry) 적용</textarea></td>
-    <td><select onchange="updScope(2,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
+    <td><select onchange="updScope(2,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option><option>불가</option></select></td>
     <td><select onchange="updScope(2,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
     <td><select onchange="updScope(2,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(2)">삭제</button></td></tr>
@@ -609,7 +628,7 @@ DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'operation',this.value)">-</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(3,'initial',this.value)">IPT 녹취서버에 CipherTrust Encrypt 설치하여 실시간 저장되는 녹취 및 DB데이터를 Kernel Level에서 암호화 저장
 암호화 키(Key)의 안전한 생성, 저장 및 접근 권한 분리를 통한 보안성 강화</textarea></td>
-    <td><select onchange="updScope(3,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
+    <td><select onchange="updScope(3,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option><option>불가</option></select></td>
     <td><select onchange="updScope(3,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
     <td><select onchange="updScope(3,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(3)">삭제</button></td></tr>
@@ -620,7 +639,7 @@ DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적
     <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'standard',this.value)">IPT 내선 녹취시스템의 운영 환경, 인터페이스 및 솔루션 청취 프로세스를 분석하여 암호화 적용 방안을 수립하여야 한다.</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'operation',this.value)">-</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(4,'initial',this.value)">키관리 서버에서 녹취데이터 저장 경로 및 접근 프로세스 접근제어 정책을 수립하여 실시간 파일 암호화를 수행합니다.</textarea></td>
-    <td><select onchange="updScope(4,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
+    <td><select onchange="updScope(4,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option><option>불가</option></select></td>
     <td><select onchange="updScope(4,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
     <td><select onchange="updScope(4,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(4)">삭제</button></td></tr>
@@ -633,7 +652,7 @@ DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(5,'initial',this.value)">기존 운영 중인 IPT 및 메신저 DB, 음성 파일 저장 경로 및 총 용량 사전 전수 조사
 이관 대상 데이터 범위 확정 및 이관 일정/단계별 상세 계획 수립
 데이터 이관 시 발생 가능한 위험 요소 분석 및 롤백(Rollback) 시나리오 마련</textarea></td>
-    <td><select onchange="updScope(5,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
+    <td><select onchange="updScope(5,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option><option>불가</option></select></td>
     <td><select onchange="updScope(5,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
     <td><select onchange="updScope(5,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(5)">삭제</button></td></tr>
@@ -645,7 +664,7 @@ DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'operation',this.value)">-</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(6,'initial',this.value)">기존 동방 아날로그 녹취시스템의 암호화된 파일 및 DB 데이터를 보안 외장하드로 안전하게 1차 반출/이전 수행 및 암호화 파일을 신규 녹취서버에 마이그레이션 진행
 신규 녹취서버 내 복호화 모듈을 통해 기존 암호화 데이터의 복호화, 재생, 조회 기능 정상 작동 여부 및 청취 가능 상태 최종 검증</textarea></td>
-    <td><select onchange="updScope(6,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
+    <td><select onchange="updScope(6,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option><option>불가</option></select></td>
     <td><select onchange="updScope(6,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
     <td><select onchange="updScope(6,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(6)">삭제</button></td></tr>
@@ -658,7 +677,7 @@ DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(7,'initial',this.value)">이관 완료 직후 원본 DB/파일 대 이관 DB/파일 간 건수 및 총 용량 일치 체크
 주요 메타데이터(통화 시간, 내선 번호, 녹취 일시 등) 추출 및 비교 검증 쿼리 수행
 최종 이관 검증 결과 보고서(Check-Sum 결과 포함) 생성</textarea></td>
-    <td><select onchange="updScope(7,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option></select></td>
+    <td><select onchange="updScope(7,'range',this.value)"><option selected="">제안범위</option><option>변경</option><option>범위초과</option><option>불가</option></select></td>
     <td><select onchange="updScope(7,'status',this.value)"><option>미확인</option><option>협의중</option><option selected="">확정</option><option>범위초과</option><option>완료</option></select></td>
     <td><select onchange="updScope(7,'owner',this.value)"><option>소만사</option><option selected="">고객</option><option>공동</option><option>제3자</option></select></td>
     <td><button class="btn danger" onclick="delScope(7)">삭제</button></td></tr></tbody></table></div>
@@ -667,7 +686,7 @@ DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적
 
       <section class="panel" id="panel-features">
         <div class="note">
-          <b>제안/구축 Scope 비교</b>에서 <b>범위판정 = 제안범위</b>인 항목이 자동으로 표시됩니다.
+          <b>제안/구축 Scope 비교</b>의 항목 중 <b>범위판정 = 불가</b>인 항목만 제외하고 자동으로 표시됩니다.
           이 화면에서 수정한 내용은 제안/구축 Scope에도 동일하게 반영됩니다.
         </div>
         <div class="toolbar"><div></div><button class="btn primary" onclick="addFeature()">+ 기능 추가</button></div>
@@ -801,22 +820,25 @@ DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적
 
 
 <section class="panel" id="panel-networkDiagram">
-  <div class="note">
-    프로젝트 네트워크 구성도를 관리합니다. 첨부한 구성도를 기본 이미지로 반영했으며, 필요 시 다른 이미지로 교체할 수 있습니다.
-  </div>
-  <div class="toolbar">
-    <div class="left">PNG / JPG / JPEG 이미지 지원</div>
-    <div class="right">
-      <button class="btn" onclick="document.getElementById('networkDiagramInput').click()">이미지 변경</button>
-      <button class="btn danger" onclick="resetNetworkDiagram()">기본 이미지 복원</button>
-      <input type="file" id="networkDiagramInput" accept="image/png,image/jpeg" style="display:none" onchange="changeNetworkDiagram(this)">
+  <div class="note">프로젝트 네트워크 구성도를 <b>AS-IS(현재 구성)</b>와 <b>TO-BE(구축/변경 후 구성)</b>로 구분하여 관리합니다. 각 구성도는 독립적으로 등록·변경할 수 있습니다.</div>
+  <div class="toolbar"><div class="left">PNG / JPG / JPEG 이미지 지원 · 저장된 HTML/GitHub 반영본에도 이미지가 포함됩니다.</div></div>
+  <div class="network-diagram-grid">
+    <div class="network-diagram-card">
+      <div class="network-diagram-head"><h4>AS-IS 구성도</h4><div class="network-diagram-actions">
+        <button class="btn" onclick="document.getElementById('networkDiagramAsIsInput').click()">이미지 변경</button>
+        <button class="btn danger" onclick="resetNetworkDiagram('asis')">삭제</button>
+        <input type="file" id="networkDiagramAsIsInput" accept="image/png,image/jpeg" style="display:none" onchange="changeNetworkDiagram(this,'asis')">
+      </div></div>
+      <div class="diagram-wrap" id="networkDiagramAsIsWrap"><img id="networkDiagramAsIsImg" src="" alt="AS-IS 네트워크 구성도" style="display:none"><div class="diagram-empty" id="networkDiagramAsIsEmpty">AS-IS 구성도를 등록하세요.</div></div>
     </div>
-  </div>
-  <div class="card section">
-    <h3>네트워크 구성도</h3>
-    <div class="diagram-wrap" id="networkDiagramWrap">
-      <img id="networkDiagramImg" src="" alt="네트워크 구성도" style="display: none;">
-    <div class="diagram-empty porting-diagram-empty" style="display: block;">[예시] 네트워크 구성도는 프로젝트별 이미지이므로 "이미지 변경"에서 실제 구성도를 등록하세요.</div></div>
+    <div class="network-diagram-card">
+      <div class="network-diagram-head"><h4>TO-BE 구성도</h4><div class="network-diagram-actions">
+        <button class="btn" onclick="document.getElementById('networkDiagramToBeInput').click()">이미지 변경</button>
+        <button class="btn danger" onclick="resetNetworkDiagram('tobe')">삭제</button>
+        <input type="file" id="networkDiagramToBeInput" accept="image/png,image/jpeg" style="display:none" onchange="changeNetworkDiagram(this,'tobe')">
+      </div></div>
+      <div class="diagram-wrap" id="networkDiagramToBeWrap"><img id="networkDiagramToBeImg" src="" alt="TO-BE 네트워크 구성도" style="display:none"><div class="diagram-empty" id="networkDiagramToBeEmpty">TO-BE 구성도를 등록하세요.</div></div>
+    </div>
   </div>
 </section>
 
@@ -844,7 +866,28 @@ DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적
           <b>변경전 AS-IS</b>는 Scope의 <b>최초 협의</b> 값을 자동으로 가져오며,
           <b>변경후 TO-BE</b>는 변경 이력 메뉴에서 직접 작성·수정합니다.
         </div>
-        <div class="toolbar"><div></div><button class="btn primary" onclick="addChange()">+ 변경 요청 등록</button></div>
+        <div class="toolbar">
+  <div class="left">
+    <div class="change-date-range">
+      <input type="date" id="changeDateFromFilter" class="search" style="min-width:155px" title="요청일 시작일">
+      <span style="color:var(--muted);font-size:12px">~</span>
+      <input type="date" id="changeDateToFilter" class="search" style="min-width:155px" title="요청일 종료일">
+    </div>
+    <select id="changeTypeFilter" class="search" style="min-width:150px">
+      <option value="">구분 전체</option>
+      <option value="변경">변경</option>
+      <option value="범위초과">범위초과</option>
+      <option value="추가요청">추가요청</option>
+    </select>
+    <select id="changeScopeFilter" class="search" style="min-width:240px">
+      <option value="">관련 관리 항목 전체</option>
+    </select>
+    <button class="btn" onclick="clearChangeFilters()">필터 해제</button>
+  </div>
+  <div class="right">
+    <button class="btn primary" onclick="addChange()">+ 변경 추가</button>
+  </div>
+</div>
         <div class="card section">
           <div class="table-scroll"><table><thead><tr>
             <th>요청일</th><th>구분</th><th>관련 관리 항목</th><th>변경전 AS-IS</th><th>변경후 TO-BE</th><th>영향도</th><th>상태</th><th>요청자</th><th></th>
@@ -865,7 +908,7 @@ DB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적
         </div>
       </section>
 
-      <section class="panel active" id="panel-acceptance">
+      <section class="panel" id="panel-acceptance">
         <div class="note">
           단계별 Point를 기준으로 구축 진행률을 계산합니다. <b>상태가 완료인 단계의 Point만 합산</b>되며, 전체 기준은 100 Point입니다.
         </div>
@@ -1129,11 +1172,12 @@ const LEGACY_VERSION_KEY='aidlp_scope_pilot_versions_reset_20260824_v1';
 const LEGACY_NETWORK_DIAGRAM_KEY='aidlp_network_diagram_v1';
 
 const NETWORK_DIAGRAM_KEY=`aidlp_project_${STORAGE_SITE}_network_diagram_v1`;
-const EMBEDDED_STATE={"project":{"name":"농협은행자금부","siteName":"nhbankfinance","code":"2026-00000","customer":"농협은행자금부","se":"한지수,김강현","product":"NDLP(Passive)","sales":"홍근화","proposalVersion":"v1.2","proposalDate":"","startDate":"","purpose":"[예시] 생성형AI 사용 시 중요정보 유출 통제 및 구축 범위 관리","proposalProduct":"미러","users":"[예시] 10,000명","configuration":"B/B-미러구성","traffic":"[예시] AVG 2Gbps / MAX 4Gbps","retention":"[예시] 1년","ap":"2대","log":"2대","gpuOcr":"","revenueProfit":"[예시] 000 / 000"},"proposalOverview":[{"label":"제품 구성","key":"proposalProduct","value":""},{"label":"고객사 사용자 수","key":"users","value":""},{"label":"구성","key":"configuration","value":""},{"label":"AVG/MAX 트래픽","key":"traffic","value":""},{"label":"로그 보관주기","key":"retention","value":""},{"label":"AP 서버","key":"ap","value":""},{"label":"Log 서버","key":"log","value":""},{"label":"매출/이익","key":"revenueProfit","value":""}],"scope":[{"id":"CSV-1787591407807-001","major":"구축/운영","minor":"백업 체계","item":"녹취 백업 스토리지 환경 구성","standard":"녹취 백업 스토리지 환경 구성 확인하여 안정적인 백업 체계를 마련하여야 한다.","operation":"","initial":"백업 전용 스토리지(NAS/SAN 등) 인프라 연결\n주기적(일/월 단위) 백업 스케줄러 등록 및 백업 용량 자동 감시/알림 기능 구현\n스토리지 내 이중화 백업 디렉터리 및 보존 정책 수립","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-002","major":"구축/운영","minor":"백업 대상","item":"IPT/메신저 녹취 데이터 백업","standard":"IPT 내선 및 메신저 녹취 데이터를 대상으로 백업을 수행하여야 한다.","operation":"","initial":"IPT 내선 음성 파일(WAV/MP3 등) 및 메신저 녹취/대화록 데이터 자동 백업\nDB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적용\n서비스 영향도를 최소화하기 위해 야간 및 업무 외 시간을 활용한 증분/풀 백업 수행","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-003","major":"구축/운영","minor":"무결성 검증","item":"백업 데이터 생성·저장 무결성 검증","standard":"백업 데이터의 생성, 저장 및 무결성을 검증하여야 한다.","operation":"","initial":"백업 생성/저장 시 백업 전/후 비교 자동화 프로세스 구현\n백업 파일 정상 생성 여부 및 훼손 여부를 확인하는 무결성 검증 로그 기록\n무결성 검증 실패 시 관리자 즉시 알림 기능 및 백업 재시도(Retry) 적용","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-004","major":"보안","minor":"데이터 암호화","item":"IPT 녹취 및 DB 파일 암호화","standard":"암호화 대상 시스템인 IPT 내선 녹취시스템의 녹취 및 DB파일을 암호화 하여야 한다.","operation":"","initial":"IPT 녹취서버에 CipherTrust Encrypt 설치하여 실시간 저장되는 녹취 및 DB데이터를 Kernel Level에서 암호화 저장\n암호화 키(Key)의 안전한 생성, 저장 및 접근 권한 분리를 통한 보안성 강화","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-005","major":"보안","minor":"암호화 적용","item":"운영환경 기반 암호화 적용 방안 수립","standard":"IPT 내선 녹취시스템의 운영 환경, 인터페이스 및 솔루션 청취 프로세스를 분석하여 암호화 적용 방안을 수립하여야 한다.","operation":"","initial":"키관리 서버에서 녹취데이터 저장 경로 및 접근 프로세스 접근제어 정책을 수립하여 실시간 파일 암호화를 수행합니다.","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-006","major":"데이터 이관","minor":"이관 계획","item":"메신저/IPT 데이터 현황 분석 및 이관 계획 수립","standard":"메신저 및 IPT 내선 DB/녹취 데이터의 현황을 분석하고 이관 대상 데이터의 범위, 용량 및 특성을 식별하여 이관 계획을 수립하여야 한다.","operation":"","initial":"기존 운영 중인 IPT 및 메신저 DB, 음성 파일 저장 경로 및 총 용량 사전 전수 조사\n이관 대상 데이터 범위 확정 및 이관 일정/단계별 상세 계획 수립\n데이터 이관 시 발생 가능한 위험 요소 분석 및 롤백(Rollback) 시나리오 마련","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-007","major":"데이터 이관","minor":"복호화/재암호화","item":"기존 녹취 데이터 복호화 및 신규 환경 재암호화","standard":"기존 녹취 데이터를 대상으로 복호화를 수행하고 신규 운영환경으로 안전하게 이관하며 데이터의 연속성을 확보하여야 한다.","operation":"","initial":"기존 동방 아날로그 녹취시스템의 암호화된 파일 및 DB 데이터를 보안 외장하드로 안전하게 1차 반출/이전 수행 및 암호화 파일을 신규 녹취서버에 마이그레이션 진행\n신규 녹취서버 내 복호화 모듈을 통해 기존 암호화 데이터의 복호화, 재생, 조회 기능 정상 작동 여부 및 청취 가능 상태 최종 검증","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-008","major":"데이터 이관","minor":"이관 검증","item":"원본/이관 데이터 정합성 검증","standard":"이관 완료 후 원본 데이터와 이관 데이터의 건수, 파일 크기 및 메타데이터를 비교하여 데이터 정합성을 검증하여야 한다.","operation":"","initial":"이관 완료 직후 원본 DB/파일 대 이관 DB/파일 간 건수 및 총 용량 일치 체크\n주요 메타데이터(통화 시간, 내선 번호, 녹취 일시 등) 추출 및 비교 검증 쿼리 수행\n최종 이관 검증 결과 보고서(Check-Sum 결과 포함) 생성","build":"-","range":"제안범위","status":"확정","owner":"고객"}],"features":[],"featureIssues":[],"infra":[],"integrations":[],"inventory":[{"hostname":"[예시] AIDLP-AP1","os":"[예시] SomansaOS 9.x","kernel":"-","account":"sysadmin","product":"WebKeeper AI DLP","model":"[예시] Server Model","unit":"2U","sn":"[예시] SN-000001","cpu":"[예시] 32 Core","memory":"[예시] 128 GiB","hdd":"[예시] 2TB × 2EA / RAID1","nic":"[예시] 1G UTP 2Port","bypass":"-","nicInfo":"[예시] MGMT port : eth0","note":"예시 데이터 - 실제 장비 정보로 교체"}],"customer":[{"title":"[예시] 네트워크/방화벽","desc":"[예시] IP 할당, Port Open 및 Routing 설정","status":"미요청"}],"changes":[{"date":"","type":"추가요청","scope":"EXAMPLE-SCOPE-001","asis":"[예시] 최초 협의 범위","tobe":"[예시] 고객 추가 요청 내용","impact":"중간","status":"검토중","requester":"고객","autoSync":false}],"acceptance":[],"buildProgress":[{"step":1,"title":"미팅","point":0,"status":"진행중","note":"[예시] 킥오프/요구사항 미팅 진행"},{"step":2,"title":"Config 세팅","point":10,"status":"미착수","note":""},{"step":3,"title":"장비 입고","point":10,"status":"미착수","note":""},{"step":4,"title":"정책 셋업","point":10,"status":"미착수","note":""},{"step":5,"title":"단위/통합 테스트","point":20,"status":"미착수","note":""},{"step":6,"title":"파일럿 테스트","point":20,"status":"미착수","note":""},{"step":7,"title":"전사 전환","point":20,"status":"미착수","note":""},{"step":8,"title":"검수문서 작성","point":10,"status":"미착수","note":""}],"networkDiagramBlank":true,"_portingTemplate":true,"_pocEvalScopeVersion":"scope-csv-final-20260824-v1","_finalBaselineVersion":"shinhan-final-baseline-20260824-v1","_inventorySeedVersion":"inventory-seed-20260824-v1","_embeddedStateVersion":"embedded-20260824171057"};
-const EMBEDDED_VERSIONS=[{"version":"v1.2","note":"기능 Scope 추가","savedAt":"2026-08-24T17:24:03.423Z","projectName":"농협은행자금부","projectCode":"2026-00000","data":{"project":{"name":"농협은행자금부","siteName":"nhbankfinance","code":"2026-00000","customer":"농협은행자금부","se":"한지수,김강현","product":"NDLP(Passive)","sales":"홍근화","proposalVersion":"v1.2","proposalDate":"","startDate":"","purpose":"[예시] 생성형AI 사용 시 중요정보 유출 통제 및 구축 범위 관리","proposalProduct":"미러","users":"[예시] 10,000명","configuration":"B/B-미러구성","traffic":"[예시] AVG 2Gbps / MAX 4Gbps","retention":"[예시] 1년","ap":"2대","log":"2대","gpuOcr":"","revenueProfit":"[예시] 000 / 000"},"proposalOverview":[{"label":"제품 구성","key":"proposalProduct","value":""},{"label":"고객사 사용자 수","key":"users","value":""},{"label":"구성","key":"configuration","value":""},{"label":"AVG/MAX 트래픽","key":"traffic","value":""},{"label":"로그 보관주기","key":"retention","value":""},{"label":"AP 서버","key":"ap","value":""},{"label":"Log 서버","key":"log","value":""},{"label":"매출/이익","key":"revenueProfit","value":""}],"scope":[{"id":"CSV-1787591407807-001","major":"구축/운영","minor":"백업 체계","item":"녹취 백업 스토리지 환경 구성","standard":"녹취 백업 스토리지 환경 구성 확인하여 안정적인 백업 체계를 마련하여야 한다.","operation":"","initial":"백업 전용 스토리지(NAS/SAN 등) 인프라 연결\n주기적(일/월 단위) 백업 스케줄러 등록 및 백업 용량 자동 감시/알림 기능 구현\n스토리지 내 이중화 백업 디렉터리 및 보존 정책 수립","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-002","major":"구축/운영","minor":"백업 대상","item":"IPT/메신저 녹취 데이터 백업","standard":"IPT 내선 및 메신저 녹취 데이터를 대상으로 백업을 수행하여야 한다.","operation":"","initial":"IPT 내선 음성 파일(WAV/MP3 등) 및 메신저 녹취/대화록 데이터 자동 백업\nDB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적용\n서비스 영향도를 최소화하기 위해 야간 및 업무 외 시간을 활용한 증분/풀 백업 수행","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-003","major":"구축/운영","minor":"무결성 검증","item":"백업 데이터 생성·저장 무결성 검증","standard":"백업 데이터의 생성, 저장 및 무결성을 검증하여야 한다.","operation":"","initial":"백업 생성/저장 시 백업 전/후 비교 자동화 프로세스 구현\n백업 파일 정상 생성 여부 및 훼손 여부를 확인하는 무결성 검증 로그 기록\n무결성 검증 실패 시 관리자 즉시 알림 기능 및 백업 재시도(Retry) 적용","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-004","major":"보안","minor":"데이터 암호화","item":"IPT 녹취 및 DB 파일 암호화","standard":"암호화 대상 시스템인 IPT 내선 녹취시스템의 녹취 및 DB파일을 암호화 하여야 한다.","operation":"","initial":"IPT 녹취서버에 CipherTrust Encrypt 설치하여 실시간 저장되는 녹취 및 DB데이터를 Kernel Level에서 암호화 저장\n암호화 키(Key)의 안전한 생성, 저장 및 접근 권한 분리를 통한 보안성 강화","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-005","major":"보안","minor":"암호화 적용","item":"운영환경 기반 암호화 적용 방안 수립","standard":"IPT 내선 녹취시스템의 운영 환경, 인터페이스 및 솔루션 청취 프로세스를 분석하여 암호화 적용 방안을 수립하여야 한다.","operation":"","initial":"키관리 서버에서 녹취데이터 저장 경로 및 접근 프로세스 접근제어 정책을 수립하여 실시간 파일 암호화를 수행합니다.","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-006","major":"데이터 이관","minor":"이관 계획","item":"메신저/IPT 데이터 현황 분석 및 이관 계획 수립","standard":"메신저 및 IPT 내선 DB/녹취 데이터의 현황을 분석하고 이관 대상 데이터의 범위, 용량 및 특성을 식별하여 이관 계획을 수립하여야 한다.","operation":"","initial":"기존 운영 중인 IPT 및 메신저 DB, 음성 파일 저장 경로 및 총 용량 사전 전수 조사\n이관 대상 데이터 범위 확정 및 이관 일정/단계별 상세 계획 수립\n데이터 이관 시 발생 가능한 위험 요소 분석 및 롤백(Rollback) 시나리오 마련","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-007","major":"데이터 이관","minor":"복호화/재암호화","item":"기존 녹취 데이터 복호화 및 신규 환경 재암호화","standard":"기존 녹취 데이터를 대상으로 복호화를 수행하고 신규 운영환경으로 안전하게 이관하며 데이터의 연속성을 확보하여야 한다.","operation":"","initial":"기존 동방 아날로그 녹취시스템의 암호화된 파일 및 DB 데이터를 보안 외장하드로 안전하게 1차 반출/이전 수행 및 암호화 파일을 신규 녹취서버에 마이그레이션 진행\n신규 녹취서버 내 복호화 모듈을 통해 기존 암호화 데이터의 복호화, 재생, 조회 기능 정상 작동 여부 및 청취 가능 상태 최종 검증","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-008","major":"데이터 이관","minor":"이관 검증","item":"원본/이관 데이터 정합성 검증","standard":"이관 완료 후 원본 데이터와 이관 데이터의 건수, 파일 크기 및 메타데이터를 비교하여 데이터 정합성을 검증하여야 한다.","operation":"","initial":"이관 완료 직후 원본 DB/파일 대 이관 DB/파일 간 건수 및 총 용량 일치 체크\n주요 메타데이터(통화 시간, 내선 번호, 녹취 일시 등) 추출 및 비교 검증 쿼리 수행\n최종 이관 검증 결과 보고서(Check-Sum 결과 포함) 생성","build":"-","range":"제안범위","status":"확정","owner":"고객"}],"features":[],"featureIssues":[],"infra":[],"integrations":[],"inventory":[{"hostname":"[예시] AIDLP-AP1","os":"[예시] SomansaOS 9.x","kernel":"-","account":"sysadmin","product":"WebKeeper AI DLP","model":"[예시] Server Model","unit":"2U","sn":"[예시] SN-000001","cpu":"[예시] 32 Core","memory":"[예시] 128 GiB","hdd":"[예시] 2TB × 2EA / RAID1","nic":"[예시] 1G UTP 2Port","bypass":"-","nicInfo":"[예시] MGMT port : eth0","note":"예시 데이터 - 실제 장비 정보로 교체"}],"customer":[{"title":"[예시] 네트워크/방화벽","desc":"[예시] IP 할당, Port Open 및 Routing 설정","status":"미요청"}],"changes":[{"date":"","type":"추가요청","scope":"EXAMPLE-SCOPE-001","asis":"[예시] 최초 협의 범위","tobe":"[예시] 고객 추가 요청 내용","impact":"중간","status":"검토중","requester":"고객","autoSync":false}],"acceptance":[],"buildProgress":[{"step":1,"title":"미팅","point":0,"status":"진행중","note":"[예시] 킥오프/요구사항 미팅 진행"},{"step":2,"title":"Config 세팅","point":10,"status":"미착수","note":""},{"step":3,"title":"장비 입고","point":10,"status":"미착수","note":""},{"step":4,"title":"정책 셋업","point":10,"status":"미착수","note":""},{"step":5,"title":"단위/통합 테스트","point":20,"status":"미착수","note":""},{"step":6,"title":"파일럿 테스트","point":20,"status":"미착수","note":""},{"step":7,"title":"전사 전환","point":20,"status":"미착수","note":""},{"step":8,"title":"검수문서 작성","point":10,"status":"미착수","note":""}],"networkDiagramBlank":true,"_portingTemplate":true,"_pocEvalScopeVersion":"scope-csv-final-20260824-v1","_finalBaselineVersion":"shinhan-final-baseline-20260824-v1","_inventorySeedVersion":"inventory-seed-20260824-v1","_embeddedStateVersion":"embedded-20260824171057"}},{"version":"v1.1","note":"최초 작성","savedAt":"2026-08-24T17:10:57.441Z","projectName":"[예시] 고객사 AI-DLP 구축 프로젝트","projectCode":"2026-00000","data":{"project":{"name":"[예시] 고객사 AI-DLP 구축 프로젝트","siteName":"example-site","code":"2026-00000","customer":"예시 고객사","se":"홍길동","product":"WebKeeper AI DLP","sales":"김영업","proposalVersion":"v1.1","proposalDate":"","startDate":"","purpose":"[예시] 생성형AI 사용 시 중요정보 유출 통제 및 구축 범위 관리","proposalProduct":"WSG-Suite","users":"[예시] 10,000명","configuration":"[예시] Active-Standby 인라인 구성","traffic":"[예시] AVG 2Gbps / MAX 4Gbps","retention":"[예시] 1년","ap":"[예시] 2대","log":"[예시] 2대","gpuOcr":"[예시] 1대","revenueProfit":"[예시] 000 / 000"},"proposalOverview":[{"label":"제품 구성","key":"proposalProduct","value":""},{"label":"고객사 사용자 수","key":"users","value":""},{"label":"구성","key":"configuration","value":""},{"label":"AVG/MAX 트래픽","key":"traffic","value":""},{"label":"로그 보관주기","key":"retention","value":""},{"label":"AP 서버","key":"ap","value":""},{"label":"Log 서버","key":"log","value":""},{"label":"GPU 서버(OCR)","key":"gpuOcr","value":""},{"label":"매출/이익","key":"revenueProfit","value":""}],"scope":[{"id":"CSV-1787591407807-001","major":"구축/운영","minor":"백업 체계","item":"녹취 백업 스토리지 환경 구성","standard":"녹취 백업 스토리지 환경 구성 확인하여 안정적인 백업 체계를 마련하여야 한다.","operation":"","initial":"백업 전용 스토리지(NAS/SAN 등) 인프라 연결\n주기적(일/월 단위) 백업 스케줄러 등록 및 백업 용량 자동 감시/알림 기능 구현\n스토리지 내 이중화 백업 디렉터리 및 보존 정책 수립","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-002","major":"구축/운영","minor":"백업 대상","item":"IPT/메신저 녹취 데이터 백업","standard":"IPT 내선 및 메신저 녹취 데이터를 대상으로 백업을 수행하여야 한다.","operation":"","initial":"IPT 내선 음성 파일(WAV/MP3 등) 및 메신저 녹취/대화록 데이터 자동 백업\nDB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적용\n서비스 영향도를 최소화하기 위해 야간 및 업무 외 시간을 활용한 증분/풀 백업 수행","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-003","major":"구축/운영","minor":"무결성 검증","item":"백업 데이터 생성·저장 무결성 검증","standard":"백업 데이터의 생성, 저장 및 무결성을 검증하여야 한다.","operation":"","initial":"백업 생성/저장 시 백업 전/후 비교 자동화 프로세스 구현\n백업 파일 정상 생성 여부 및 훼손 여부를 확인하는 무결성 검증 로그 기록\n무결성 검증 실패 시 관리자 즉시 알림 기능 및 백업 재시도(Retry) 적용","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-004","major":"보안","minor":"데이터 암호화","item":"IPT 녹취 및 DB 파일 암호화","standard":"암호화 대상 시스템인 IPT 내선 녹취시스템의 녹취 및 DB파일을 암호화 하여야 한다.","operation":"","initial":"IPT 녹취서버에 CipherTrust Encrypt 설치하여 실시간 저장되는 녹취 및 DB데이터를 Kernel Level에서 암호화 저장\n암호화 키(Key)의 안전한 생성, 저장 및 접근 권한 분리를 통한 보안성 강화","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-005","major":"보안","minor":"암호화 적용","item":"운영환경 기반 암호화 적용 방안 수립","standard":"IPT 내선 녹취시스템의 운영 환경, 인터페이스 및 솔루션 청취 프로세스를 분석하여 암호화 적용 방안을 수립하여야 한다.","operation":"","initial":"키관리 서버에서 녹취데이터 저장 경로 및 접근 프로세스 접근제어 정책을 수립하여 실시간 파일 암호화를 수행합니다.","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-006","major":"데이터 이관","minor":"이관 계획","item":"메신저/IPT 데이터 현황 분석 및 이관 계획 수립","standard":"메신저 및 IPT 내선 DB/녹취 데이터의 현황을 분석하고 이관 대상 데이터의 범위, 용량 및 특성을 식별하여 이관 계획을 수립하여야 한다.","operation":"","initial":"기존 운영 중인 IPT 및 메신저 DB, 음성 파일 저장 경로 및 총 용량 사전 전수 조사\n이관 대상 데이터 범위 확정 및 이관 일정/단계별 상세 계획 수립\n데이터 이관 시 발생 가능한 위험 요소 분석 및 롤백(Rollback) 시나리오 마련","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-007","major":"데이터 이관","minor":"복호화/재암호화","item":"기존 녹취 데이터 복호화 및 신규 환경 재암호화","standard":"기존 녹취 데이터를 대상으로 복호화를 수행하고 신규 운영환경으로 안전하게 이관하며 데이터의 연속성을 확보하여야 한다.","operation":"","initial":"기존 동방 아날로그 녹취시스템의 암호화된 파일 및 DB 데이터를 보안 외장하드로 안전하게 1차 반출/이전 수행 및 암호화 파일을 신규 녹취서버에 마이그레이션 진행\n신규 녹취서버 내 복호화 모듈을 통해 기존 암호화 데이터의 복호화, 재생, 조회 기능 정상 작동 여부 및 청취 가능 상태 최종 검증","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-008","major":"데이터 이관","minor":"이관 검증","item":"원본/이관 데이터 정합성 검증","standard":"이관 완료 후 원본 데이터와 이관 데이터의 건수, 파일 크기 및 메타데이터를 비교하여 데이터 정합성을 검증하여야 한다.","operation":"","initial":"이관 완료 직후 원본 DB/파일 대 이관 DB/파일 간 건수 및 총 용량 일치 체크\n주요 메타데이터(통화 시간, 내선 번호, 녹취 일시 등) 추출 및 비교 검증 쿼리 수행\n최종 이관 검증 결과 보고서(Check-Sum 결과 포함) 생성","build":"-","range":"제안범위","status":"확정","owner":"고객"}],"features":[],"featureIssues":[],"infra":[],"integrations":[],"inventory":[{"hostname":"[예시] AIDLP-AP1","os":"[예시] SomansaOS 9.x","kernel":"-","account":"sysadmin","product":"WebKeeper AI DLP","model":"[예시] Server Model","unit":"2U","sn":"[예시] SN-000001","cpu":"[예시] 32 Core","memory":"[예시] 128 GiB","hdd":"[예시] 2TB × 2EA / RAID1","nic":"[예시] 1G UTP 2Port","bypass":"-","nicInfo":"[예시] MGMT port : eth0","note":"예시 데이터 - 실제 장비 정보로 교체"}],"customer":[{"title":"[예시] 네트워크/방화벽","desc":"[예시] IP 할당, Port Open 및 Routing 설정","status":"미요청"}],"changes":[{"date":"","type":"추가요청","scope":"EXAMPLE-SCOPE-001","asis":"[예시] 최초 협의 범위","tobe":"[예시] 고객 추가 요청 내용","impact":"중간","status":"검토중","requester":"고객","autoSync":false}],"acceptance":[],"buildProgress":[{"step":1,"title":"미팅","point":0,"status":"진행중","note":"[예시] 킥오프/요구사항 미팅 진행"},{"step":2,"title":"Config 세팅","point":10,"status":"미착수","note":""},{"step":3,"title":"장비 입고","point":10,"status":"미착수","note":""},{"step":4,"title":"정책 셋업","point":10,"status":"미착수","note":""},{"step":5,"title":"단위/통합 테스트","point":20,"status":"미착수","note":""},{"step":6,"title":"파일럿 테스트","point":20,"status":"미착수","note":""},{"step":7,"title":"전사 전환","point":20,"status":"미착수","note":""},{"step":8,"title":"검수문서 작성","point":10,"status":"미착수","note":""}],"networkDiagramBlank":true,"_portingTemplate":true}}];
-const EMBEDDED_STATE_VERSION='embedded-20260824172403';
+const EMBEDDED_STATE={"project":{"name":"농협은행자금부","siteName":"nhbankfinance","code":"2026-00000","customer":"농협은행자금부","se":"한지수,김강현","product":"NDLP(Passive)","sales":"홍근화","proposalVersion":"v1.3","proposalDate":"","startDate":"","purpose":"[예시] 생성형AI 사용 시 중요정보 유출 통제 및 구축 범위 관리","proposalProduct":"미러","users":"[예시] 10,000명","configuration":"B/B-미러구성","traffic":"[예시] AVG 2Gbps / MAX 4Gbps","retention":"[예시] 1년","ap":"2대","log":"2대","gpuOcr":"","revenueProfit":"[예시] 000 / 000"},"proposalOverview":[{"label":"제품 구성","key":"proposalProduct","value":""},{"label":"고객사 사용자 수","key":"users","value":""},{"label":"구성","key":"configuration","value":""},{"label":"AVG/MAX 트래픽","key":"traffic","value":""},{"label":"로그 보관주기","key":"retention","value":""},{"label":"AP 서버","key":"ap","value":""},{"label":"Log 서버","key":"log","value":""},{"label":"매출/이익","key":"revenueProfit","value":""}],"scope":[{"id":"CSV-1787591407807-001","major":"구축/운영","minor":"백업 체계","item":"녹취 백업 스토리지 환경 구성","standard":"녹취 백업 스토리지 환경 구성 확인하여 안정적인 백업 체계를 마련하여야 한다.","operation":"","initial":"백업 전용 스토리지(NAS/SAN 등) 인프라 연결\n주기적(일/월 단위) 백업 스케줄러 등록 및 백업 용량 자동 감시/알림 기능 구현\n스토리지 내 이중화 백업 디렉터리 및 보존 정책 수립","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-002","major":"구축/운영","minor":"백업 대상","item":"IPT/메신저 녹취 데이터 백업","standard":"IPT 내선 및 메신저 녹취 데이터를 대상으로 백업을 수행하여야 한다.","operation":"","initial":"IPT 내선 음성 파일(WAV/MP3 등) 및 메신저 녹취/대화록 데이터 자동 백업\nDB 데이터와 물리 음성/메신저 데이터의 동기화 백업 정책 적용\n서비스 영향도를 최소화하기 위해 야간 및 업무 외 시간을 활용한 증분/풀 백업 수행","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-003","major":"구축/운영","minor":"무결성 검증","item":"백업 데이터 생성·저장 무결성 검증","standard":"백업 데이터의 생성, 저장 및 무결성을 검증하여야 한다.","operation":"","initial":"백업 생성/저장 시 백업 전/후 비교 자동화 프로세스 구현\n백업 파일 정상 생성 여부 및 훼손 여부를 확인하는 무결성 검증 로그 기록\n무결성 검증 실패 시 관리자 즉시 알림 기능 및 백업 재시도(Retry) 적용","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-004","major":"보안","minor":"데이터 암호화","item":"IPT 녹취 및 DB 파일 암호화","standard":"암호화 대상 시스템인 IPT 내선 녹취시스템의 녹취 및 DB파일을 암호화 하여야 한다.","operation":"","initial":"IPT 녹취서버에 CipherTrust Encrypt 설치하여 실시간 저장되는 녹취 및 DB데이터를 Kernel Level에서 암호화 저장\n암호화 키(Key)의 안전한 생성, 저장 및 접근 권한 분리를 통한 보안성 강화","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-005","major":"보안","minor":"암호화 적용","item":"운영환경 기반 암호화 적용 방안 수립","standard":"IPT 내선 녹취시스템의 운영 환경, 인터페이스 및 솔루션 청취 프로세스를 분석하여 암호화 적용 방안을 수립하여야 한다.","operation":"","initial":"키관리 서버에서 녹취데이터 저장 경로 및 접근 프로세스 접근제어 정책을 수립하여 실시간 파일 암호화를 수행합니다.","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-006","major":"데이터 이관","minor":"이관 계획","item":"메신저/IPT 데이터 현황 분석 및 이관 계획 수립","standard":"메신저 및 IPT 내선 DB/녹취 데이터의 현황을 분석하고 이관 대상 데이터의 범위, 용량 및 특성을 식별하여 이관 계획을 수립하여야 한다.","operation":"","initial":"기존 운영 중인 IPT 및 메신저 DB, 음성 파일 저장 경로 및 총 용량 사전 전수 조사\n이관 대상 데이터 범위 확정 및 이관 일정/단계별 상세 계획 수립\n데이터 이관 시 발생 가능한 위험 요소 분석 및 롤백(Rollback) 시나리오 마련","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-007","major":"데이터 이관","minor":"복호화/재암호화","item":"기존 녹취 데이터 복호화 및 신규 환경 재암호화","standard":"기존 녹취 데이터를 대상으로 복호화를 수행하고 신규 운영환경으로 안전하게 이관하며 데이터의 연속성을 확보하여야 한다.","operation":"","initial":"기존 동방 아날로그 녹취시스템의 암호화된 파일 및 DB 데이터를 보안 외장하드로 안전하게 1차 반출/이전 수행 및 암호화 파일을 신규 녹취서버에 마이그레이션 진행\n신규 녹취서버 내 복호화 모듈을 통해 기존 암호화 데이터의 복호화, 재생, 조회 기능 정상 작동 여부 및 청취 가능 상태 최종 검증","build":"-","range":"제안범위","status":"확정","owner":"고객"},{"id":"CSV-1787591407807-008","major":"데이터 이관","minor":"이관 검증","item":"원본/이관 데이터 정합성 검증","standard":"이관 완료 후 원본 데이터와 이관 데이터의 건수, 파일 크기 및 메타데이터를 비교하여 데이터 정합성을 검증하여야 한다.","operation":"","initial":"이관 완료 직후 원본 DB/파일 대 이관 DB/파일 간 건수 및 총 용량 일치 체크\n주요 메타데이터(통화 시간, 내선 번호, 녹취 일시 등) 추출 및 비교 검증 쿼리 수행\n최종 이관 검증 결과 보고서(Check-Sum 결과 포함) 생성","build":"-","range":"제안범위","status":"확정","owner":"고객"}],"features":[],"featureIssues":[],"infra":[],"integrations":[],"inventory":[{"hostname":"[예시] AIDLP-AP1","os":"[예시] SomansaOS 9.x","kernel":"-","account":"sysadmin","product":"WebKeeper AI DLP","model":"[예시] Server Model","unit":"2U","sn":"[예시] SN-000001","cpu":"[예시] 32 Core","memory":"[예시] 128 GiB","hdd":"[예시] 2TB × 2EA / RAID1","nic":"[예시] 1G UTP 2Port","bypass":"-","nicInfo":"[예시] MGMT port : eth0","note":"예시 데이터 - 실제 장비 정보로 교체"}],"customer":[{"title":"[예시] 네트워크/방화벽","desc":"[예시] IP 할당, Port Open 및 Routing 설정","status":"미요청"}],"changes":[{"date":"","type":"추가요청","scope":"EXAMPLE-SCOPE-001","asis":"[예시] 최초 협의 범위","tobe":"[예시] 고객 추가 요청 내용","impact":"중간","status":"검토중","requester":"고객","autoSync":false}],"acceptance":[],"buildProgress":[{"step":1,"title":"미팅","point":0,"status":"진행중","note":"[예시] 킥오프/요구사항 미팅 진행"},{"step":2,"title":"Config 세팅","point":10,"status":"미착수","note":""},{"step":3,"title":"장비 입고","point":10,"status":"미착수","note":""},{"step":4,"title":"정책 셋업","point":10,"status":"미착수","note":""},{"step":5,"title":"단위/통합 테스트","point":20,"status":"미착수","note":""},{"step":6,"title":"파일럿 테스트","point":20,"status":"미착수","note":""},{"step":7,"title":"전사 전환","point":20,"status":"미착수","note":""},{"step":8,"title":"검수문서 작성","point":10,"status":"미착수","note":""}],"networkDiagramBlank":true,"_portingTemplate":true,"_pocEvalScopeVersion":"scope-csv-final-20260824-v1","_finalBaselineVersion":"shinhan-final-baseline-20260824-v1","_inventorySeedVersion":"inventory-seed-20260824-v1","_embeddedStateVersion":"embedded-20260824172403"};
+const EMBEDDED_VERSIONS=[];
+const EMBEDDED_STATE_VERSION='embedded-nhbankfinance-v64-20260826';
 const KEY=`aidlp_project_${STORAGE_SITE}_current_v1`;
 const VERSION_KEY=`aidlp_project_${STORAGE_SITE}_versions_v1`;
+const VERSION_HISTORY_RESET_VERSION='nhbankfinance-history-reset-20260826-v1';
 
 function migrateLegacyStorageOnce(){
   try{
@@ -1185,6 +1229,19 @@ const sample = {
 
 
 let data = JSON.parse(localStorage.getItem(KEY) || 'null') || structuredClone(sample);
+
+
+function resetVersionHistoryOnce(){
+  try{
+    const markerKey=`aidlp_project_${STORAGE_SITE}_version_history_reset_marker`;
+    if(localStorage.getItem(markerKey)!==VERSION_HISTORY_RESET_VERSION){
+      localStorage.removeItem(VERSION_KEY);
+      localStorage.setItem(markerKey,VERSION_HISTORY_RESET_VERSION);
+    }
+  }catch(e){
+    console.warn('버전 이력 초기화 실패',e);
+  }
+}
 
 function applyEmbeddedStateMigration(){
   if(!EMBEDDED_STATE || !EMBEDDED_STATE_VERSION) return;
@@ -1455,6 +1512,9 @@ function sanitizeExportSourceForProject(source){
 function buildExportHtml(versions){
   const exportVersion='embedded-'+new Date().toISOString().replace(/[-:.TZ]/g,'').slice(0,14);
   const state=structuredClone(data);
+  ensureNetworkDiagramFields();
+  state.networkDiagramAsIsData=localStorage.getItem(NETWORK_DIAGRAM_ASIS_KEY)||data.networkDiagramAsIsData||localStorage.getItem(NETWORK_DIAGRAM_KEY)||'';
+  state.networkDiagramToBeData=localStorage.getItem(NETWORK_DIAGRAM_TOBE_KEY)||data.networkDiagramToBeData||'';
   state._pocEvalScopeVersion=POC_EVAL_SCOPE_VERSION;
   state._finalBaselineVersion=FINAL_BASELINE_VERSION;
   state._inventorySeedVersion=INVENTORY_SEED_VERSION;
@@ -1696,18 +1756,18 @@ function updateProjectStatus(){
 }
 function calc(){
   const total=data.scope.length;
-  const over=data.scope.filter(x=>x.range==='범위초과').length;
+  const same=data.scope.filter(x=>x.range==='제안범위').length;
   const changed=data.scope.filter(x=>x.range==='변경').length;
-  const same=total-over-changed;
+  const over=data.scope.filter(x=>x.range==='범위초과').length;
+  const unavailable=data.scope.filter(x=>x.range==='불가').length;
   kpiTotal.textContent=total; kpiSame.textContent=same; kpiChanged.textContent=changed; kpiOver.textContent=over;
-  const pct = n => total ? (n/total*100).toFixed(1).replace('.0','') + '%' : '0%';
-  kpiTotalPct.textContent = total ? '100%' : '0%';
-  kpiSamePct.textContent = pct(same);
-  kpiChangedPct.textContent = pct(changed);
-  kpiOverPct.textContent = pct(over);
+  const pct=n=>total?(n/total*100).toFixed(1).replace('.0','')+'%':'0%';
+  kpiTotalPct.textContent=total?'100%':'0%';
+  kpiSamePct.textContent=pct(same); kpiChangedPct.textContent=pct(changed); kpiOverPct.textContent=pct(over);
   donutTotal.textContent=total; legendSame.textContent=same; legendChanged.textContent=changed; legendOver.textContent=over;
-  const pSame=total?same/total*100:0,pChanged=total?changed/total*100:0;
-  donut.style.background=`conic-gradient(#2e9f54 0 ${pSame}%,#f5a400 ${pSame}% ${pSame+pChanged}%,#e54848 ${pSame+pChanged}% 100%)`;
+  if(document.getElementById('legendUnavailable')) legendUnavailable.textContent=unavailable;
+  const pSame=total?same/total*100:0, pChanged=total?changed/total*100:0, pOver=total?over/total*100:0;
+  donut.style.background=`conic-gradient(#2e9f54 0 ${pSame}%,#f5a400 ${pSame}% ${pSame+pChanged}%,#e54848 ${pSame+pChanged}% ${pSame+pChanged+pOver}%,#b7c0c8 ${pSame+pChanged+pOver}% 100%)`;
   const cDone=data.customer.filter(x=>x.status==='완료').length;
   kpiCustomer.textContent=(data.customer.length?Math.round(cDone/data.customer.length*100):0)+'%';
   ensureBuildProgress();
@@ -2036,7 +2096,7 @@ function exportPortingCsv(){
     r['범위판정']=x.range||'';
     r['상태']=x.status||'';
     r['요청주체']=x.owner||'';
-    r['선택 가능 값 안내']='범위판정: 제안범위 | 변경 | 범위초과 / 상태: 미확인 | 협의중 | 확정 | 범위초과 | 완료 / 요청주체: 소만사 | 고객 | 공동 | 제3자';
+    r['선택 가능 값 안내']='범위판정: 제안범위 | 변경 | 범위초과 | 불가 / 상태: 미확인 | 협의중 | 확정 | 범위초과 | 완료 / 요청주체: 소만사 | 고객 | 공동 | 제3자';
     rows.push(r);
   });
 
@@ -2095,7 +2155,7 @@ function exportPortingCsv(){
     r['영향도']=x.impact||'';
     r['상태']=x.status||'';
     r['요청자']=x.requester||'';
-    r['선택 가능 값 안내']='구분: 변경 | 범위초과 | 추가요청 / 관련 관리 항목: SCOPE 관리 항목명과 동일하게 입력 / 영향도: 낮음 | 중간 | 높음 | 매우높음 / 상태: 요청 | 검토중 | 승인 | 반려 | 보류';
+    r['선택 가능 값 안내']='구분: 변경 | 범위초과 | 추가요청 / 관련 관리 항목: SCOPE 관리 항목명과 동일하게 입력 / 영향도: 낮음 | 중간 | 높음 | 매우높음 / 상태: 미확인 | 협의중 | 확정 | 범위초과 | 완료';
     rows.push(r);
   });
 
@@ -2115,7 +2175,7 @@ function exportPortingCsv(){
   if(!(data.scope||[]).length){
     const r=makePortingRow('SCOPE');
     r['순서']=1;
-    r['선택 가능 값 안내']='범위판정: 제안범위 | 변경 | 범위초과 / 상태: 미확인 | 협의중 | 확정 | 범위초과 | 완료 / 요청주체: 소만사 | 고객 | 공동 | 제3자';
+    r['선택 가능 값 안내']='범위판정: 제안범위 | 변경 | 범위초과 | 불가 / 상태: 미확인 | 협의중 | 확정 | 범위초과 | 완료 / 요청주체: 소만사 | 고객 | 공동 | 제3자';
     rows.push(r);
   }
   if(!(data.inventory||[]).length){
@@ -2138,7 +2198,7 @@ function exportPortingCsv(){
   if(!(data.changes||[]).length){
     const r=makePortingRow('CHANGE');
     r['순서']=1;
-    r['선택 가능 값 안내']='구분: 변경 | 범위초과 | 추가요청 / 관련 관리 항목: SCOPE 관리 항목명과 동일하게 입력 / 영향도: 낮음 | 중간 | 높음 | 매우높음 / 상태: 요청 | 검토중 | 승인 | 반려 | 보류';
+    r['선택 가능 값 안내']='구분: 변경 | 범위초과 | 추가요청 / 관련 관리 항목: SCOPE 관리 항목명과 동일하게 입력 / 영향도: 낮음 | 중간 | 높음 | 매우높음 / 상태: 미확인 | 협의중 | 확정 | 범위초과 | 완료';
     rows.push(r);
   }
 
@@ -2224,7 +2284,7 @@ async function importPortingCsv(input){
       operation:r['운영 현재']||'-',
       initial:r['최초 협의']||'-',
       build:'-',
-      range:['제안범위','변경','범위초과'].includes(r['범위판정']) ? r['범위판정'] : '제안범위',
+      range:['제안범위','변경','범위초과','불가'].includes(r['범위판정']) ? r['범위판정'] : '제안범위',
       status:r['상태']||'미확인',
       owner:r['요청주체']||'공동'
     }));
@@ -2356,7 +2416,7 @@ function exportScopeCsv(){
     x.operation||'-',
     x.initial||'-',
     x.range||'제안범위',
-    '제안범위 | 변경 | 범위초과',
+    '제안범위 | 변경 | 범위초과 | 불가',
     x.status||'미확인',
     '미확인 | 협의중 | 확정 | 범위초과 | 완료',
     x.owner||'공동',
@@ -2428,7 +2488,7 @@ async function importScopeCsv(input){
         operation:get('operation','-'),
         initial:get('initial','-'),
         build:'-',
-        range:['제안범위','변경','범위초과'].includes(range)?range:'제안범위',
+        range:['제안범위','변경','범위초과','불가'].includes(range)?range:'제안범위',
         status:['미확인','협의중','확정','범위초과','완료'].includes(status)?status:'미확인',
         owner:['소만사','고객','공동','제3자'].includes(owner)?owner:'공동'
       };
@@ -2501,7 +2561,7 @@ function renderScope(){
     <td><textarea class="scope-standard cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(${i},'standard',this.value)">${esc(x.standard||'-')}</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(${i},'operation',this.value)">${esc(x.operation||'-')}</textarea></td>
     <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updScope(${i},'initial',this.value)">${esc(x.initial||'-')}</textarea></td>
-    <td><select onchange="updScope(${i},'range',this.value)">${['제안범위','변경','범위초과'].map(v=>`<option ${v===x.range?'selected':''}>${v}</option>`).join('')}</select></td>
+    <td><select onchange="updScope(${i},'range',this.value)">${['제안범위','변경','범위초과','불가'].map(v=>`<option ${v===x.range?'selected':''}>${v}</option>`).join('')}</select></td>
     <td><select onchange="updScope(${i},'status',this.value)">${['미확인','협의중','확정','범위초과','완료'].map(v=>`<option ${v===x.status?'selected':''}>${v}</option>`).join('')}</select></td>
     <td><select onchange="updScope(${i},'owner',this.value)">${['소만사','고객','공동','제3자'].map(v=>`<option ${v===x.owner?'selected':''}>${v}</option>`).join('')}</select></td>
     <td><button class="btn danger" onclick="delScope(${i})">삭제</button></td></tr>`).join('');
@@ -2509,6 +2569,21 @@ function renderScope(){
 }
 function ensureChangeSync(){
   if(!Array.isArray(data.changes)) data.changes=[];
+
+  const statusMap={
+    '요청':'미확인',
+    '검토중':'협의중',
+    '승인':'확정',
+    '반려':'미확인',
+    '보류':'미확인'
+  };
+  const validStatuses=['미확인','협의중','확정','범위초과','완료'];
+
+  data.changes.forEach(c=>{
+    if(!c) return;
+    if(statusMap[c.status]) c.status=statusMap[c.status];
+    if(!validStatuses.includes(c.status)) c.status='미확인';
+  });
 }
 function syncScopeChange(scopeRow){
   ensureChangeSync();
@@ -2526,6 +2601,7 @@ function syncScopeChange(scopeRow){
         scope:scopeRow.id,
         asis,
         tobe:data.changes[idx].tobe ?? '-',
+        status:scopeRow.status||'미확인',
         requester:scopeRow.owner||data.changes[idx].requester||'공동',
         autoSync:true
       };
@@ -2537,7 +2613,7 @@ function syncScopeChange(scopeRow){
         asis,
         tobe:'-',
         impact:'중간',
-        status:'검토중',
+        status:scopeRow.status||'미확인',
         requester:scopeRow.owner||'공동',
         autoSync:true
       });
@@ -2557,10 +2633,15 @@ function syncAllScopeChanges(){
     .forEach(syncScopeChange);
 }
 function updScope(i,k,v){
-  data.scope[i][k]=v;
+  const scopeRow=data.scope[i];
+  if(!scopeRow) return;
 
-  if(['range','initial','owner'].includes(k)){
-    syncScopeChange(data.scope[i]);
+  scopeRow[k]=v;
+
+  // Scope 연동 변경 이력에 영향을 주는 필드는 즉시 동기화합니다.
+  // status 포함: Scope 어느 화면에서 변경해도 변경 이력 상태와 동일하게 유지됩니다.
+  if(['range','initial','owner','status'].includes(k)){
+    syncScopeChange(scopeRow);
   }
 
   persistCurrent();
@@ -2568,6 +2649,7 @@ function updScope(i,k,v){
   renderFeatures();
   renderFeatureIssues();
   renderChanges();
+  renderSummary();
 }
 function addScope(){
   const id='NEW-'+Date.now();
@@ -2601,7 +2683,7 @@ document.getElementById('featureIssueStatusFilter')?.addEventListener('change',r
 function getFeatureScopeRows(){
   return data.scope
     .map((x,i)=>({x,i}))
-    .filter(({x})=>x.range==='제안범위');
+    .filter(({x})=>x.range!=='불가');
 }
 function renderFeatures(){
   const rows=getFeatureScopeRows();
@@ -2612,7 +2694,7 @@ function renderFeatures(){
       ${['미확인','협의중','확정','보류','완료'].map(v=>`<option ${v===x.status?'selected':''}>${v}</option>`).join('')}
     </select></td>
     <td><button class="btn danger" onclick="delFeature(${i})">삭제</button></td>
-  </tr>`).join('') : '<tr><td colspan="4"><div class="empty">제안범위에 포함된 기능 항목이 없습니다.</div></td></tr>';
+  </tr>`).join('') : '<tr><td colspan="4"><div class="empty">표시 가능한 기능 항목이 없습니다. (범위판정 불가 항목은 제외됩니다.)</div></td></tr>';
   requestAnimationFrame(()=>autoGrowAll(featureBody));
 }
 function updFeature(scopeIndex,k,v){
@@ -2864,51 +2946,52 @@ function delInventory(i){
 }
 
 
-function renderNetworkDiagram(){
-  const img=document.getElementById('networkDiagramImg');
-  const wrap=document.getElementById('networkDiagramWrap');
-  if(!img || !wrap) return;
-
-  let empty=wrap.querySelector('.porting-diagram-empty');
-  if(data.networkDiagramBlank===true){
-    img.style.display='none';
-    if(!empty){
-      empty=document.createElement('div');
-      empty.className='diagram-empty porting-diagram-empty';
-      empty.textContent='[예시] 네트워크 구성도는 프로젝트별 이미지이므로 "이미지 변경"에서 실제 구성도를 등록하세요.';
-      wrap.appendChild(empty);
-    }
-    empty.style.display='block';
-    return;
-  }
-
-  if(empty) empty.style.display='none';
-  img.style.display='block';
-  const saved=localStorage.getItem(NETWORK_DIAGRAM_KEY);
-  img.src=saved || DEFAULT_NETWORK_DIAGRAM;
+function ensureNetworkDiagramFields(){
+  if(!Object.prototype.hasOwnProperty.call(data,'networkDiagramAsIsData')) data.networkDiagramAsIsData='';
+  if(!Object.prototype.hasOwnProperty.call(data,'networkDiagramToBeData')) data.networkDiagramToBeData='';
 }
-function changeNetworkDiagram(input){
+
+function renderNetworkDiagram(){
+  ensureNetworkDiagramFields();
+  const renderOne=(type)=>{
+    const isAsIs=type==='asis';
+    const img=document.getElementById(isAsIs?'networkDiagramAsIsImg':'networkDiagramToBeImg');
+    const empty=document.getElementById(isAsIs?'networkDiagramAsIsEmpty':'networkDiagramToBeEmpty');
+    if(!img||!empty) return;
+    const key=isAsIs?NETWORK_DIAGRAM_ASIS_KEY:NETWORK_DIAGRAM_TOBE_KEY;
+    let saved=localStorage.getItem(key);
+    if(isAsIs&&!saved) saved=data.networkDiagramAsIsData||localStorage.getItem(NETWORK_DIAGRAM_KEY)||DEFAULT_NETWORK_DIAGRAM||'';
+    if(!isAsIs&&!saved) saved=data.networkDiagramToBeData||'';
+    if(saved){img.src=saved;img.style.display='block';empty.style.display='none';}
+    else{img.removeAttribute('src');img.style.display='none';empty.style.display='block';}
+  };
+  renderOne('asis'); renderOne('tobe');
+}
+function changeNetworkDiagram(input,type='asis'){
   const file=input.files&&input.files[0];
   if(!file) return;
-  if(!/^image\/(png|jpeg)$/.test(file.type)){
-    alert('PNG 또는 JPG/JPEG 이미지만 사용할 수 있습니다.');
-    input.value='';
-    return;
-  }
+  if(!/^image\/(png|jpeg)$/.test(file.type)){alert('PNG 또는 JPG/JPEG 이미지만 사용할 수 있습니다.');input.value='';return;}
   const reader=new FileReader();
   reader.onload=()=>{
-    data.networkDiagramBlank=false;
-    persistCurrent();
-    localStorage.setItem(NETWORK_DIAGRAM_KEY,reader.result);
-    renderNetworkDiagram();
-    input.value='';
+    ensureNetworkDiagramFields();
+    const isAsIs=type==='asis';
+    const key=isAsIs?NETWORK_DIAGRAM_ASIS_KEY:NETWORK_DIAGRAM_TOBE_KEY;
+    localStorage.setItem(key,reader.result);
+    if(isAsIs){data.networkDiagramAsIsData=reader.result;data.networkDiagramBlank=false;}
+    else data.networkDiagramToBeData=reader.result;
+    persistCurrent();renderNetworkDiagram();input.value='';
   };
   reader.readAsDataURL(file);
 }
-function resetNetworkDiagram(){
-  if(!confirm('첨부된 기본 네트워크 구성도로 복원할까요?')) return;
-  localStorage.removeItem(NETWORK_DIAGRAM_KEY);
-  renderNetworkDiagram();
+function resetNetworkDiagram(type='asis'){
+  ensureNetworkDiagramFields();
+  const isAsIs=type==='asis';
+  if(!confirm(`${isAsIs?'AS-IS':'TO-BE'} 네트워크 구성도를 삭제할까요?`)) return;
+  const key=isAsIs?NETWORK_DIAGRAM_ASIS_KEY:NETWORK_DIAGRAM_TOBE_KEY;
+  localStorage.removeItem(key);
+  if(isAsIs){localStorage.removeItem(NETWORK_DIAGRAM_KEY);data.networkDiagramAsIsData='';data.networkDiagramBlank=true;}
+  else data.networkDiagramToBeData='';
+  persistCurrent();renderNetworkDiagram();
 }
 
 function renderCustomer(){
@@ -2995,10 +3078,54 @@ function renderIntegrations(){
 }
 function updIntegration(i,k,v){data.integrations[i][k]=v;persistCurrent();}
 function addIntegration(){data.integrations.push({id:'L-'+String(data.integrations.length+1).padStart(3,'0'),type:'기타',system:'신규 연동',purpose:'',direction:'협의',method:'API',initial:'미포함',current:'협의중',range:'미확인'});persistCurrent();renderIntegrations()}
+function refreshChangeScopeFilterOptions(){
+  const sel=document.getElementById('changeScopeFilter');
+  if(!sel) return;
+  const current=sel.value;
+  const items=(data.scope||[])
+    .filter(x=>x && x.id)
+    .map(x=>({id:String(x.id),item:String(x.item||x.id)}))
+    .sort((a,b)=>a.item.localeCompare(b.item,'ko'));
+  sel.innerHTML='<option value="">관련 관리 항목 전체</option>'+
+    items.map(v=>`<option value="${esc(v.id)}">${esc(v.item)}</option>`).join('');
+  if(items.some(v=>v.id===current)) sel.value=current;
+}
+
+function getFilteredChanges(){
+  const dateFrom=document.getElementById('changeDateFromFilter')?.value||'';
+  const dateTo=document.getElementById('changeDateToFilter')?.value||'';
+  const type=document.getElementById('changeTypeFilter')?.value||'';
+  const scope=document.getElementById('changeScopeFilter')?.value||'';
+
+  return (data.changes||[])
+    .map((x,i)=>({x,i}))
+    .filter(({x})=>{
+      const changeDate=String(x.date||'');
+      if(dateFrom && (!changeDate || changeDate<dateFrom)) return false;
+      if(dateTo && (!changeDate || changeDate>dateTo)) return false;
+      if(type && String(x.type||'')!==type) return false;
+      if(scope && String(x.scope||'')!==scope) return false;
+      return true;
+    });
+}
+
+function clearChangeFilters(){
+  const df=document.getElementById('changeDateFromFilter');
+  const dt=document.getElementById('changeDateToFilter');
+  const t=document.getElementById('changeTypeFilter');
+  const s=document.getElementById('changeScopeFilter');
+  if(df) df.value='';
+  if(dt) dt.value='';
+  if(t) t.value='';
+  if(s) s.value='';
+  renderChanges();
+}
+
 function renderChanges(){
+  refreshChangeScopeFilterOptions();
   ensureChangeSync();
 
-  changeBody.innerHTML=data.changes.map((x,i)=>{
+  changeBody.innerHTML=getFilteredChanges().map(({x,i})=>{
     const asis=x.asis ?? x.initial ?? '-';
     const tobe=x.tobe ?? x.request ?? '-';
     const auto=x.autoSync===true;
@@ -3013,7 +3140,7 @@ function renderChanges(){
       <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updChange(${i},'asis',this.value)" ${auto?'readonly':''}>${esc(asis)}</textarea></td>
       <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updChange(${i},'tobe',this.value)">${esc(tobe)}</textarea></td>
       <td><select onchange="updChange(${i},'impact',this.value)">${['낮음','중간','높음','매우높음'].map(v=>`<option ${v===x.impact?'selected':''}>${v}</option>`).join('')}</select></td>
-      <td><select onchange="updChange(${i},'status',this.value)">${['요청','검토중','승인','반려','보류'].map(v=>`<option ${v===x.status?'selected':''}>${v}</option>`).join('')}</select></td>
+      <td><select onchange="updChange(${i},'status',this.value)">${['미확인','협의중','확정','범위초과','완료'].map(v=>`<option ${v===x.status?'selected':''}>${v}</option>`).join('')}</select></td>
       <td><textarea class="cell-wrap" rows="2" oninput="autoGrow(this)" onchange="updChange(${i},'requester',this.value)">${esc(x.requester||'')}</textarea></td>
       <td>${auto
         ? '<span class="badge neutral">Scope 연동</span>'
@@ -3025,8 +3152,40 @@ function renderChanges(){
   requestAnimationFrame(()=>autoGrowAll(changeBody));
 }
 function updChange(i,k,v){
-  data.changes[i][k]=v;
+  const change=data.changes[i];
+  if(!change) return;
+
+  change[k]=v;
+
+  let scopeUpdated=false;
+
+  if(k==='status' && change.scope){
+    const scopeRow=data.scope.find(s=>s.id===change.scope);
+
+    if(scopeRow){
+      if(change.autoSync===true){
+        // Scope 연동 항목은 모든 상태값을 양방향 동기화
+        scopeRow.status=v;
+        scopeUpdated=true;
+      }else if(v==='완료'){
+        // 수동 등록 항목도 관련 Scope가 연결되어 있고 완료 처리된 경우,
+        // 해당 기능의 협의 완료 의미로 Scope 상태를 완료 처리
+        scopeRow.status='완료';
+        scopeUpdated=true;
+      }
+    }
+  }
+
   persistCurrent();
+
+  if(scopeUpdated){
+    renderScope();
+    renderFeatures();
+    renderFeatureIssues();
+    calc();
+  }
+
+  renderChanges();
   renderSummary();
 }
 function addChange(){
@@ -3037,7 +3196,7 @@ function addChange(){
     asis:'-',
     tobe:'신규 변경 요청',
     impact:'중간',
-    status:'요청',
+    status:'미확인',
     requester:'고객 담당자',
     autoSync:false
   });
@@ -3065,7 +3224,7 @@ function printPdfReport(){
     </tr>`).join('');
 
   const featureRows=data.scope
-    .filter(x=>x.range==='제안범위')
+    .filter(x=>x.range!=='불가')
     .map(x=>`<tr><td>${esc(x.item)}</td><td>${esc(x.standard)}</td><td>${statusText(x.status)}</td></tr>`).join('');
 
   ensureFeatureIssues();
@@ -3202,7 +3361,13 @@ loginPass.addEventListener('keydown',e=>{if(e.key==='Enter')login()});
 applyPocEvalScopeMigration();
 applyFinalBaselineMigration();
 applyInventorySeedMigration();
+resetVersionHistoryOnce();
 applyEmbeddedStateMigration();
+['changeDateFromFilter','changeDateToFilter','changeTypeFilter','changeScopeFilter'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('change',renderChanges);
+});
+
 renderAll();
 initOptionalAuth();
 </script>
